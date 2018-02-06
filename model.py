@@ -1,9 +1,7 @@
 # Instructor Qs:
-#1) infinite char string type? (needed for notes)
 
 # Personal Qs:
-# Look into yelp API and see if good idea to put yelp ID as PK id for Location
-# Different name than list?
+
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -20,7 +18,10 @@ class User(db.Model):
     username = db.Column(db.String(25), nullable=False)
     password = db.Column(db.String(25), nullable=False)
 
-    location = db.relationship("Location", backref=db.backref('user'))
+    # don't need location relationship, b/c get through targetLocation
+    # location = db.relationship("Location", backref=db.backref('user'))
+    group = db.relationship("Group", backref=db.backref('user'))
+    t_loc = db.relationship("TargetLocation", backref=db.backref('user'))
 
 
     def __repr__(self):
@@ -30,17 +31,6 @@ class User(db.Model):
                                                     self.email)
 
 
-class UserLocation(db.Model):
-    """different locations users may have saved, eg: home and work Addresses"""
-
-    __tablename__ = 'user_locations'
-
-    ul_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, ForeignKey=('User.user_id'))
-    loc_id = db.Column(db.Integer, ForeignKey=('Location.yelp_id'))
-    notes = db.Column(db.String(250))
-    rating = db.Column(db.Integer, nullable=True)
-
 
 # Locations will be stored after searched and interacted with by user
 class Location(db.Model):
@@ -48,54 +38,92 @@ class Location(db.Model):
 
     __tablename__ = 'locations'
 
-    yelp_id = db.Column(db.Integer, primary_key=True)
+    location_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(250))
     latitude = db.Column(db.Integer, nullable=False)
     longitude = db.Column(db.Integer, nullable=False)
+    yelp_id = db.Column(db.String(250))
     yelp_url = db.Column(db.String(250))
 
+    def __repr__(self):
+        """Provide representation when Location object is printed."""
 
-class UserLocationCategory(db.Model):
-    """Association table between User-locations and user categories"""
+        return "<Location name={} ".format(self.name)
 
-    __tablename__ = 'user_location_categories'
 
-    ulc_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    ul_id = db.Column(db.Integer, ForeignKey='UserLocation.ul_id')
+class TargetLocation(db.Model):
+    """info about different locations that users have saved"""
+
+    __tablename__ = 'target_locations'
+
+    tl_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, ForeignKey=('User.user_id'))
+    loc_id = db.Column(db.Integer, ForeignKey=('Location.yelp_id'))
+    notes = db.Column(db.String(250))
+    rating = db.Column(db.Integer, nullable=True)
+    favorite_dishes = db.Column(db.String(200))
+
+
+class TargetLocationCategory(db.Model):
+    """Association table between TargetLocations and categories"""
+
+    __tablename__ = 'target_location_categories'
+
+    tlc_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    tl_id = db.Column(db.Integer, ForeignKey='TargetLocation.tl_id')
     cat_id = db.Column(db.Integer, ForeignKey='Category.cat_id')
 
+    category = db.relationship('Category', backref=db.backref('tlc'))
+    target_loc = db.relationship('TargetLocation', backref=db.backref('tlc'))
 
+# MVP
 class Category(db.Model):
-    """Pre-set Categories such as 'good for date'
-
-    one-to-many relationship with CatLocs
-    """
+    """Pre-set Categories such as 'good for date' """
 
     __tablename__ = 'categories'
 
     cat_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-        # name = entries in table: has_gone, want_to_go, good_for_date, etc.
+    # name = entries in table: has_gone, want_to_go, good_for_date, etc.
 
+# 2.0
+class Group(db.Model):
+    """User generated categories eg: 'good for dinner with Louisa' """
 
-class List(db.Model):
-    """user generated categories eg: 'good for dinner with Louisa' """
+    __tablename__ = 'groups'
 
-    __tablename__ = 'lists'
-
-    list_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    group_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     user_id = db.Column(db.Integer, ForeignKey=('User.user_id'))
 
+    group_loc = db.relationship('GroupLocation', backref=db.backref('group'))
 
-class ListLocation(db.Model):
-    """Association table for List and Location. """
+# 2.0
+class GroupLocation(db.Model):
+    """Association table for Group and Location. """
 
-    __tablename__ = 'list_locations'
+    __tablename__ = 'group_locations'
 
-    l_loc_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    list_id = db.Column(db.Integer, ForeignKey=('List.list_id'))
+    g_loc_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    group_id = db.Column(db.Integer, ForeignKey=('Group.group_id'))
     loc_id = db.Column(db.Integer, ForeignKey=('Location.yelp_id'))
+
+
+#2.0
+class Address(db.Model):
+    """Different generation points saved by user, eg: home and work Addresses"""
+
+    __tablename__ = 'addresses'
+
+    address_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, ForeignKey=('User.user_id'))
+    name = db.Column(db.String(30), nullable=True)
+    address = db.Column(db.String(50), nullable=False)
+    city = db.Column(db.String(25), nullable=False)
+    state = db.Column(db.String(2), nullable=False)
+    zipcode = db.Column(db.String(10), nullable=False)
+
+    user = db.relationship("User", backref=db.backref('addresses'))
 
 
 # Helper Functions Below
