@@ -21,3 +21,15 @@ def index():
 
     return render_template("homepage.html")
 
+
+if __name__ == "__main__":
+
+    app.debug = True
+
+    connect_to_db(app)
+
+    # Use the DebugToolbar
+    DebugToolbarExtension(app)
+
+    app.run(host="0.0.0.0")
+

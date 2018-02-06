@@ -38,7 +38,7 @@ class Location(db.Model):
 
     __tablename__ = 'locations'
 
-    location_id = db.Column(db.Integer, primary_key=True)
+    loc_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(250))
     latitude = db.Column(db.Integer, nullable=False)
     longitude = db.Column(db.Integer, nullable=False)
@@ -57,8 +57,8 @@ class TargetLocation(db.Model):
     __tablename__ = 'target_locations'
 
     tl_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, ForeignKey=('User.user_id'))
-    loc_id = db.Column(db.Integer, ForeignKey=('Location.yelp_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    loc_id = db.Column(db.Integer, db.ForeignKey('locations.loc_id'))
     notes = db.Column(db.String(250))
     rating = db.Column(db.Integer, nullable=True)
     favorite_dishes = db.Column(db.String(200))
@@ -70,8 +70,8 @@ class TargetLocationCategory(db.Model):
     __tablename__ = 'target_location_categories'
 
     tlc_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    tl_id = db.Column(db.Integer, ForeignKey='TargetLocation.tl_id')
-    cat_id = db.Column(db.Integer, ForeignKey='Category.cat_id')
+    tl_id = db.Column(db.Integer, db.ForeignKey('target_locations.tl_id'))
+    cat_id = db.Column(db.Integer, db.ForeignKey('categories.cat_id'))
 
     category = db.relationship('Category', backref=db.backref('tlc'))
     target_loc = db.relationship('TargetLocation', backref=db.backref('tlc'))
@@ -94,7 +94,7 @@ class Group(db.Model):
 
     group_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    user_id = db.Column(db.Integer, ForeignKey=('User.user_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
 
     group_loc = db.relationship('GroupLocation', backref=db.backref('group'))
 
@@ -105,8 +105,8 @@ class GroupLocation(db.Model):
     __tablename__ = 'group_locations'
 
     g_loc_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    group_id = db.Column(db.Integer, ForeignKey=('Group.group_id'))
-    loc_id = db.Column(db.Integer, ForeignKey=('Location.yelp_id'))
+    group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
+    loc_id = db.Column(db.Integer, db.ForeignKey('locations.loc_id'))
 
 
 #2.0
@@ -116,7 +116,7 @@ class Address(db.Model):
     __tablename__ = 'addresses'
 
     address_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, ForeignKey=('User.user_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     name = db.Column(db.String(30), nullable=True)
     address = db.Column(db.String(50), nullable=False)
     city = db.Column(db.String(25), nullable=False)
