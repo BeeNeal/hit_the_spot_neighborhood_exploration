@@ -5,6 +5,11 @@ Homepage
 {% endblock %}
 
 {% block content %}
-<div>Enter Address:</div>
+<div>
+<form action='/get_address', method='post'>
+  <input type="text" name="address" value="address"><br>
+  <input type="submit" value="Go!">
+</form>
+</div>
 {% endblock %}
 

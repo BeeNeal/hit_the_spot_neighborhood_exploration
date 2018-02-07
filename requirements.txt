@@ -9,3 +9,4 @@ psycopg2==2.6.1
 SQLAlchemy==0.7.9
 Werkzeug==0.8.3
 
+requests==2.18.4

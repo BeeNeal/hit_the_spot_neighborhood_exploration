@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Starting Places
+{% endblock %}
+
+{% block content %}
+hello world
+{{ address }}
+{% for place in starting_places %}
+{{ place['name'] }}
+{% endfor %}
+
+{% endblock %}
+

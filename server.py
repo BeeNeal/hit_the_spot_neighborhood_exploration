@@ -9,17 +9,37 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import *
 
+from yelp_request import search
+import sys
+import os
+
+
+API_KEY=os.environ['API_KEY']
+api_key = API_KEY
+
 app = Flask(__name__)
 
 app.secret_key = "ABC"
 
 app.jinja_env.undefined = StrictUndefined
 
+
 @app.route('/')
 def index():
-    """Homepage."""
+    """Display Homepage."""
 
     return render_template("homepage.html")
+
+
+@app.route('/get_address', methods=['POST'])
+def search_by_address():
+    """Get user input address."""
+
+    address = request.args.get('address')
+    # places = search(api_key, 'dinner', address)
+    places = []
+
+    return render_template("starting_places.html", address=address, starting_places=places)
 
 
 if __name__ == "__main__":
@@ -33,3 +53,9 @@ if __name__ == "__main__":
 
     app.run(host="0.0.0.0")
 
+# my understanding of if name = main: when file is imported, only these things underneath run
+# as opposed to the typical everything being run
+
+
+# IDEA: Ask a few Qs at the beginning, and then make specific queries based on answers
+# eg: Coffee drinker? More often go places to meet friends or make them? favorite cuisine?

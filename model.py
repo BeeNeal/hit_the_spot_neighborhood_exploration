@@ -40,6 +40,7 @@ class Location(db.Model):
 
     loc_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(250))
+    # Should make lat/long strings? don't actually need to math with them
     latitude = db.Column(db.Integer, nullable=False)
     longitude = db.Column(db.Integer, nullable=False)
     yelp_id = db.Column(db.String(250))
