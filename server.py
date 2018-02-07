@@ -35,8 +35,8 @@ def index():
 def search_by_address():
     """Get user input address."""
 
-    address = request.args.get('address')
-    # places = search(api_key, 'dinner', address)
+    address = request.form.get('address')
+    places = search(api_key, 'dinner', address)
     places = []
 
     return render_template("starting_places.html", address=address, starting_places=places)

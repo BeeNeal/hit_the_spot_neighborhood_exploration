@@ -74,6 +74,4 @@ def search(api_key, term, location):
 
 search_results = search(api_key, DEFAULT_TERM, DEFAULT_LOCATION)
 
-for item in search_results:
-    print
-# why can't I print a function?
+# current prob
