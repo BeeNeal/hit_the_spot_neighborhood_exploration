@@ -14,7 +14,7 @@ import sys
 import os
 
 
-API_KEY=os.environ['API_KEY']
+API_KEY = os.environ['API_KEY']
 api_key = API_KEY
 
 app = Flask(__name__)
@@ -37,7 +37,7 @@ def search_by_address():
 
     address = request.form.get('address')
     places = search(api_key, 'dinner', address)
-    
+
 
     # need to JSONIFY (loads? dumps?)
     # Should I use an ajax call to display the data on the screen when they press "explore"

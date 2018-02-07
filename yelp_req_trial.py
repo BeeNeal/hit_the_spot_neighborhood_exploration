@@ -2,6 +2,9 @@ import requests
 import os
 import json
 from urllib import quote
+from model import db, Location
+from flask_sqlalchemy import SQLAlchemy
+
 
 api_key = os.environ['API_KEY']
 
@@ -17,13 +20,10 @@ API_HOST = 'https://api.yelp.com'
 SEARCH_PATH = '/v3/businesses/search'
 BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
 
-
-# Defaults for our simple example.
-
-# test location: 683 Sutter st., 
 DEFAULT_TERM = 'bar'
 DEFAULT_LOCATION = '683 Sutter st San Francisco, CA'
 SEARCH_LIMIT = 3
+
 
 def request(host, path, api_key, url_params=None):
     """Given your API_KEY, send a GET request to the API.
@@ -84,6 +84,30 @@ places = search(api_key, 'dinner', DEFAULT_LOCATION)
 
 # Want to make as few queries to Yelp API as possible for efficiency - better to ask
 # yelp once, and then divvy up the data as needed.
-first_bus = places['businesses'][0]['name']
 
-# current prob - 
+# Don't want to add all of these - only want to add places user has marked <- can change
+# this if later down the line it seems too slow
+# for i in range((len(places) - 1)):
+#     for bus in places:
+#         yelp_id, name, lat, lon, url = places['businesses'][0]['name']
+
+# upon event click, call this function - does that mean I have to write it in JS?
+
+# problem - can I get many values from dict all at once?
+
+# already displaying the name
+
+name = places['businesses'][0]['name']
+url = places['businesses'][0]['url']
+lat = places['businesses'][0]['coordinates']['latitude']
+lon = places['businesses'][0]['coordinates']['longitude']
+yelp_id = places['businesses'][0]['id']
+
+first_place = Location(yelp_id='yelp_id', name='name', latitude='lat',
+                       longitude='lon', yelp_url='url')
+
+# first_place = Location(yelp_id=yelp_id, name=name, latitude=lat, longitude=lon, yelp_url=url)
+# current prob - how does this file know it's going to explorations DB?
+
+db.session.add(first_place)
+db.session.commit()

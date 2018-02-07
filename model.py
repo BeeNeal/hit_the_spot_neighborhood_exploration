@@ -1,6 +1,7 @@
 # Instructor Qs:
 
 # Can confirm my current tables are fine for new implementation of idea?
+# Efficiency Q: better to make one huge call to yelp API, and parse data from there?
 
 # Personal Qs:
 # to-do rename Classes
@@ -131,6 +132,15 @@ class Address(db.Model):
     zipcode = db.Column(db.String(10), nullable=False)
 
     user = db.relationship("User", backref=db.backref('address'))
+
+first_place = Location(yelp_id='yelp_id', name='name', latitude='lat', longitude='lon', yelp_url='url')
+
+# first_place = Location(yelp_id=yelp_id, name=name, latitude=lat, longitude=lon, yelp_url=url)
+# current prob - how does this file know it's going to explorations DB?
+
+db.session.add(first_place)
+db.session.commit()
+
 
 
 # Helper Functions Below
