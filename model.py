@@ -1,6 +1,11 @@
 # Instructor Qs:
 
+# Can confirm my current tables are fine for new implementation of idea?
+
 # Personal Qs:
+# to-do rename Classes
+# figure out EXACTLY what planning on doing. Make another user flow. Potentially 
+#update model
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -21,7 +26,7 @@ class User(db.Model):
     # don't need location relationship, b/c get through targetLocation
     # location = db.relationship("Location", backref=db.backref('user'))
     group = db.relationship("Group", backref=db.backref('user'))
-    t_loc = db.relationship("TargetLocation", backref=db.backref('user'))
+    poi = db.relationship("Place", backref=db.backref('user'))
 
 
     def __repr__(self):
@@ -38,12 +43,10 @@ class Location(db.Model):
 
     __tablename__ = 'locations'
 
-    loc_id = db.Column(db.Integer, primary_key=True)
+    yelp_id = db.Column(db.String(250), primary_key=True)
     name = db.Column(db.String(250))
-    # Should make lat/long strings? don't actually need to math with them
-    latitude = db.Column(db.Integer, nullable=False)
-    longitude = db.Column(db.Integer, nullable=False)
-    yelp_id = db.Column(db.String(250))
+    latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float, nullable=False)
     yelp_url = db.Column(db.String(250))
 
     def __repr__(self):
@@ -52,30 +55,31 @@ class Location(db.Model):
         return "<Location name={} ".format(self.name)
 
 
-class TargetLocation(db.Model):
+#Point of Interest
+class Place(db.Model):
     """info about different locations that users have saved"""
 
-    __tablename__ = 'target_locations'
+    __tablename__ = 'places'
 
-    tl_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    place_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    loc_id = db.Column(db.Integer, db.ForeignKey('locations.loc_id'))
-    notes = db.Column(db.String(250))
+    yelp_id = db.Column(db.String(250), db.ForeignKey('locations.yelp_id'))
+    notes = db.Column(db.String(2500))
     rating = db.Column(db.Integer, nullable=True)
-    favorite_dishes = db.Column(db.String(200))
+    favorite = db.Column(db.String(250))
 
 
-class TargetLocationCategory(db.Model):
-    """Association table between TargetLocations and categories"""
+class PlaceCategory(db.Model):
+    """Association table between places and categories"""
 
-    __tablename__ = 'target_location_categories'
+    __tablename__ = 'places_categories'
 
-    tlc_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    tl_id = db.Column(db.Integer, db.ForeignKey('target_locations.tl_id'))
+    place_cat_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    place_id = db.Column(db.Integer, db.ForeignKey('places.place_id'))
     cat_id = db.Column(db.Integer, db.ForeignKey('categories.cat_id'))
 
-    category = db.relationship('Category', backref=db.backref('tlc'))
-    target_loc = db.relationship('TargetLocation', backref=db.backref('tlc'))
+    category = db.relationship('Category', backref=db.backref('place_category'))
+    locale = db.relationship('Place', backref=db.backref('place_category'))
 
 # MVP
 class Category(db.Model):
@@ -86,6 +90,8 @@ class Category(db.Model):
     cat_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     # name = entries in table: has_gone, want_to_go, good_for_date, etc.
+
+    # Should has_gone and want_to_go be boolean?
 
 # 2.0
 class Group(db.Model):
@@ -105,9 +111,9 @@ class GroupLocation(db.Model):
 
     __tablename__ = 'group_locations'
 
-    g_loc_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    group_loc_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
-    loc_id = db.Column(db.Integer, db.ForeignKey('locations.loc_id'))
+    yelp_id = db.Column(db.String(250), db.ForeignKey('locations.yelp_id'))
 
 
 #2.0
@@ -124,7 +130,7 @@ class Address(db.Model):
     state = db.Column(db.String(2), nullable=False)
     zipcode = db.Column(db.String(10), nullable=False)
 
-    user = db.relationship("User", backref=db.backref('addresses'))
+    user = db.relationship("User", backref=db.backref('address'))
 
 
 # Helper Functions Below

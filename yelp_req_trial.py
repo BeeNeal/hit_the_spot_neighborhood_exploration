@@ -1,11 +1,11 @@
 import requests
 import os
-
+import json
 from urllib import quote
 
 api_key = os.environ['API_KEY']
 
-r = requests.get('https://api.yelp.com/v3/businesses/matches/lookup')
+# r = requests.get('https://api.yelp.com/v3/businesses/matches/lookup')
 
 # GET https://api.yelp.com/v3/businesses/matches/best
 
@@ -22,7 +22,7 @@ BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
 
 # test location: 683 Sutter st., 
 DEFAULT_TERM = 'bar'
-DEFAULT_LOCATION = 'San Francisco, CA'
+DEFAULT_LOCATION = '683 Sutter st San Francisco, CA'
 SEARCH_LIMIT = 3
 
 def request(host, path, api_key, url_params=None):
@@ -60,6 +60,7 @@ def search(api_key, term, location):
         dict: The JSON response from the request.
     """
 
+# With these params, I take the highest rated, price $, 
     url_params = {
         'term': term.replace(' ', '+'),
         'location': location.replace(' ', '+'),
@@ -72,6 +73,17 @@ def search(api_key, term, location):
     return request(API_HOST, SEARCH_PATH, api_key, url_params=url_params)
 
 
-search_results = search(api_key, DEFAULT_TERM, DEFAULT_LOCATION)
+# search_results = search(api_key, DEFAULT_TERM, DEFAULT_LOCATION)
+# print search(api_key, 'Philz', DEFAULT_LOCATION)
 
-# current prob
+places = search(api_key, 'dinner', DEFAULT_LOCATION)
+
+# places_dict = json.loads(places)
+# print places_dict
+
+
+# Want to make as few queries to Yelp API as possible for efficiency - better to ask
+# yelp once, and then divvy up the data as needed.
+first_bus = places['businesses'][0]['name']
+
+# current prob - 
