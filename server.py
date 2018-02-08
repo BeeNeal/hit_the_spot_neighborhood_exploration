@@ -39,6 +39,20 @@ def search_by_address():
     places = search(api_key, 'dinner', address)
 
 
+@app.route('/registration')
+def display_registration_form():
+    """displays registration form"""
+
+    return render_template('registration_form.html')
+
+
+@app.route('/register', methods=['POST'])
+def register():
+    """Add user info to DB"""
+
+    pass
+
+
     # need to JSONIFY (loads? dumps?)
     # Should I use an ajax call to display the data on the screen when they press "explore"
     # and then from there send the data to backend to store? 

@@ -1,7 +1,7 @@
 # Instructor Qs:
 
 # Can confirm my current tables are fine for new implementation of idea?
-# Efficiency Q: better to make one huge call to yelp API, and parse data from there?
+# Efficiency Q: better to make one huge call to yelp API, and parse data from
 
 # Personal Qs:
 # to-do rename Classes
@@ -27,7 +27,7 @@ class User(db.Model):
     # don't need location relationship, b/c get through targetLocation
     # location = db.relationship("Location", backref=db.backref('user'))
     group = db.relationship("Group", backref=db.backref('user'))
-    poi = db.relationship("Place", backref=db.backref('user'))
+    poi = db.relationship("UserLocation", backref=db.backref('user'))
 
 
     def __repr__(self):
@@ -49,6 +49,7 @@ class Location(db.Model):
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
     yelp_url = db.Column(db.String(250))
+    pic = db.Column(db.String(250))
 
     def __repr__(self):
         """Provide representation when Location object is printed."""
@@ -56,31 +57,32 @@ class Location(db.Model):
         return "<Location name={} ".format(self.name)
 
 
-#Point of Interest
-class Place(db.Model):
+class UserLocation(db.Model):
     """info about different locations that users have saved"""
 
-    __tablename__ = 'places'
+    __tablename__ = 'user_locations'
 
-    place_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_loc_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     yelp_id = db.Column(db.String(250), db.ForeignKey('locations.yelp_id'))
-    notes = db.Column(db.String(2500))
+    visited = db.Column(db.Boolean)
+    interesed = db.Column(db.Boolean)
+    notes = db.Column(db.Text)
     rating = db.Column(db.Integer, nullable=True)
     favorite = db.Column(db.String(250))
 
 
-class PlaceCategory(db.Model):
-    """Association table between places and categories"""
+class UserLocationCategory(db.Model):
+    """Association table between user_locations and categories"""
 
-    __tablename__ = 'places_categories'
+    __tablename__ = 'user_loc_categories'
 
-    place_cat_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    place_id = db.Column(db.Integer, db.ForeignKey('places.place_id'))
+    user_loc_cat_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_loc_id = db.Column(db.Integer, db.ForeignKey('user_locations.user_loc_id'))
     cat_id = db.Column(db.Integer, db.ForeignKey('categories.cat_id'))
 
-    category = db.relationship('Category', backref=db.backref('place_category'))
-    locale = db.relationship('Place', backref=db.backref('place_category'))
+    category = db.relationship('Category', backref=db.backref('user_loc_category'))
+    place = db.relationship('UserLocation', backref=db.backref('user_loc_category'))
 
 # MVP
 class Category(db.Model):
@@ -132,15 +134,6 @@ class Address(db.Model):
     zipcode = db.Column(db.String(10), nullable=False)
 
     user = db.relationship("User", backref=db.backref('address'))
-
-first_place = Location(yelp_id='yelp_id', name='name', latitude='lat', longitude='lon', yelp_url='url')
-
-# first_place = Location(yelp_id=yelp_id, name=name, latitude=lat, longitude=lon, yelp_url=url)
-# current prob - how does this file know it's going to explorations DB?
-
-db.session.add(first_place)
-db.session.commit()
-
 
 
 # Helper Functions Below

@@ -2,9 +2,13 @@ import requests
 import os
 import json
 from urllib import quote
-from model import db, Location
+from model import *
 from flask_sqlalchemy import SQLAlchemy
 
+
+from flask import Flask
+app = Flask(__name__)
+connect_to_db(app)
 
 api_key = os.environ['API_KEY']
 
@@ -76,6 +80,8 @@ def search(api_key, term, location):
 # search_results = search(api_key, DEFAULT_TERM, DEFAULT_LOCATION)
 # print search(api_key, 'Philz', DEFAULT_LOCATION)
 
+
+
 places = search(api_key, 'dinner', DEFAULT_LOCATION)
 
 # places_dict = json.loads(places)
@@ -93,21 +99,29 @@ places = search(api_key, 'dinner', DEFAULT_LOCATION)
 
 # upon event click, call this function - does that mean I have to write it in JS?
 
-# problem - can I get many values from dict all at once?
+# problem - can I get many values from dict all at once without a loop?
 
 # already displaying the name
 
+# impending problem - add event listener and fetch data for that specific business- 
+# rn they're giving a LIST for the businesses, and so accessing the data by index, but
+# can't select specific data to snatch that way. 
+
 name = places['businesses'][0]['name']
 url = places['businesses'][0]['url']
-lat = places['businesses'][0]['coordinates']['latitude']
-lon = places['businesses'][0]['coordinates']['longitude']
+lat = float(places['businesses'][0]['coordinates']['latitude'])
+lon = float(places['businesses'][0]['coordinates']['longitude'])
 yelp_id = places['businesses'][0]['id']
+pic = places['businesses'][0]['image_url']
 
-first_place = Location(yelp_id='yelp_id', name='name', latitude='lat',
-                       longitude='lon', yelp_url='url')
+# first_place = Location(yelp_id='yelp_id', name='name', latitude=lat,
+#                        longitude=lon, yelp_url='url')
 
-# first_place = Location(yelp_id=yelp_id, name=name, latitude=lat, longitude=lon, yelp_url=url)
-# current prob - how does this file know it's going to explorations DB?
+first_place = Location(yelp_id=yelp_id, name=name, latitude=lat, longitude=lon,
+                       yelp_url=url, pic=pic)
+
 
 db.session.add(first_place)
 db.session.commit()
+
+# if __name__ == '__main__':
