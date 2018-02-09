@@ -1,15 +1,53 @@
+On this page I want to display 10 establishments at a time (will later turn into inifinite scroll)
+
 {% extends 'base.html' %}
 
 {% block title %}
 Starting Places
 {% endblock %}
 
-{% block content %}
-hello world
-{{ address }}
-{% for place in starting_places %}
-{{ place['name'] }}
-{% endfor %}
 
+{% block content %}
+<div><h2>Which places do you want to visit around {{ address }} ?</h2></div>
+<div>
+{% for n in range(amt_displayed) %}
+
+<div>
+  <p><b>{{ places['businesses'][n]['name'] }}</b> is mere steps away at 
+  {{ " ".join(places['businesses'][n]['location']['display_address']) }}</p>
+  <p>add to list?
+  Been here before?</p>
+
+
+<button class="add-to-list" 
+data-status="interested" 
+data-yelp-id={{ places['businesses'][n]['id'] }} 
+data-address={{" ".join(places['businesses'][n]['location']['display_address'])}}
+data-latitude={{ float(places['businesses'][n]['coordinates']['latitude']) }}
+data-longitude={{ float(places['businesses'][n]['coordinates']['longitude']) }} 
+data-url={{places['businesses'][n]['url']}}
+data-pic=places['businesses'][n]['image_url'] > I want to go! </button>
+
+<button class="add-to-list" data-status="been"
+data-status="interested" 
+data-yelp-id={{ places['businesses'][n]['id'] }} 
+data-address={{" ".join(places['businesses'][n]['location']['display_address'])}}
+data-latitude={{ float(places['businesses'][n]['coordinates']['latitude']) }}
+data-longitude={{ float(places['businesses'][n]['coordinates']['longitude']) }} 
+data-url={{places['businesses'][n]['url']}}
+data-pic=places['businesses'][n]['image_url'] > "I've been here!" </button>
+
+
+<!-- Should have a toggle button using JS Interested/Visting Soon
+    Been here before?/Visited
+
+Use Ajax? to add to DB, but user keeps adding.
+
+ -->
+
+
+</div>
+{% endfor %}
+</div>
 {% endblock %}
 

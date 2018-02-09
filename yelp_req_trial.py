@@ -24,7 +24,7 @@ API_HOST = 'https://api.yelp.com'
 SEARCH_PATH = '/v3/businesses/search'
 BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
 
-DEFAULT_TERM = 'bar'
+DEFAULT_TERM = 'dinner'
 DEFAULT_LOCATION = '683 Sutter st San Francisco, CA'
 SEARCH_LIMIT = 3
 

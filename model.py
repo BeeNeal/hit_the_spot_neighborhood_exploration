@@ -50,6 +50,7 @@ class Location(db.Model):
     longitude = db.Column(db.Float, nullable=False)
     yelp_url = db.Column(db.String(250))
     pic = db.Column(db.String(250))
+    display_address = (db.String(250))
 
     def __repr__(self):
         """Provide representation when Location object is printed."""
@@ -66,7 +67,7 @@ class UserLocation(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     yelp_id = db.Column(db.String(250), db.ForeignKey('locations.yelp_id'))
     visited = db.Column(db.Boolean)
-    interesed = db.Column(db.Boolean)
+    interested = db.Column(db.Boolean)
     notes = db.Column(db.Text)
     rating = db.Column(db.Integer, nullable=True)
     favorite = db.Column(db.String(250))

@@ -38,6 +38,23 @@ def search_by_address():
     address = request.form.get('address')
     places = search(api_key, 'dinner', address)
 
+    amt_displayed = len(places['businesses'])
+
+    return render_template("starting_places.html", address=address,
+                                                   places=places,
+                                                   amt_displayed=amt_displayed)
+
+
+@app.route('/get_address', methods=['POST'])
+def add_to_list():
+    """Adds user selected POI to DB"""
+
+    poi = request.form.get('address')
+    # Can I separate fetching data from adding to DB? (sep add to DB func)
+
+
+
+
 
 @app.route('/registration')
 def display_registration_form():
