@@ -29,7 +29,7 @@ DEFAULT_LOCATION = '683 Sutter st San Francisco, CA'
 SEARCH_LIMIT = 3
 
 
-def request(host, path, api_key, url_params=None):
+def request_call(host, path, api_key, url_params=None):
     """Given your API_KEY, send a GET request to the API.
     Args:
         host (str): The domain host of the API.
@@ -41,7 +41,6 @@ def request(host, path, api_key, url_params=None):
     Raises:
         HTTPError: An error occurs from the HTTP request.
     """
-
 
     url = '{0}{1}'.format(host, quote(path.encode('utf8')))
     headers = {
@@ -64,7 +63,7 @@ def search(api_key, term, location):
         dict: The JSON response from the request.
     """
 
-# With these params, I take the highest rated, price $, 
+    # With these params, I take the highest rated, price $,
     url_params = {
         'term': term.replace(' ', '+'),
         'location': location.replace(' ', '+'),
@@ -74,7 +73,7 @@ def search(api_key, term, location):
         'price': '1'
     }
 
-    return request(API_HOST, SEARCH_PATH, api_key, url_params=url_params)
+    return request_call(API_HOST, SEARCH_PATH, api_key, url_params=url_params)
 
 
 # search_results = search(api_key, DEFAULT_TERM, DEFAULT_LOCATION)
@@ -84,6 +83,8 @@ def search(api_key, term, location):
 
 places = search(api_key, 'dinner', DEFAULT_LOCATION)
 
+yi = places['businesses'][0]['id']
+print yi
 # places_dict = json.loads(places)
 # print places_dict
 
@@ -107,32 +108,33 @@ places = search(api_key, 'dinner', DEFAULT_LOCATION)
 # rn they're giving a LIST for the businesses, and so accessing the data by index, but
 # can't select specific data to snatch that way. 
 
-name = places['businesses'][0]['name']
-url = places['businesses'][0]['url']
-lat = float(places['businesses'][0]['coordinates']['latitude'])
-lon = float(places['businesses'][0]['coordinates']['longitude'])
-yelp_id = places['businesses'][0]['id']
-pic = places['businesses'][0]['image_url']
+# name = places['businesses'][0]['name']
+# url = places['businesses'][0]['url']
+# lat = float(places['businesses'][0]['coordinates']['latitude'])
+# lon = float(places['businesses'][0]['coordinates']['longitude'])
+# yelp_id = places['businesses'][0]['id']
+# pic = places['businesses'][0]['image_url']
 
 # first_place = Location(yelp_id='yelp_id', name='name', latitude=lat,
 #                        longitude=lon, yelp_url='url')
 
-first_place = Location(yelp_id=yelp_id, name=name, latitude=lat, longitude=lon,
-                       yelp_url=url, pic=pic)
+# first_place = Location(yelp_id=yelp_id, name=name, latitude=lat, longitude=lon,
+#                        yelp_url=url, pic=pic)
 
 
-db.session.add(first_place)
-db.session.commit()
+# db.session.add(first_place)
+# db.session.commit()
 
 # When user clicks button to store to DB
 # have the name of the business, and want to directly store that business
 
-place = Location(yelp_id=yelp_id, name=name, latitude=lat, longitude=lon,
-                       yelp_url=url, pic=pic)
+# place = Location(yelp_id=yelp_id, name=name, latitude=lat, longitude=lon,
+#                        yelp_url=url, pic=pic)
 
-for place in places['businesses']:
-    if place[i]['name'] == business_name:
-        
+# for place in places['businesses']:
+#     if place[i]['name'] == business_name:
 
 
-# if __name__ == '__main__':
+
+if __name__ == '__main__':
+    print "happening now"

@@ -1,12 +1,3 @@
-# Instructor Qs:
-
-# Can confirm my current tables are fine for new implementation of idea?
-# Efficiency Q: better to make one huge call to yelp API, and parse data from
-
-# Personal Qs:
-# to-do rename Classes
-# figure out EXACTLY what planning on doing. Make another user flow. Potentially 
-#update model
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -48,9 +39,9 @@ class Location(db.Model):
     name = db.Column(db.String(250))
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
+    address = db.Column(db.String(250))
     yelp_url = db.Column(db.String(250))
     pic = db.Column(db.String(250))
-    display_address = (db.String(250))
 
     def __repr__(self):
         """Provide representation when Location object is printed."""

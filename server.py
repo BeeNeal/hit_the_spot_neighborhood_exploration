@@ -8,8 +8,9 @@ from flask import (Flask, jsonify, render_template, redirect, request,
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import *
+from db_helpers import *
 
-from yelp_request import search
+from yelp_req_trial import search
 import sys
 import os
 
@@ -51,17 +52,22 @@ def add_to_list():
 
     status = request.form.get('status')
     yelp_id = request.form.get('yelp_id')
+    name = request.form.get('name')
     address = request.form.get('address')
     latitude = request.form.get('latitude')
     longitude = request.form.get('longitude')
     url = request.form.get('url')
     pic = request.form.get('pic')
 
-    print "Made it to add-to-list"
+    # Check to see not already in table
+    location = Location.query.get(yelp_id)
+    # add business to locations table
+    if not location:
+        add_business_to_Locations(yelp_id, name, latitude, longitude, address,
+                                  url, pic)
+
+    # return status to AJAX to change button text based on status
     return jsonify({'status': status})
-    # add adding to DB func and logic checks here
-    
-    # Can I separate fetching data from adding to DB? (sep add to DB func)
 
 
 @app.route('/registration')
