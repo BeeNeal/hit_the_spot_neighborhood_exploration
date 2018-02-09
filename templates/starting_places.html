@@ -15,39 +15,33 @@ Starting Places
 <div>
   <p><b>{{ places['businesses'][n]['name'] }}</b> is mere steps away at 
   {{ " ".join(places['businesses'][n]['location']['display_address']) }}</p>
-  <p>add to list?
-  Been here before?</p>
 
 
-<button class="add-to-list" 
+<button class="addToList" id='interested'  
 data-status="interested" 
-data-yelp-id={{ places['businesses'][n]['id'] }} 
+data-yelpId={{ places['businesses'][n]['id'] }} 
 data-address={{" ".join(places['businesses'][n]['location']['display_address'])}}
-data-latitude={{ float(places['businesses'][n]['coordinates']['latitude']) }}
-data-longitude={{ float(places['businesses'][n]['coordinates']['longitude']) }} 
-data-url={{places['businesses'][n]['url']}}
-data-pic=places['businesses'][n]['image_url'] > I want to go! </button>
+data-latitude={{ places['businesses'][n]['coordinates']['latitude'] }}
+data-longitude={{ places['businesses'][n]['coordinates']['longitude'] }} 
+data-url={{ places['businesses'][n]['url']}}
+data-pic=places['businesses'][n]['image_url'] >I want to go!</button>
 
-<button class="add-to-list" data-status="been"
-data-status="interested" 
-data-yelp-id={{ places['businesses'][n]['id'] }} 
+<button class="addToList" id='visited'
+data-status="visited" 
+data-yelpId={{ places['businesses'][n]['id'] }} 
 data-address={{" ".join(places['businesses'][n]['location']['display_address'])}}
-data-latitude={{ float(places['businesses'][n]['coordinates']['latitude']) }}
-data-longitude={{ float(places['businesses'][n]['coordinates']['longitude']) }} 
+data-latitude={{ places['businesses'][n]['coordinates']['latitude'] }}
+data-longitude={{ places['businesses'][n]['coordinates']['longitude'] }} 
 data-url={{places['businesses'][n]['url']}}
-data-pic=places['businesses'][n]['image_url'] > "I've been here!" </button>
+data-pic=places['businesses'][n]['image_url'] > I've been here! </button>
 
-
-<!-- Should have a toggle button using JS Interested/Visting Soon
-    Been here before?/Visited
-
-Use Ajax? to add to DB, but user keeps adding.
-
- -->
 
 
 </div>
 {% endfor %}
+</div>
+<div>
+<a href='/destinations'>Go to destinations</a>
 </div>
 {% endblock %}
 

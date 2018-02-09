@@ -124,4 +124,15 @@ first_place = Location(yelp_id=yelp_id, name=name, latitude=lat, longitude=lon,
 db.session.add(first_place)
 db.session.commit()
 
+# When user clicks button to store to DB
+# have the name of the business, and want to directly store that business
+
+place = Location(yelp_id=yelp_id, name=name, latitude=lat, longitude=lon,
+                       yelp_url=url, pic=pic)
+
+for place in places['businesses']:
+    if place[i]['name'] == business_name:
+        
+
+
 # if __name__ == '__main__':

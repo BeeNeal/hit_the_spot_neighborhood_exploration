@@ -45,15 +45,23 @@ def search_by_address():
                                                    amt_displayed=amt_displayed)
 
 
-@app.route('/get_address', methods=['POST'])
+@app.route('/add-to-list', methods=['POST'])
 def add_to_list():
     """Adds user selected POI to DB"""
 
-    poi = request.form.get('address')
+    status = request.form.get('status')
+    yelp_id = request.form.get('yelp_id')
+    address = request.form.get('address')
+    latitude = request.form.get('latitude')
+    longitude = request.form.get('longitude')
+    url = request.form.get('url')
+    pic = request.form.get('pic')
+
+    print "Made it to add-to-list"
+    return jsonify({'status': status})
+    # add adding to DB func and logic checks here
+    
     # Can I separate fetching data from adding to DB? (sep add to DB func)
-
-
-
 
 
 @app.route('/registration')
@@ -68,13 +76,6 @@ def register():
     """Add user info to DB"""
 
     pass
-
-
-    # need to JSONIFY (loads? dumps?)
-    # Should I use an ajax call to display the data on the screen when they press "explore"
-    # and then from there send the data to backend to store? 
-
-    return render_template("starting_places.html", address=address, starting_places=places)
 
 
 if __name__ == "__main__":
