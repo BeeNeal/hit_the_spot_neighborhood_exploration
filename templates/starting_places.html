@@ -16,26 +16,25 @@ Starting Places
   <p><b>{{ places['businesses'][n]['name'] }}</b> is mere steps away at 
   {{ " ".join(places['businesses'][n]['location']['display_address']) }}</p>
 
-
 <button class="addToList" id='interested'  
 data-status="interested" 
-data-name={{ places['businesses'][n]['name'] }} 
-data-id={{ places['businesses'][n]['id'] }}
-data-address={{ " ".join(places['businesses'][n]['location']['display_address']) }}
-data-latitude={{ places['businesses'][n]['coordinates']['latitude'] }}
-data-longitude={{ places['businesses'][n]['coordinates']['longitude'] }} 
-data-url={{ places['businesses'][n]['url']}}
-data-pic=places['businesses'][n]['image_url'] >I want to go!</button>
+data-name="{{ places['businesses'][n]['name'] }}" 
+data-id="{{ places['businesses'][n]['id'] }}"
+data-address="{{ " ".join(places['businesses'][n]['location']['display_address']) }}"
+data-latitude="{{ places['businesses'][n]['coordinates']['latitude'] }}"
+data-longitude="{{ places['businesses'][n]['coordinates']['longitude'] }}" 
+data-url="{{ places['businesses'][n]['url'] }}"
+data-pic="{{ places['businesses'][n]['image_url'] }}" >I want to go!</button>
 
 <button class="addToList" id='visited'
 data-status="visited" 
-data-yelpId={{ places['businesses'][n].id }} 
-data-name={{ places['businesses'][n]['name'] }} 
-data-address={{" ".join(places['businesses'][n]['location']['display_address'])}}
-data-latitude={{ places['businesses'][n]['coordinates']['latitude'] }}
-data-longitude={{ places['businesses'][n]['coordinates']['longitude'] }} 
-data-url={{places['businesses'][n]['url']}}
-data-pic=places['businesses'][n]['image_url'] > I've been here! </button>
+data-yelpId="{{ places['businesses'][n].id }}" 
+data-name="{{ places['businesses'][n]['name'] }}" 
+data-address="{{ " ".join(places['businesses'][n]['location']['display_address'])}}"
+data-latitude="{{ places['businesses'][n]['coordinates']['latitude'] }}"
+data-longitude="{{ places['businesses'][n]['coordinates']['longitude'] }} "
+data-url="{{ places['businesses'][n]['url'] }}"
+data-pic="{{ places['businesses'][n]['image_url'] }}" > I've been here! </button>
 
 
 

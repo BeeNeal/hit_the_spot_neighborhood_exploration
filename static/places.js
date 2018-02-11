@@ -1,5 +1,7 @@
+// Problems on this page - 1) Jquery not working 2) Toggle only works on first button
 
-$(".addToList").click(function(evt) {
+
+$(".addToList").on('click', function(evt) {
     let status = $(this).data("status");
     let name = $(this).data("name");
     let address = $(this).data("address");
@@ -19,20 +21,20 @@ $(".addToList").click(function(evt) {
                    "pic": pic,
                    "url": url,
                };
-    console.log(payload['yelp_id']);
-    console.log(yelpId);
+
 
     // AJAX post to server and give visual indicator that user has clicked button
     $.post("/add-to-list", payload, function toggle_btn(results) {
-        console.log("made it to toggle")
-        if ($('#interested').innerText==='I want to go!'){
-            ($('#interested').innerText='Interested')}
+        // if ($('#interested').innerText==='I want to go!'){
+            // ($('#interested').innerText='Interested')}
+        let interestedBtn = document.querySelector(".addToList");
+        interestedBtn.innerText='added to destinations';
 
-        else {
-            console.log("inside visited")
+        // else {
+        //     console.log("inside visited")
 
-            $('visited').innerHTML='Visited'
-        }
+        //     $('visited').innerHTML='Visited'
+        // }
 
     });
 

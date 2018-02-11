@@ -10,7 +10,6 @@ from flask import Flask
 app = Flask(__name__)
 connect_to_db(app)
 
-api_key = os.environ['API_KEY']
 
 # r = requests.get('https://api.yelp.com/v3/businesses/matches/lookup')
 
@@ -18,6 +17,7 @@ api_key = os.environ['API_KEY']
 
 API_KEY = os.environ['API_KEY']
 
+api_key = API_KEY
 
 # API constants, you shouldn't have to change these.
 API_HOST = 'https://api.yelp.com'
@@ -83,8 +83,8 @@ def search(api_key, term, location):
 
 places = search(api_key, 'dinner', DEFAULT_LOCATION)
 
-yi = places['businesses'][0]['id']
-print yi
+# yi = places['businesses'][0]['id']
+# print yi
 # places_dict = json.loads(places)
 # print places_dict
 

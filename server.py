@@ -59,6 +59,15 @@ def add_to_list():
     url = request.form.get('url')
     pic = request.form.get('pic')
 
+    print "******** PYTHON *********"
+    print status
+    print yelp_id
+    print name
+    print address
+    print latitude
+    print url
+    print pic
+
     # Check to see not already in table
     location = Location.query.get(yelp_id)
     # add business to locations table
