@@ -1,4 +1,6 @@
-On this page I want to display 10 establishments at a time (will later turn into inifinite scroll)
+<!-- On this page I want to display 10 establishments at a time (will later turn into inifinite scroll) 
+This is a good candidate for React
+-->
 
 {% extends 'base.html' %}
 
@@ -8,7 +10,8 @@ Starting Places
 
 
 {% block content %}
-<div><h2>Which places do you want to visit around {{ address }} ?</h2></div>
+<div><h1>Here are our top recommendations for you to explore</h1></div>
+<div><h3>Which places do you want to visit around {{ address }} ?</h3></div>
 <div>
 {% for n in range(amt_displayed) %}
 

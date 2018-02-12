@@ -59,21 +59,24 @@ def add_to_list():
     url = request.form.get('url')
     pic = request.form.get('pic')
 
-    print "******** PYTHON *********"
-    print status
-    print yelp_id
-    print name
-    print address
-    print latitude
-    print url
-    print pic
-
-    # Check to see not already in table
+    # Check to see not already in locations table
     location = Location.query.get(yelp_id)
     # add business to locations table
     if not location:
         add_business_to_Locations(yelp_id, name, latitude, longitude, address,
                                   url, pic)
+
+    else:
+    # Check to see if in UserLocations table
+        user_location = (UserLocation.query
+                         .filter(UserLocation.user_id == session[user_id],
+                                 UserLocation.yelp_id == yelp_id).first())
+
+        if not user_location:
+            add_business_to_UserLocation
+
+    # In the ideal world, we won't be showing user places they've already checked off, but what do we
+    # do if it's already in userLoc table? Just do normal response based on status as would already.
 
     # return status to AJAX to change button text based on status
     return jsonify({'status': status})
@@ -90,7 +93,43 @@ def display_registration_form():
 def register():
     """Add user info to DB"""
 
-    pass
+    fname = request.form.get('name')
+    username = request.form.get('username')
+    email = request.form.get('email')
+    password1 = request.form.get('password1')
+    password2 = request.form.get('password2')
+
+    # will add this to addresses table
+    address = request.form.get('address')
+    city = request.form.get('city')
+    state = request.form.get('state')
+    zipcode = request.form.get('zipcode')
+
+    if password1 == password2:
+        password = password1
+    else:
+        flash("Passwords don't match - please try again.")
+
+    # Does user already exist in DB?
+    current_username = User.query.filter_by(username=username).first()
+    current_email = User.query.filter_by(email=email).first()
+    print current_username
+    print current_email
+
+    if not current_username and not current_email:
+        new_user = add_user_to_User(fname, username, email, password)
+        print new_user
+
+  # at this point, does user have an id yet?
+
+    add_start_address(new_user.user_id, address, city, state, zipcode)
+
+
+@app.route('/destinations')
+def display_destinations():
+    """Displays UserLocations - locations that user is interested in visiting"""
+
+    return render_template('destinations.html')
 
 
 if __name__ == "__main__":
