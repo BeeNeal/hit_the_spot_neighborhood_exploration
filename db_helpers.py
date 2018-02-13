@@ -15,8 +15,7 @@ def add_business_to_UserLocation(user_id, yelp_id, status, notes=None,
     """Adds business to UserLocation"""
 
     # Need to add reg/login to create user before can add to UserLoc - or could just hardcode
-    user_location = UserLocation(user_id=session[user_id], yelp_id=yelp_id,
-                                 status=status)
+    user_location = UserLocation(user_id=user_id, yelp_id=yelp_id)
 
     # updates "visited"/"interested" based on user button 
     if status == "visited":

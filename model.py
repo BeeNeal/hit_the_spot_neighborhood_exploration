@@ -28,7 +28,6 @@ class User(db.Model):
                                                     self.email)
 
 
-
 # Locations will be stored after searched and interacted with by user
 class Location(db.Model):
     """Location Model."""

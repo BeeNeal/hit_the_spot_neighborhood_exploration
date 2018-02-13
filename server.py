@@ -34,7 +34,7 @@ def index():
     # else:
     return render_template("homepage.html")
 
-
+# this explore route is not yet operational - would need to make a call to the api again
 @app.route('/explore', methods=['GET'])
 def display_poi_options():
     """Displays POIs that users can add to their list of places to explore"""
@@ -75,21 +75,22 @@ def add_to_list():
 
     # Check to see not already in locations table
     location = Location.query.get(yelp_id)
-    print location
-    # add business to locations table
+
+    # Check to see if in UserLocations table (make this a function when need to use again)
+    user_location = (UserLocation.query
+                     .filter(UserLocation.user_id == session['user_id'],
+                             UserLocation.yelp_id == yelp_id).first())
+
+    # if not already in locations table, add business to locations table
     if not location:
         add_business_to_Locations(yelp_id, name, latitude, longitude, address,
                                   url, pic)
+        # if not already in Userlocation, add to userLocation table
 
-    else:
-    # Check to see if in UserLocations table
-        user_location = (UserLocation.query
-                         .filter(UserLocation.user_id == session['user_id'],
-                                 UserLocation.yelp_id == yelp_id).first())
+    if not user_location:
+        add_business_to_UserLocation(session['user_id'], yelp_id, status)
 
-        if not user_location:
-            add_business_to_UserLocation(session['user_id'], yelp_id, status)
-
+    #problem here - if in loc table but not userloc, still need to activate userloc
 
     # In the ideal world, we won't be showing user places they've already checked off, but what do we
     # do if it's already in userLoc table? Just do normal response based on status as would already.
