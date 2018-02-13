@@ -9,14 +9,14 @@ def add_business_to_Locations(yelp_id, name, address, lat, lon, url, pic):
     db.session.add(business)
     db.session.commit()
 
+
 def add_business_to_UserLocation(user_id, yelp_id, status, notes=None,
-                                  rating=None, favorite=None):
+                                 rating=None, favorite=None):
     """Adds business to UserLocation"""
 
     # Need to add reg/login to create user before can add to UserLoc - or could just hardcode
     user_location = UserLocation(user_id=session[user_id], yelp_id=yelp_id,
-                                 status=status, notes=notes, rating=rating,
-                                 favorite=favorite)
+                                 status=status)
 
     # updates "visited"/"interested" based on user button 
     if status == "visited":
@@ -40,11 +40,8 @@ def add_user_to_User(fname, username, email, password):
 
 def add_start_address(user_id, address, city, state, zipcode):
 
-    start_address = Address(user_id=new_user.user_id, address=address, city=city,
+    start_address = Address(user_id=user_id, address=address, city=city,
                             state=state, zipcode=zipcode, name='base')
     db.session.add(start_address)
     db.session.commit()
 
-
-if __name__ == "__main__":
-    pass

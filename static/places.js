@@ -1,6 +1,7 @@
 // Problems on this page - 1) Jquery not working 2) Toggle only works on first button
 
 
+
 $(".addToList").on('click', function(evt) {
     let status = $(this).data("status");
     let name = $(this).data("name");
@@ -44,8 +45,3 @@ $(".addToList").on('click', function(evt) {
          //     console.log("inside interested");
          //     $('#interested').innerText='Interested';
          
-// tried:   $('.addToList').value='Interested';
-            // $('.addToList').innerHTML='Interested';
-            // $('#interested').innerHTML='Interested';
-            // $('#interested').value='Interested';
-            // $('#interested').innerText='Interested';

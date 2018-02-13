@@ -38,10 +38,12 @@ def search_by_address():
 
     address = request.form.get('address')
     places = search(api_key, 'dinner', address)
+    user_in_session = int(session['user_id'])
+    name = User.query.get(user_in_session).fname
 
     amt_displayed = len(places['businesses'])
 
-    return render_template("starting_places.html", address=address,
+    return render_template("starting_places.html", name=name, address=address,
                                                    places=places,
                                                    amt_displayed=amt_displayed)
 
@@ -54,8 +56,8 @@ def add_to_list():
     yelp_id = request.form.get('yelp_id')
     name = request.form.get('name')
     address = request.form.get('address')
-    latitude = request.form.get('latitude')
-    longitude = request.form.get('longitude')
+    latitude = float(request.form.get('latitude'))
+    longitude = float(request.form.get('longitude'))
     url = request.form.get('url')
     pic = request.form.get('pic')
 
@@ -73,7 +75,8 @@ def add_to_list():
                                  UserLocation.yelp_id == yelp_id).first())
 
         if not user_location:
-            add_business_to_UserLocation
+            add_business_to_UserLocation(session[user_id], yelp_id, status)
+
 
     # In the ideal world, we won't be showing user places they've already checked off, but what do we
     # do if it's already in userLoc table? Just do normal response based on status as would already.
@@ -99,30 +102,70 @@ def register():
     password1 = request.form.get('password1')
     password2 = request.form.get('password2')
 
-    # will add this to addresses table
     address = request.form.get('address')
     city = request.form.get('city')
     state = request.form.get('state')
     zipcode = request.form.get('zipcode')
 
-    if password1 == password2:
-        password = password1
-    else:
-        flash("Passwords don't match - please try again.")
-
     # Does user already exist in DB?
     current_username = User.query.filter_by(username=username).first()
     current_email = User.query.filter_by(email=email).first()
-    print current_username
-    print current_email
 
-    if not current_username and not current_email:
-        new_user = add_user_to_User(fname, username, email, password)
-        print new_user
+    if current_username or current_email:
+        flash('user already exists! Please log in')
+        return redirect('/login')
 
-  # at this point, does user have an id yet?
+    elif not current_username and not current_email:
+        if password1 == password2:
+            password = password1
+            new_user = add_user_to_User(fname, username, email, password)
+            add_start_address(new_user.user_id, address, city, state, zipcode)
+        else:
+            flash("Passwords don't match - please try again.")
+            return redirect('/login')
 
-    add_start_address(new_user.user_id, address, city, state, zipcode)
+
+@app.route('/login', methods=['GET'])
+def login_form():
+    """Display login form."""
+
+    return render_template("login.html")
+
+
+@app.route('/login', methods=['POST'])
+def login_process():
+    """Process login."""
+
+    user_info = request.form.get("user_info")
+    password = request.form.get("password")
+
+    user = User.query.filter((User.email == user_info) | (User.username == user_info)).first()
+
+    if not user:
+        flash("No user for this email or username found")
+        return redirect("/login")
+
+    if user.password != password:
+        flash("Incorrect password")
+        return redirect("/login")
+
+    session["user_id"] = user.user_id
+
+    flash("Logged in")
+    return redirect("/")
+    # Once created, make this redirect to user profile page which will have a link
+    # to their destinations with a map of all the places they've been and link to
+    # places they're interested in (first implementations of mapbox)
+
+
+@app.route('/logout')
+def logout():
+    """Log out."""
+
+    del session["user_id"]
+    flash("Logged Out.")
+    return redirect("/")
+# Is there a better way to do the login than just a normal route/html
 
 
 @app.route('/destinations')

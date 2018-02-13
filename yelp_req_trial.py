@@ -5,16 +5,6 @@ from urllib import quote
 from model import *
 from flask_sqlalchemy import SQLAlchemy
 
-
-from flask import Flask
-app = Flask(__name__)
-connect_to_db(app)
-
-
-# r = requests.get('https://api.yelp.com/v3/businesses/matches/lookup')
-
-# GET https://api.yelp.com/v3/businesses/matches/best
-
 API_KEY = os.environ['API_KEY']
 
 api_key = API_KEY
@@ -74,67 +64,3 @@ def search(api_key, term, location):
     }
 
     return request_call(API_HOST, SEARCH_PATH, api_key, url_params=url_params)
-
-
-# search_results = search(api_key, DEFAULT_TERM, DEFAULT_LOCATION)
-# print search(api_key, 'Philz', DEFAULT_LOCATION)
-
-
-
-places = search(api_key, 'dinner', DEFAULT_LOCATION)
-
-# yi = places['businesses'][0]['id']
-# print yi
-# places_dict = json.loads(places)
-# print places_dict
-
-
-# Want to make as few queries to Yelp API as possible for efficiency - better to ask
-# yelp once, and then divvy up the data as needed.
-
-# Don't want to add all of these - only want to add places user has marked <- can change
-# this if later down the line it seems too slow
-# for i in range((len(places) - 1)):
-#     for bus in places:
-#         yelp_id, name, lat, lon, url = places['businesses'][0]['name']
-
-# upon event click, call this function - does that mean I have to write it in JS?
-
-# problem - can I get many values from dict all at once without a loop?
-
-# already displaying the name
-
-# impending problem - add event listener and fetch data for that specific business- 
-# rn they're giving a LIST for the businesses, and so accessing the data by index, but
-# can't select specific data to snatch that way. 
-
-# name = places['businesses'][0]['name']
-# url = places['businesses'][0]['url']
-# lat = float(places['businesses'][0]['coordinates']['latitude'])
-# lon = float(places['businesses'][0]['coordinates']['longitude'])
-# yelp_id = places['businesses'][0]['id']
-# pic = places['businesses'][0]['image_url']
-
-# first_place = Location(yelp_id='yelp_id', name='name', latitude=lat,
-#                        longitude=lon, yelp_url='url')
-
-# first_place = Location(yelp_id=yelp_id, name=name, latitude=lat, longitude=lon,
-#                        yelp_url=url, pic=pic)
-
-
-# db.session.add(first_place)
-# db.session.commit()
-
-# When user clicks button to store to DB
-# have the name of the business, and want to directly store that business
-
-# place = Location(yelp_id=yelp_id, name=name, latitude=lat, longitude=lon,
-#                        yelp_url=url, pic=pic)
-
-# for place in places['businesses']:
-#     if place[i]['name'] == business_name:
-
-
-
-if __name__ == '__main__':
-    print "happening now"
