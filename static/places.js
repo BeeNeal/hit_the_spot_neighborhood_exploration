@@ -1,8 +1,9 @@
 // Problems on this page - 1) Jquery not working 2) Toggle only works on first button
 
-
-
-$(".addToList").on('click', function(evt) {
+// let buttons = document.querySelectorAll(".addToList");
+// let buttons = document.querySelectorAll(".addToList");
+// 
+    $(".addToList").on('click', function(evt) {
     let status = $(this).data("status");
     let name = $(this).data("name");
     let address = $(this).data("address");
@@ -11,6 +12,9 @@ $(".addToList").on('click', function(evt) {
     let pic = $(this).data("pic");
     let url = $(this).data("url");
     let yelpId = $(this).data("id");
+
+    // console.log(status, name, address, latitude, longitude, yelpId);
+
 
     // the below payload is all the data we need to instantiate a location
     let payload = {"status": status,
@@ -28,7 +32,7 @@ $(".addToList").on('click', function(evt) {
     $.post("/add-to-list", payload, function toggle_btn(results) {
         // if ($('#interested').innerText==='I want to go!'){
             // ($('#interested').innerText='Interested')}
-        let interestedBtn = document.querySelector(".addToList");
+        let interestedBtn = document.querySelectorAll(".addToList");
         interestedBtn.innerText='added to destinations';
 
         // else {

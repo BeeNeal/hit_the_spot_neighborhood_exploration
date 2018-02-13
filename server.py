@@ -29,7 +29,19 @@ app.jinja_env.undefined = StrictUndefined
 def index():
     """Display Homepage."""
 
+    # if session['user_id']:
+    #     return redirect('/explore')
+    # else:
     return render_template("homepage.html")
+
+
+@app.route('/explore', methods=['GET'])
+def display_poi_options():
+    """Displays POIs that users can add to their list of places to explore"""
+    name = User.query.get(session['user_id'])
+    address = name.address
+    return render_template('starting_places.html', name=name.fname, address=address)
+
 
 
 @app.route('/get_address', methods=['POST'])
@@ -50,7 +62,7 @@ def search_by_address():
 
 @app.route('/add-to-list', methods=['POST'])
 def add_to_list():
-    """Adds user selected POI to DB"""
+    """Adds user selected POI to locations table in DB"""
 
     status = request.form.get('status')
     yelp_id = request.form.get('yelp_id')
@@ -63,6 +75,7 @@ def add_to_list():
 
     # Check to see not already in locations table
     location = Location.query.get(yelp_id)
+    print location
     # add business to locations table
     if not location:
         add_business_to_Locations(yelp_id, name, latitude, longitude, address,
@@ -71,11 +84,11 @@ def add_to_list():
     else:
     # Check to see if in UserLocations table
         user_location = (UserLocation.query
-                         .filter(UserLocation.user_id == session[user_id],
+                         .filter(UserLocation.user_id == session['user_id'],
                                  UserLocation.yelp_id == yelp_id).first())
 
         if not user_location:
-            add_business_to_UserLocation(session[user_id], yelp_id, status)
+            add_business_to_UserLocation(session['user_id'], yelp_id, status)
 
 
     # In the ideal world, we won't be showing user places they've already checked off, but what do we

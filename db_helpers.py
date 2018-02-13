@@ -1,6 +1,6 @@
 from model import *
 
-def add_business_to_Locations(yelp_id, name, address, lat, lon, url, pic):
+def add_business_to_Locations(yelp_id, name, lat, lon, address, url, pic):
     """Adds business to Location class"""
 
     business = Location(yelp_id=yelp_id, name=name, latitude=lat, longitude=lon,
