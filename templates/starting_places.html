@@ -31,7 +31,7 @@ data-pic="{{ places['businesses'][n]['image_url'] }}" >I want to go!</button>
 
 <button class="addToList" id="visited"
 data-status="visited" 
-data-yelpId="{{ places['businesses'][n].id }}" 
+data-id="{{ places['businesses'][n].id }}" 
 data-name="{{ places['businesses'][n]['name'] }}" 
 data-address="{{ " ".join(places['businesses'][n]['location']['display_address'])}}"
 data-latitude="{{ places['businesses'][n]['coordinates']['latitude'] }}"

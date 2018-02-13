@@ -37,10 +37,16 @@ def add_user_to_User(fname, username, email, password):
     return user
 
 
-def add_start_address(user_id, address, city, state, zipcode):
+def add_address(user_id, address, city, state, zipcode, name):
+    """Adds address to addresses table. """
 
     start_address = Address(user_id=user_id, address=address, city=city,
-                            state=state, zipcode=zipcode, name='base')
+                            state=state, zipcode=zipcode, name=name)
     db.session.add(start_address)
     db.session.commit()
 
+def destinations_list(user_id, status):
+    """Queries DB to produce list of destinations"""
+
+    destinations = UserLocation.query.filter(UserLocation.user_id == user_id,
+                   UserLocation.interested == True).all()

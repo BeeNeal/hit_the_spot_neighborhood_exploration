@@ -120,6 +120,7 @@ def register():
     city = request.form.get('city')
     state = request.form.get('state')
     zipcode = request.form.get('zipcode')
+    address_name = request.form.get('address_name')
 
     # Does user already exist in DB?
     current_username = User.query.filter_by(username=username).first()
@@ -133,7 +134,7 @@ def register():
         if password1 == password2:
             password = password1
             new_user = add_user_to_User(fname, username, email, password)
-            add_start_address(new_user.user_id, address, city, state, zipcode)
+            add_address(new_user.user_id, address, city, state, zipcode, name)
         else:
             flash("Passwords don't match - please try again.")
             return redirect('/login')
