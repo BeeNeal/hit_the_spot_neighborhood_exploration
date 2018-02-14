@@ -1,4 +1,5 @@
 from model import *
+from yelp_req_trial import search
 
 def add_business_to_Locations(yelp_id, name, lat, lon, address, url, pic):
     """Adds business to Location class"""
@@ -45,8 +46,57 @@ def add_address(user_id, address, city, state, zipcode, name):
     db.session.add(start_address)
     db.session.commit()
 
-def destinations_list(user_id, status):
-    """Queries DB to produce list of destinations"""
+
+def destinations_list(user_id):
+    """Queries DB to produce destinations for that user_id"""
 
     destinations = UserLocation.query.filter(UserLocation.user_id == user_id,
-                   UserLocation.interested == True).all()
+               UserLocation.interested == True).all()
+
+    return destinations
+
+
+def visited_list(user_id):
+    """Queries DB to provide places that user_id has marked as visited"""
+
+    visited_places = UserLocation.query.filter(UserLocation.user_id == user_id,
+               UserLocation.visited == True).all()
+
+    return visited_places
+
+
+def api_to_dict(places):
+    """Turns JSON from yelp API into dict"""
+
+    print businesses
+
+    # set up dictionary that cherry-picks needed data from yelp API
+    locations_to_show = {}
+    for i in range(len(businesses)):
+        poi = businesses['businesses'][i]['id']
+        locations_to_show[poi] = {}
+        locations_to_show[poi]['yelp_id'] = poi
+        locations_to_show[poi]['address'] = " ".join(places['businesses'][i]['location']['display_address'])
+        locations_to_show[poi]['latitude'] = places['businesses'][i]['coordinates']['latitude']
+        locations_to_show[poi]['longitude'] = places['businesses'][i]['coordinates']['longitude']
+        locations_to_show[poi]['url'] = places['businesses'][n]['url']
+        locations_to_show[poi]['pic'] = places['businesses'][n]['image_url']
+
+    return locations_to_show
+        
+
+def add_status_to_dict(locations_to_show, user_id):
+    """adds if user has interacted with loc"""
+
+    # compare visited/interested values with queries about visited/interested,
+
+    destinations = destinations_list(user_id)
+    visited = visited_list(user_id)
+
+    # update dict depending on visited/interested status
+    # locations_to_show[poi]['visited'] = status
+    # locations_to_show[poi]['interested'] = status
+
+    # for item in destinations:
+    #     if item.yelp_id == 
+

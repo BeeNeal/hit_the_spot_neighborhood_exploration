@@ -62,6 +62,9 @@ class UserLocation(db.Model):
     rating = db.Column(db.Integer, nullable=True)
     favorite = db.Column(db.String(250))
 
+    location = db.relationship("Location", backref=db.backref('user_location'))
+
+
 
 class UserLocationCategory(db.Model):
     """Association table between user_locations and categories"""

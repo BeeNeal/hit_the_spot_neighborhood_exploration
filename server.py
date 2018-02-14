@@ -43,15 +43,17 @@ def display_poi_options():
     return render_template('starting_places.html', name=name.fname, address=address)
 
 
-
 @app.route('/get_address', methods=['POST'])
 def search_by_address():
     """Get user input address."""
 
     address = request.form.get('address')
     places = search(api_key, 'dinner', address)
-    user_in_session = int(session['user_id'])
-    name = User.query.get(user_in_session).fname
+
+    locations_to_show = api_to_dict(places)
+    add_status_to_dict(locations_to_show, session['user_id'])
+    
+    name = User.query.get(session['user_id']).fname
 
     amt_displayed = len(places['businesses'])
 
@@ -187,7 +189,26 @@ def logout():
 def display_destinations():
     """Displays UserLocations - locations that user is interested in visiting"""
 
-    return render_template('destinations.html')
+    destinations = destinations_list(session['user_id'])
+    amt_destinations = len(destinations)
+
+    return render_template('destinations.html', destinations=destinations,
+                           amt_destinations=amt_destinations)
+
+
+@app.route('/visited')
+def display_places_visited():
+    """Displays locations that user has visited"""
+
+    places_visited = visited_list(session['user_id'])
+    amt_places = len(places_visited)
+    if amt_places:
+        return render_template('places_visited.html',
+                               places_visited=places_visited,
+                               amt_places=amt_places)
+    else:
+        flash("Visited any of these places yet?")
+        return redirect('/destinations')
 
 
 if __name__ == "__main__":
