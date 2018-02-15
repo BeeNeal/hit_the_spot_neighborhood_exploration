@@ -10,31 +10,30 @@ Starting Places
 <div><h1>Hi {{ name }}! Here are our top recommendations for you to explore</h1></div>
 <div><h3>Which places do you want to visit around {{ address }} ?</h3></div>
 <div>
-{% for place in places['businesses'] %}
+{% for place in places %}
 
 <div>
-  <p><b>{{ place['name'] }}</b> is mere steps away at 
-  {{ " ".join(place['location']['display_address']) }}</p>
+  <p><b>{{ places[place]['name'] }}</b> is mere steps away at 
+  {{ places[place]['address'] }}</p>
 
 <button class="addToList" id="interested"  
 data-status="interested" 
-data-name="{{ place['name'] }}" 
-data-id="{{ place['id'] }}"
-data-address="{{ " ".join(place['location']['display_address']) }}"
-data-latitude="{{ place['coordinates']['latitude'] }}"
-data-longitude="{{ place['coordinates']['longitude'] }}" 
-data-url="{{ place['url'] }}"
-data-pic="{{ place['image_url'] }}" >I want to go!</button>
+data-name="{{ places[place]['name'] }}" 
+data-id="{{ places[place]['yelp_id'] }}"
+data-address="{{ places[place]['address'] }}"
+data-latitude="{{ places[place]['latitude'] }}"
+data-longitude="{{ places[place]['longitude'] }}" 
+data-url="{{ places[place]['url'] }}"
+data-pic="{{ places[place]['pic'] }}" >I want to go!</button>
 
 <button class="addToList" id="visited"
-data-status="visited" 
-data-name="{{ place['name'] }}" 
-data-id="{{ place['id'] }}"
-data-address="{{ " ".join(place['location']['display_address']) }}"
-data-latitude="{{ place['coordinates']['latitude'] }}"
-data-longitude="{{ place['coordinates']['longitude'] }}" 
-data-url="{{ place['url'] }}"
-data-pic="{{ place['image_url'] }}" > I've been here! </button>
+data-name="{{ places[place]['name'] }}" 
+data-id="{{ places[place]['yelp_id'] }}"
+data-address="{{ places[place]['address'] }}"
+data-latitude="{{ places[place]['latitude'] }}"
+data-longitude="{{ places[place]['longitude'] }}" 
+data-url="{{ places[place]['url'] }}"
+data-pic="{{ places[place]['pic'] }}" > I've been here! </button>
 
 
 

@@ -63,6 +63,10 @@ def visited_list(user_id):
 
     return visited_places
 
+def user_locations_list(user_id):
+    """Provides all locations saved to locations table for that user"""
+
+    return UserLocation.query.filter(UserLocation.user_id == user_id).all()
 
 
         

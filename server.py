@@ -55,18 +55,17 @@ def search_by_address():
     places = search(api_key, 'dinner', address)
     parks = search_parks(api_key, address)
 
-    locations_to_show = api_to_dict(places, parks)
-
-
+    locations_to_show = combine_location_dictionaries(places, parks, session['user_id'])
+    print locations_to_show
     # if a user is logged in, this shouldn't matter anyway because will tie
-    # with their main address on profile
+    # to their main address on profile
     if session.get('user_id'):
         name = User.query.get(session['user_id']).fname
     else:
         name = 'there'
 
-    return render_template("starting_places.html", name=name, address=address,
-                                                   places=locations_to_show)
+    return render_template("starting_places.html", places=locations_to_show,
+                           name=name, address=address)
 
 
 
