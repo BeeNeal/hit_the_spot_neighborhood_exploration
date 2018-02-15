@@ -9,8 +9,9 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import *
 from db_helpers import *
+from processing_functions import *
 
-from yelp_req_trial import search
+from yelp_req_trial import search, search_parks
 import sys
 import os
 
@@ -34,10 +35,12 @@ def index():
     # else:
     return render_template("homepage.html")
 
+
 # this explore route is not yet operational - would need to make a call to the api again
 @app.route('/explore', methods=['GET'])
 def display_poi_options():
     """Displays POIs that users can add to their list of places to explore"""
+
     name = User.query.get(session['user_id'])
     address = name.address
     return render_template('starting_places.html', name=name.fname, address=address)
@@ -45,21 +48,26 @@ def display_poi_options():
 
 @app.route('/get_address', methods=['POST'])
 def search_by_address():
-    """Get user input address."""
+    """Get user input address, display locations for exploration."""
 
     address = request.form.get('address')
+    # these functions can be modified based on user answers of person they are
     places = search(api_key, 'dinner', address)
+    parks = search_parks(api_key, address)
 
-    locations_to_show = api_to_dict(places)
-    add_status_to_dict(locations_to_show, session['user_id'])
-    
-    name = User.query.get(session['user_id']).fname
+    locations_to_show = api_to_dict(places, parks)
 
-    amt_displayed = len(places['businesses'])
+
+    # if a user is logged in, this shouldn't matter anyway because will tie
+    # with their main address on profile
+    if session.get('user_id'):
+        name = User.query.get(session['user_id']).fname
+    else:
+        name = 'there'
 
     return render_template("starting_places.html", name=name, address=address,
-                                                   places=places,
-                                                   amt_displayed=amt_displayed)
+                                                   places=locations_to_show)
+
 
 
 @app.route('/add-to-list', methods=['POST'])
@@ -92,7 +100,6 @@ def add_to_list():
     if not user_location:
         add_business_to_UserLocation(session['user_id'], yelp_id, status)
 
-    #problem here - if in loc table but not userloc, still need to activate userloc
 
     # In the ideal world, we won't be showing user places they've already checked off, but what do we
     # do if it's already in userLoc table? Just do normal response based on status as would already.
@@ -136,7 +143,7 @@ def register():
         if password1 == password2:
             password = password1
             new_user = add_user_to_User(fname, username, email, password)
-            add_address(new_user.user_id, address, city, state, zipcode, name)
+            add_address(new_user.user_id, address, city, state, zipcode, fname)
         else:
             flash("Passwords don't match - please try again.")
             return redirect('/login')
@@ -190,10 +197,8 @@ def display_destinations():
     """Displays UserLocations - locations that user is interested in visiting"""
 
     destinations = destinations_list(session['user_id'])
-    amt_destinations = len(destinations)
 
-    return render_template('destinations.html', destinations=destinations,
-                           amt_destinations=amt_destinations)
+    return render_template('destinations.html', places=destinations)
 
 
 @app.route('/visited')
@@ -201,11 +206,11 @@ def display_places_visited():
     """Displays locations that user has visited"""
 
     places_visited = visited_list(session['user_id'])
-    amt_places = len(places_visited)
-    if amt_places:
+    num_places = len(places_visited)
+    if num_places:
         return render_template('places_visited.html',
-                               places_visited=places_visited,
-                               amt_places=amt_places)
+                               places=places_visited,
+                               num_places=num_places)
     else:
         flash("Visited any of these places yet?")
         return redirect('/destinations')

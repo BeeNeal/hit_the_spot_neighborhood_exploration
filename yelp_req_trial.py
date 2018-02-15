@@ -16,7 +16,7 @@ BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
 
 DEFAULT_TERM = 'dinner'
 DEFAULT_LOCATION = '683 Sutter st San Francisco, CA'
-SEARCH_LIMIT = 3
+SEARCH_LIMIT = 10
 
 
 def request_call(host, path, api_key, url_params=None):
@@ -60,7 +60,28 @@ def search(api_key, term, location):
         'limit': SEARCH_LIMIT,
         'radius': 2415,
         'sort_by': 'rating',
-        'price': '1'
+        'price': '1',
+    }
+
+    return request_call(API_HOST, SEARCH_PATH, api_key, url_params=url_params)
+
+def search_parks(api_key, location):
+    """Query the Search API by a search term and location.
+    Args:
+        term (str): The search term passed to the API.
+        location (str): The search location passed to the API.
+    Returns:
+        dict: The JSON response from the request.
+    """
+
+    # With these params, I take the highest rated, price $,
+    url_params = {
+        'term': 'park',
+        'location': location.replace(' ', '+'),
+        'limit': SEARCH_LIMIT,
+        'radius': 2415,
+        'sort_by': 'rating',
+        'categories': 'parks'
     }
 
     return request_call(API_HOST, SEARCH_PATH, api_key, url_params=url_params)

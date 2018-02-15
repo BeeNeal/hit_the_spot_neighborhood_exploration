@@ -5,15 +5,15 @@ Places I've visited
 {% endblock %}
 
 {% block content %}
-<div><h1>Places username has visited</h1></div>
+<div><h1>Places {{ places[0].user.username }} has visited</h1></div>
 <div><h3>What did you think about these places?</h3></div>
 <div>
-{% for n in range(amt_places) %}
+{% for place in places %}
 
 <div>
-  <h3><b>{{ places_visited[n].location.name }}</b></h3>
-  	{{ places_visited[n].location.address }}<br>
-  <a href="{{ places_visited[n].location.yelp_url }}">	<img src="{{ places_visited[n].location.pic }}" class='businessImage'></a>
+  <h3><b>{{ place.location.name }}</b></h3>
+  	{{ place.location.address }}<br>
+  <a href="{{ place.location.yelp_url }}">	<img src="{{ place.location.pic }}" class='businessImage'></a>
   	
 
 

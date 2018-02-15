@@ -1,6 +1,3 @@
-<!-- On this page I want to display 10 establishments at a time (will later turn into inifinite scroll) 
-This is a good candidate for React
--->
 
 {% extends 'base.html' %}
 
@@ -10,34 +7,34 @@ Starting Places
 
 
 {% block content %}
-<div><h1>{{ name }}, here are our top recommendations for you to explore</h1></div>
+<div><h1>Hi {{ name }}! Here are our top recommendations for you to explore</h1></div>
 <div><h3>Which places do you want to visit around {{ address }} ?</h3></div>
 <div>
-{% for n in range(amt_displayed) %}
+{% for place in places['businesses'] %}
 
 <div>
-  <p><b>{{ places['businesses'][n]['name'] }}</b> is mere steps away at 
-  {{ " ".join(places['businesses'][n]['location']['display_address']) }}</p>
+  <p><b>{{ place['name'] }}</b> is mere steps away at 
+  {{ " ".join(place['location']['display_address']) }}</p>
 
 <button class="addToList" id="interested"  
 data-status="interested" 
-data-name="{{ places['businesses'][n]['name'] }}" 
-data-id="{{ places['businesses'][n]['id'] }}"
-data-address="{{ " ".join(places['businesses'][n]['location']['display_address']) }}"
-data-latitude="{{ places['businesses'][n]['coordinates']['latitude'] }}"
-data-longitude="{{ places['businesses'][n]['coordinates']['longitude'] }}" 
-data-url="{{ places['businesses'][n]['url'] }}"
-data-pic="{{ places['businesses'][n]['image_url'] }}" >I want to go!</button>
+data-name="{{ place['name'] }}" 
+data-id="{{ place['id'] }}"
+data-address="{{ " ".join(place['location']['display_address']) }}"
+data-latitude="{{ place['coordinates']['latitude'] }}"
+data-longitude="{{ place['coordinates']['longitude'] }}" 
+data-url="{{ place['url'] }}"
+data-pic="{{ place['image_url'] }}" >I want to go!</button>
 
 <button class="addToList" id="visited"
 data-status="visited" 
-data-id="{{ places['businesses'][n].id }}" 
-data-name="{{ places['businesses'][n]['name'] }}" 
-data-address="{{ " ".join(places['businesses'][n]['location']['display_address'])}}"
-data-latitude="{{ places['businesses'][n]['coordinates']['latitude'] }}"
-data-longitude="{{ places['businesses'][n]['coordinates']['longitude'] }} "
-data-url="{{ places['businesses'][n]['url'] }}"
-data-pic="{{ places['businesses'][n]['image_url'] }}" > I've been here! </button>
+data-name="{{ place['name'] }}" 
+data-id="{{ place['id'] }}"
+data-address="{{ " ".join(place['location']['display_address']) }}"
+data-latitude="{{ place['coordinates']['latitude'] }}"
+data-longitude="{{ place['coordinates']['longitude'] }}" 
+data-url="{{ place['url'] }}"
+data-pic="{{ place['image_url'] }}" > I've been here! </button>
 
 
 

@@ -1,5 +1,5 @@
 from model import *
-from yelp_req_trial import search
+from yelp_req_trial import search, search_parks
 
 def add_business_to_Locations(yelp_id, name, lat, lon, address, url, pic):
     """Adds business to Location class"""
@@ -15,7 +15,6 @@ def add_business_to_UserLocation(user_id, yelp_id, status, notes=None,
                                  rating=None, favorite=None):
     """Adds business to UserLocation"""
 
-    # Need to add reg/login to create user before can add to UserLoc - or could just hardcode
     user_location = UserLocation(user_id=user_id, yelp_id=yelp_id)
 
     # updates "visited"/"interested" based on user button 
@@ -65,33 +64,22 @@ def visited_list(user_id):
     return visited_places
 
 
-def api_to_dict(places):
-    """Turns JSON from yelp API into dict"""
 
-    print businesses
-
-    # set up dictionary that cherry-picks needed data from yelp API
-    locations_to_show = {}
-    for i in range(len(businesses)):
-        poi = businesses['businesses'][i]['id']
-        locations_to_show[poi] = {}
-        locations_to_show[poi]['yelp_id'] = poi
-        locations_to_show[poi]['address'] = " ".join(places['businesses'][i]['location']['display_address'])
-        locations_to_show[poi]['latitude'] = places['businesses'][i]['coordinates']['latitude']
-        locations_to_show[poi]['longitude'] = places['businesses'][i]['coordinates']['longitude']
-        locations_to_show[poi]['url'] = places['businesses'][n]['url']
-        locations_to_show[poi]['pic'] = places['businesses'][n]['image_url']
-
-    return locations_to_show
         
 
-def add_status_to_dict(locations_to_show, user_id):
-    """adds if user has interacted with loc"""
+# def add_status_to_dict(locations_to_show, user_id):
+#     """adds if user has interacted with loc"""
 
-    # compare visited/interested values with queries about visited/interested,
+#     # compare visited/interested values with queries about visited/interested,
 
-    destinations = destinations_list(user_id)
-    visited = visited_list(user_id)
+#     destinations = set(destinations_list(user_id))
+#     print locations_to_show
+#     print type(locations_to_show)
+    # for destination in destinations:
+    #     locations_to_show[destination.yelp_id]['interested'] = True
+    #     print locations_to_show[destination.yelp_id]['interested']
+
+    # visited = set(visited_list(user_id))
 
     # update dict depending on visited/interested status
     # locations_to_show[poi]['visited'] = status

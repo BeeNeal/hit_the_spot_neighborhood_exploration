@@ -5,20 +5,20 @@ Starting Places
 {% endblock %}
 
 {% block content %}
-<div><h1>username's Destinations</h1></div>
+<div><h1>{{ places[0].user.username }}'s Destinations</h1></div>
 <div><h3>Become an expert of this area and visit the following places:</h3></div>
 <div>
-{% for n in range(amt_destinations) %}
+{% for place in places  %}
 
 <div>
-  <h3><b>{{ destinations[n].location.name }}</b></h3>
-  	{{ destinations[n].location.address }}<br>
-  <a href={{ destinations[n].location.yelp_url }}>	<img src="{{ destinations[n].location.pic }}" class='businessImage'></a>
-  	
+  <h3><b>{{ place.location.name }}</b></h3>
+  	{{ place.location.address }}<br>
+  <a href={{ place.location.yelp_url }}>	<img src="{{ place.location.pic }}" class='businessImage'></a><br>
 
-
-
+  <button class='been'>Explored</button>
 </div>
 {% endfor %}
+
+
 </div>
 {% endblock %}
