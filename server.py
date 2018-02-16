@@ -220,18 +220,16 @@ def display_places_visited():
 
 
 @app.route('/add-notes', methods=['POST'])
-def add_notes():
+def add_notes_to_DB():
     """Adds user notes to specific user locations in DB"""
 
     yelp_id = request.form.get('yelp_id')
     notes = request.form.get('notes')
     favorite = request.form.get('favorite')
     # rating = request.form.get('rating')
-
     user_id = session['user_id']
-
-    # add_notes(user_id, yelp_id, notes, favorite, 5)
-    add_notes(5, 'xox-truffles-san-francisco', "THIS IS A TEST - YUMM chocolate", "this is also a test - the best part was chocolate", 5)
+    #using default rating of 5 for now - change when add rating functionality
+    add_notes(user_id, yelp_id, notes, favorite, 5)
 
 
 if __name__ == "__main__":

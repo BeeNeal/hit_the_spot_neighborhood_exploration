@@ -73,36 +73,10 @@ def user_locations_list(user_id):
 def add_notes(user_id, yelp_id, notes, favorite, rating):
     """Adds user notes/favorite/rating to specific user_location"""
 
-    user_location = UserLocation.query.filter(user_id == user_id,
-                                              yelp_id == yelp_id)
+    user_location = UserLocation.query.filter(UserLocation.user_id == user_id,
+                                              UserLocation.yelp_id == yelp_id).first()
     user_location.notes = notes
     user_location.favorite = favorite
     user_location.rating = rating
 
-    db.session.add(user_location)
     db.session.commit()
-
-# Test: add_notes(5, 'xox-truffles-san-francisco' , "THIS IS A TEST - YUMM chocolate", "this is also a test - the best part was chocolate", 5)
-
-
-# def add_status_to_dict(locations_to_show, user_id):
-#     """adds if user has interacted with loc"""
-
-#     # compare visited/interested values with queries about visited/interested,
-
-#     destinations = set(destinations_list(user_id))
-#     print locations_to_show
-#     print type(locations_to_show)
-    # for destination in destinations:
-    #     locations_to_show[destination.yelp_id]['interested'] = True
-    #     print locations_to_show[destination.yelp_id]['interested']
-
-    # visited = set(visited_list(user_id))
-
-    # update dict depending on visited/interested status
-    # locations_to_show[poi]['visited'] = status
-    # locations_to_show[poi]['interested'] = status
-
-    # for item in destinations:
-    #     if item.yelp_id == 
-
