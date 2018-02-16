@@ -143,6 +143,7 @@ def register():
             password = password1
             new_user = add_user_to_User(fname, username, email, password)
             add_address(new_user.user_id, address, city, state, zipcode, fname)
+            return redirect('/login')
         else:
             flash("Passwords don't match - please try again.")
             return redirect('/login')
@@ -216,6 +217,21 @@ def display_places_visited():
     # else:
     #     flash("Visited any of these places yet?")
     #     return redirect('/destinations')
+
+
+@app.route('/add-notes', methods=['POST'])
+def add_notes():
+    """Adds user notes to specific user locations in DB"""
+
+    yelp_id = request.form.get('yelp_id')
+    notes = request.form.get('notes')
+    favorite = request.form.get('favorite')
+    # rating = request.form.get('rating')
+
+    user_id = session['user_id']
+
+    # add_notes(user_id, yelp_id, notes, favorite, 5)
+    add_notes(5, 'xox-truffles-san-francisco', "THIS IS A TEST - YUMM chocolate", "this is also a test - the best part was chocolate", 5)
 
 
 if __name__ == "__main__":

@@ -22,7 +22,7 @@ def add_API_search_data_to_dict(api_results, user_id):
 
     for i in range(len(api_results['businesses'])):
         poi = api_results['businesses'][i]['id']
-        import pdb; pdb.set_trace()
+        
         if poi not in user_locations:
             locations_to_show[poi] = {}
             locations_to_show[poi]['yelp_id'] = poi

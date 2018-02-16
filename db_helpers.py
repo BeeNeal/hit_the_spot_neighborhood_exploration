@@ -70,17 +70,19 @@ def user_locations_list(user_id):
     return UserLocation.query.filter(UserLocation.user_id == user_id).all()
 
 
-def add_notes(user_id, yelp_id, record, favorite, rating):
+def add_notes(user_id, yelp_id, notes, favorite, rating):
     """Adds user notes/favorite/rating to specific user_location"""
 
-    user_location = userLocation.query.filter(user_id == user_id,
+    user_location = UserLocation.query.filter(user_id == user_id,
                                               yelp_id == yelp_id)
-    user_location.notes = record
+    user_location.notes = notes
     user_location.favorite = favorite
     user_location.rating = rating
 
     db.session.add(user_location)
     db.session.commit()
+
+# Test: add_notes(5, 'xox-truffles-san-francisco' , "THIS IS A TEST - YUMM chocolate", "this is also a test - the best part was chocolate", 5)
 
 
 # def add_status_to_dict(locations_to_show, user_id):
