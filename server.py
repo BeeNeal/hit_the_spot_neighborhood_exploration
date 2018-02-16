@@ -207,12 +207,15 @@ def display_places_visited():
     places_visited = visited_list(session['user_id'])
     num_places = len(places_visited)
     if num_places:
-        return render_template('places_visited.html',
-                               places=places_visited,
-                               num_places=num_places)
+        return render_template('visited.html', places=places_visited)
+            # 'places_visited.html',
+            #                    places=places_visited,
+            #                    num_places=num_places)
     else:
-        flash("Visited any of these places yet?")
-        return redirect('/destinations')
+        return render_template('visited.html', places=places_visited)    
+    # else:
+    #     flash("Visited any of these places yet?")
+    #     return redirect('/destinations')
 
 
 if __name__ == "__main__":

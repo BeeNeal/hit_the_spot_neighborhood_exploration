@@ -63,13 +63,25 @@ def visited_list(user_id):
 
     return visited_places
 
+
 def user_locations_list(user_id):
     """Provides all locations saved to locations table for that user"""
 
     return UserLocation.query.filter(UserLocation.user_id == user_id).all()
 
 
-        
+def add_notes(user_id, yelp_id, record, favorite, rating):
+    """Adds user notes/favorite/rating to specific user_location"""
+
+    user_location = userLocation.query.filter(user_id == user_id,
+                                              yelp_id == yelp_id)
+    user_location.notes = record
+    user_location.favorite = favorite
+    user_location.rating = rating
+
+    db.session.add(user_location)
+    db.session.commit()
+
 
 # def add_status_to_dict(locations_to_show, user_id):
 #     """adds if user has interacted with loc"""

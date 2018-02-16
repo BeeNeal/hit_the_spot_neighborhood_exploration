@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Visited Locations
+{% endblock %}
+
+{% block content %}
+<div><h1>Visited Locations</h1></div>
+<div><h3>What did you think of these places?:</h3></div>
+
+{% for place in places  %}
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <h3><b>{{ place.location.name }}</b></h3>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div>Notes: {{ place.notes }}</div>
+        <div>Favorite: {{ place.favorite }}</div>
+        <div>Rating: {{ place.rating }}</div>
+      </div>
+
+<!--       <div class='addNotes panel-body'> Add notes here: </div>--> 
+   <div class='addNotes panel-body'>  
+     <form action='/add_notes' > 
+     	<input type='text' name='notes' value='Add notes here'>
+     </form>
+
+    </div>
+
+
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+<!-- {% for place in places  %}
+
+<div>
+  <h3><b>{{ place.location.name }}</b></h3>
+  	{{ place.location.address }}<br>
+  <a href={{ place.location.yelp_url }}>	<img src="{{ place.location.pic }}" class='businessImage'></a><br>
+
+</div>
+{% endfor %}
+
+
+</div>
+PROBLEMS: 1)When add endblock in, collapse fails.
+2) when hit any category to collapse, collapses all. This is because I'm creating the same blocks to collapse when I loop, and first one is being affected.
+3) Better way to do the form for add notes than current? looks terrible
+{% endblock %}
