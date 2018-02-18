@@ -2,3 +2,9 @@
 	height: 200px;
 	width: 200px;
 }
+
+   .navbar-center {
+        display: inline-block;
+        float: none;
+        vertical-align: top;
+    }

@@ -149,7 +149,7 @@ def register():
             return redirect('/login')
 
 
-@app.route('/login', methods=['GET'])
+@app.route('/log', methods=['GET'])
 def login_form():
     """Display login form."""
 
@@ -163,20 +163,25 @@ def login_process():
     user_info = request.form.get("user_info")
     password = request.form.get("password")
 
-    user = User.query.filter((User.email == user_info) | (User.username == user_info)).first()
+    user = User.query.filter((User.email == user_info) | (User.username ==
+                                                          user_info)).first()
 
     if not user:
-        flash("No user for this email or username found")
-        return redirect("/login")
+        # flash("No user for this email or username found")
+        return jsonify({'status': 'noUser'})
 
-    if user.password != password:
-        flash("Incorrect password")
-        return redirect("/login")
+    elif user.password != password:
+        # flash("Incorrect password")
+        return jsonify({'status': 'wrongPassword'})
 
-    session["user_id"] = user.user_id
+    else:
+        session["user_id"] = user.user_id
 
-    flash("Logged in")
-    return redirect("/")
+        return jsonify({'status': 'success'})
+
+    # return jsonify({'status': 'test'})
+    # flash("Logged in")
+    # return redirect("/")
     # Once created, make this redirect to user profile page which will have a link
     # to their destinations with a map of all the places they've been and link to
     # places they're interested in (first implementations of mapbox)
