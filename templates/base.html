@@ -15,27 +15,39 @@
 </head>
 <body>    
 	<!-- Static navbar -->
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
 
-            <div id="navbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="/destinations">My Destinations</a></li>
-                    <li><a href="/visited">My Places</a></li>
-                    <li class='navbar-center'><a href="#">Meet-Up</a></li>
+      <div id="navbar">
+        <ul class="nav navbar-nav">
 
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                	<li><a id='login' data-toggle="modal" data-target="#loginModal">Login</a></li>
-                    <li><a href="/registration">New Explorer?</a></li>
-                </ul>
-            </div>
-        </div>
+          {% if session.get('user_id') %}
+
+          <li><a href="/destinations">My Destinations</a></li>
+          <li><a href="/visited">My Places</a></li>
+
+          {% else %}
+          <li><a id='login' data-toggle="modal" 
+                 data-target="#loginModal">My destinations</a></li>
+          <li><a id='login' data-toggle="modal" 
+                 data-target="#loginModal">My Places</a></li>       
+          {% endif %}
+
+          <li class='navbar-center'><a href="#">Meet-Up</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          {% if session.get('user_id') %}
+          <li><a href='/logout' id='logout' >Logout</a></li>
+          {% else %}
+          <li><a id='login' data-toggle="modal" data-target="#loginModal">Login</a></li>
+          <li><a href="/registration">New Explorer?</a></li>
+          </ul>
+          {% endif %}
+      </div>
+    </div>
     </nav>
 
 <!-- Modal Login Window -->
-<!-- This is the button that is model for our login btn on navbar -->
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#loginModal">Open Modal</button>
 
 <!-- Modal -->
 <div id="loginModal" class="modal fade" role="dialog">
@@ -49,7 +61,7 @@
       </div>
       <div class="modal-body">
     <div id='loginModal' class="form-group">
-      <span id='notification'>hello</span>
+      <span id='notification'></span>
 <div class="well spaced" style="width:40%;">
   <form class='login-form' method="post" >
     <label>Email or username:
@@ -66,7 +78,6 @@
     </div>
 
     <div class="form-group">
-<!--       <input type="submit" value="Log In to Explore!" id='loginBtn' class="btn btn-danger" onClick='checkLoginData()'> -->
 
       <button type="button" id="loginBtn" 
               class="btn btn-danger" 
