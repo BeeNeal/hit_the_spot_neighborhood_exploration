@@ -41,9 +41,13 @@ def index():
 def display_poi_options():
     """Displays POIs that users can add to their list of places to explore"""
 
-    name = User.query.get(session['user_id'])
+    if session['user_id']:
+        name = User.query.get(session['user_id']).fname
+    else:
+        name = 'hi there'
     address = name.address
-    return render_template('starting_places.html', name=name.fname, address=address)
+
+    return render_template('starting_places.html', name=name, address=address)
 
 
 @app.route('/get_address', methods=['POST'])
@@ -52,16 +56,19 @@ def search_by_address():
 
     address = request.form.get('address')
     # these functions can be modified based on user answers of person they are
+    # would be better to do these API calls in helper functions
     places = search(api_key, 'dinner', address)
     parks = search_parks(api_key, address)
 
-    locations_to_show = combine_location_dictionaries(places, parks, session['user_id'])
-    print locations_to_show
+    if session.get('user_id'):
+        locations_to_show = combine_location_dictionaries(places, parks, session['user_id'])
+        print locations_to_show
     # if a user is logged in, this shouldn't matter anyway because will tie
     # to their main address on profile
-    if session.get('user_id'):
         name = User.query.get(session['user_id']).fname
+
     else:
+        locations_to_show = create_exploration_list(generate_exploration_data(address))
         name = 'there'
 
     return render_template("starting_places.html", places=locations_to_show,
