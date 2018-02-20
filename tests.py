@@ -1,27 +1,8 @@
 from unittest import TestCase
-from model import connect_to_db, db
-from test_data import example_data
+from model import connect_to_db, db, example_data
+# from test_data import example_data
 from server import app
 from flask import session
-
-# def init_app():
-#     # So that we can use Flask-SQLAlchemy, we'll make a Flask app.
-#     from flask import Flask
-#     app = Flask(__name__)
-
-#     connect_to_db(app)
-#     print "Connected to DB."
-
-
-# def connect_to_db(app):
-#     """Connect the database to our Flask app."""
-
-#     # Configure to use our database.
-#     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres:///testdb'
-#     app.config['SQLALCHEMY_ECHO'] = False
-#     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-#     db.app = app
-#     db.init_app(app)
 
 
 class FlaskTestsBasic(TestCase):
@@ -66,6 +47,43 @@ class FlaskTestsDatabase(TestCase):
         db.session.close()
         db.drop_all()
 
+    def test_login(self):
+        """Test log in form."""
+
+        with self.client as c:
+            result = c.post('/login',
+                            data={'user_info': 'trin@unplugged.com',
+                                  'password': 'l0lagent'},
+                            follow_redirects=True
+                            )
+            self.assertEqual(session.get('user_id'), 1)
+            self.assertIn("success", result.data)
+
+
+    def test_wrong_password(self):
+        """Test log in form with incorrect password"""
+
+        with self.client as c:
+            result = c.post('/login',
+                            data={'user_info': 'trin@unplugged.com',
+                                  'password': 'wrongpassword'},
+                            follow_redirects=True
+                            )
+            self.assertEqual(session.get('user_id'), None)
+            self.assertIn("wrongPassword", result.data)
+
+    def test_no_user(self):
+        """Test log in form where no username/email for that user"""
+
+        with self.client as c:
+            result = c.post('/login',
+                            data={'user_info': 'morpheus@unplugged.com',
+                                  'password': 'l0lagent'},
+                            follow_redirects=True
+                            )
+            self.assertEqual(session.get('user_id'), None)
+            self.assertIn("noUser", result.data)
+
 
 
 class FlaskTestsLogInLogOut(TestCase):
@@ -75,32 +93,34 @@ class FlaskTestsLogInLogOut(TestCase):
         """Before every test"""
 
         app.config['TESTING'] = True
+        app.config['SECRET_KEY'] = 'key'
         self.client = app.test_client()
 
-    def test_login(self):
-        """Test log in form."""
-
-        with self.client as c:
-            result = c.post('/login',
-                            data={'email': 'trin@unplugged.com',
-                                  'password': 'l0lagent'},
-                            follow_redirects=True
-                            )
-            self.assertEqual(session['user_id'], 1)
-            self.assertIn("Welcome back!", result.data)
-
-
     def test_logout(self):
-        """Test logout route."""
+            """Test logout."""
 
-        with self.client as c:
-            with c.session_transaction() as sess:
-                sess['user_id'] = '1'
+            with self.client as c:
+                with c.session_transaction() as sess:
+                    sess['user_id'] = 1
 
-            result = self.client.get('/logout', follow_redirects=True)
+                result = self.client.get('/logout', follow_redirects=True)
 
-            self.assertNotIn('user_id', session)
-            self.assertIn('Logged Out', result.data)
+                self.assertNotIn('user_id', sess)
+                self.assertIn('Logged Out', result.data)
+
+
+
+    # def test_logout(self):
+    #     """Test logout route."""
+
+    #     with self.client as c:
+    #         with c.session_transaction() as sess:
+    #             sess['user_id'] = '1'
+
+    #         result = self.client.get('/logout', follow_redirects=True)
+
+    #         self.assertNotIn('user_id', session)
+    #         self.assertIn('Logged Out', result.data)
 
 
 if __name__ == "__main__":

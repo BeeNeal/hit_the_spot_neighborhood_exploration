@@ -194,7 +194,6 @@ def logout():
     del session["user_id"]
     flash("Logged Out.")
     return redirect("/")
-# Is there a better way to do the login than just a normal route/html
 
 
 @app.route('/destinations')
@@ -211,17 +210,11 @@ def display_places_visited():
     """Displays locations that user has visited"""
 
     places_visited = visited_list(session['user_id'])
-    num_places = len(places_visited)
-    if num_places:
+    if places_visited:
         return render_template('visited.html', places=places_visited)
-            # 'places_visited.html',
-            #                    places=places_visited,
-            #                    num_places=num_places)
     else:
-        return render_template('visited.html', places=places_visited)    
-    # else:
-    #     flash("Visited any of these places yet?")
-    #     return redirect('/destinations')
+        flash("Visited any of these places yet?")
+        return redirect('/destinations')
 
 
 @app.route('/add-notes', methods=['POST'])
@@ -235,6 +228,7 @@ def add_notes_to_DB():
     user_id = session['user_id']
     #using default rating of 5 for now - change when add rating functionality
     add_notes(user_id, yelp_id, notes, favorite, 5)
+    
 
 
 if __name__ == "__main__":

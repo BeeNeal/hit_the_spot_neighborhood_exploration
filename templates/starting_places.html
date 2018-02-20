@@ -16,6 +16,8 @@ Starting Places
   <p><b>{{ places[place]['name'] }}</b> is mere steps away at 
   {{ places[place]['address'] }}</p>
 
+{% if session.get('user_id') %}
+
 <button class="addToList" id="interested"  
 data-status="interested" 
 data-name="{{ places[place]['name'] }}" 
@@ -36,7 +38,12 @@ data-longitude="{{ places[place]['longitude'] }}"
 data-url="{{ places[place]['url'] }}"
 data-pic="{{ places[place]['pic'] }}" > I've been here! </button>
 
-
+{% else %}
+<button id='login' data-toggle="modal" 
+     data-target="#loginModal">I want to go!</button>
+<button id='login' data-toggle="modal" 
+     data-target="#loginModal">I've been here!</button>       
+{% endif %}
 
 </div>
 {% endfor %}
