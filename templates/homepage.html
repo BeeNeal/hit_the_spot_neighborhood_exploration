@@ -6,6 +6,10 @@ Homepage
 
 {% block content %}
 
+{% if session.get('user_id') %}
+Welcome back!
+{% endif %}
+
 Around where do you want to explore? 
 <div>
 <form action='/get_address', method='post'>

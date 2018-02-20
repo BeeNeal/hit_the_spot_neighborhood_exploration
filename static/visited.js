@@ -33,7 +33,7 @@ function addDetailsOnClick(yelp_id) {
                   };
 
     $.post("/add-notes", payload, alert(notes))
-        // (modalNotes)
+        // FIXME Need to change alert(notes) to do something else
 
 }
 

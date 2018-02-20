@@ -113,7 +113,6 @@ class GroupLocation(db.Model):
     yelp_id = db.Column(db.String(250), db.ForeignKey('locations.yelp_id'))
 
 
-#2.0
 class Address(db.Model):
     """Different generation points saved by user, eg: home and work Addresses"""
 

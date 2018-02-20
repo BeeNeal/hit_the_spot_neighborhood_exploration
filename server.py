@@ -156,13 +156,6 @@ def register():
             return redirect('/login')
 
 
-@app.route('/log', methods=['GET'])
-def login_form():
-    """Display login form."""
-
-    return render_template("login.html")
-
-
 @app.route('/login', methods=['POST'])
 def login_process():
     """Process login."""
