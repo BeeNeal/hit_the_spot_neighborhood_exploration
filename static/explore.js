@@ -27,17 +27,19 @@
 
     // AJAX post to server and give visual indicator that user has clicked button
     //should get back status as results
-    $.post("/add-to-list", payload, function toggle_btn(results) {
-        // if ($('#interested').innerText==='I want to go!'){
-            // ($('#interested').innerText='Interested')}
-        let interestedBtn = document.querySelectorAll(".addToList");
-        interestedBtn.innerText='added to destinations';
 
-        // else {
-        //     console.log("inside visited")
-
-        //     $('visited').innerHTML='Visited'
-        // }
+    // use [][] to select specific buttons being changed
+    $.post("/add-to-list", payload, function change_btn_color(results) {
+      if (results.status === 'interested') {
+        $(`button[data-id='${yelpId}'][data-status='interested']`)
+          .css("backgroundColor", 'red')
+          .css("color", "purple");
+        }
+      else if (results.status === 'visited') {
+        $(`button[data-id='${yelpId}'][data-status='visited']`)
+          .css("backgroundColor", 'red')
+          .css("color", "purple");
+      }
 
     });
 

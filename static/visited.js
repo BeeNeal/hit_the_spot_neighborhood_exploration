@@ -42,11 +42,16 @@ function addDetailsOnClick(yelp_id) {
 }
 
 // jquery - get the value of the elem
-
 // package into payload
 // make post call
 // on server, update DB, send back payload
 // on this payload, do something
+
+// function change_btn_color(results) {
+  
+// }
+
+
 function checkLoginStatus(results) {
   
   let status = results['status'];
@@ -63,9 +68,7 @@ function checkLoginStatus(results) {
      })()
   }
   else if (status === 'success') {
-// change .load to /explorations
-    $("html").load("/explore");
-
+        window.location="/explore";
   };
 }
 

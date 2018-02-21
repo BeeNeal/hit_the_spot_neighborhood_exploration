@@ -148,16 +148,15 @@ def connect_to_db(app, db_uri="postgres:///explorations"):
     db.app = app
     db.init_app(app)
 
+
 def example_data():
     """Create some sample data in explorations DB."""
-
 
     # In case this is run more than once, empty out existing data
     # User.query.delete()
     # Location.query.delete()
 
     # Add sample users and locations
-
     trinity = User(fname='Trinity', email='trin@unplugged.com',
                    username='questionit', password='l0lagent')
     neo = User(fname='Neo', email='theone@unplugged.com',
@@ -168,9 +167,22 @@ def example_data():
                        address='809 Bush St, San Francisco, CA 94108',
                        yelp_url='tacorea@yelp.com', pic='pic')
 
-    oracleUL = UserLocation(user_id=1, yelp_id='oracle-house-san-fran')
+    oracle_house = Location(yelp_id='oracle-house-san-fran',
+                            name="The Oracle's House", latitude='37.7849',
+                            longitude='122.3692',
+                            address='Fake st, San Francisco, CA 94108',
+                            yelp_url='fake_oracle_url', pic='pic')
 
-    db.session.add_all([trinity, neo, tacorea, oracleUL])
+    oracleUL = UserLocation(user_id=1, yelp_id='oracle-house-san-fran')
+    # always make location object for userlocations first
+
+    trin_address = Address(user_id=1, name='home', address='Nebuchanezzar',
+                           city='San Francisco', state='CA', zipcode='94108')
+    neo_address = Address(user_id=2, name='home', address='Room A',
+                          city='Zion', state='CA', zipcode='94108')
+
+    db.session.add_all([trinity, neo, tacorea, oracle_house, oracleUL,
+                        trin_address, neo_address])
     db.session.commit()
 
 

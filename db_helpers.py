@@ -70,11 +70,19 @@ def user_locations_list(user_id):
     return UserLocation.query.filter(UserLocation.user_id == user_id).all()
 
 
-def add_notes(user_id, yelp_id, notes, favorite, rating):
-    """Adds user notes/favorite/rating to specific user_location"""
+def get_user_location_by_yelp_and_user_ids(user_id, yelp_id):
+    """Queries DB with yelp_id and user_id to return user location"""
 
     user_location = UserLocation.query.filter(UserLocation.user_id == user_id,
                                               UserLocation.yelp_id == yelp_id).first()
+
+    return user_location
+
+
+def add_notes(user_id, yelp_id, notes, favorite, rating):
+    """Adds user notes/favorite/rating to specific user_location"""
+
+    user_location = get_user_location_by_yelp_and_user_ids(user_id, yelp_id)
     user_location.notes = notes
     user_location.favorite = favorite
     user_location.rating = rating
@@ -85,9 +93,12 @@ def add_notes(user_id, yelp_id, notes, favorite, rating):
 def change_to_visited(user_id, yelp_id):
     """Change userLocation location status to visited"""
 
-    user_location = UserLocation(user_id=user_id, yelp_id=yelp_id)
+    user_location = get_user_location_by_yelp_and_user_ids(user_id, yelp_id)
 
     user_location.visited = True
     user_location.interested = False
 
     db.session.commit()
+
+
+

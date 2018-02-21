@@ -8,3 +8,15 @@
         float: none;
         vertical-align: top;
     }
+.addToList {
+  &:hover {
+    background-color: lighten(green, 5%);
+    cursor: hand;
+  }
+  width: 100px;
+  height: 50px;
+  background-color: green;
+  color: white;
+  text-align:center;
+  line-height:50px;
+  border-radius: 30px;

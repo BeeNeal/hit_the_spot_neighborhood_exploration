@@ -64,14 +64,15 @@ class FlaskTestsDatabase(TestCase):
         """Test log in form with incorrect password"""
 
         with self.client as c:
-            result = c.post('/login',
-                            data={'user_info': 'trin@unplugged.com',
-                                  'password': 'wrongpassword'},
-                            follow_redirects=True
-                            )
-            self.assertEqual(session.get('user_id'), None)
-            self.assertIn("wrongPassword", result.data)
-
+            with c.session_transaction() as sess:
+                result = c.post('/login',
+                                data={'user_info': 'trin@unplugged.com',
+                                      'password': 'wrongpassword'},
+                                follow_redirects=True
+                                )
+                self.assertEqual(session.get('user_id'), None)
+                # self.assertIn("Incorrect", result.data)
+                self.assertIn("wrongPassword", result.data)
 
     def test_no_user(self):
         """Test log in form where no username/email for that user"""
@@ -122,6 +123,7 @@ class FlaskTestsLogInLogOut(TestCase):
             with self.client as c:
                 with c.session_transaction() as sess:
                     sess['user_id'] = 1
+                    sess['address'] = '123 main st, San Francisco'
 
                     result = self.client.get('/logout', follow_redirects=True)
 
@@ -158,3 +160,5 @@ if __name__ == "__main__":
     import unittest
 
     unittest.main()
+
+
