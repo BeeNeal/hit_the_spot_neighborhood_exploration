@@ -65,7 +65,6 @@ class UserLocation(db.Model):
     location = db.relationship("Location", backref=db.backref('user_location'))
 
 
-
 class UserLocationCategory(db.Model):
     """Association table between user_locations and categories"""
 
@@ -169,7 +168,9 @@ def example_data():
                        address='809 Bush St, San Francisco, CA 94108',
                        yelp_url='tacorea@yelp.com', pic='pic')
 
-    db.session.add_all([trinity, neo, tacorea])
+    oracleUL = UserLocation(user_id=1, yelp_id='oracle-house-san-fran')
+
+    db.session.add_all([trinity, neo, tacorea, oracleUL])
     db.session.commit()
 
 

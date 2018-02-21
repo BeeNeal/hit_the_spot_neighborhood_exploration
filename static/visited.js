@@ -19,6 +19,10 @@
 
 // }
 
+// function addToVisitedList(yelp_id) {
+//   let 
+// }
+
 
 function addDetailsOnClick(yelp_id) {
     
@@ -59,8 +63,8 @@ function checkLoginStatus(results) {
      })()
   }
   else if (status === 'success') {
-
-    $("html").load("/destinations");
+// change .load to /explorations
+    $("html").load("/explore");
 
   };
 }

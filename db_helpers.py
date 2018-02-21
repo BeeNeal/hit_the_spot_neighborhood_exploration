@@ -80,3 +80,14 @@ def add_notes(user_id, yelp_id, notes, favorite, rating):
     user_location.rating = rating
 
     db.session.commit()
+
+
+def change_to_visited(user_id, yelp_id):
+    """Change userLocation location status to visited"""
+
+    user_location = UserLocation(user_id=user_id, yelp_id=yelp_id)
+
+    user_location.visited = True
+    user_location.interested = False
+
+    db.session.commit()

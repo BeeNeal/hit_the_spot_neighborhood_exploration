@@ -13,19 +13,23 @@ Starting Places
 <div>
   <h3><b>{{ place.location.name }}</b></h3>
   	{{ place.location.address }}<br>
-  <a href='{{ place.location.yelp_url }}'>	<img src="{{ place.location.pic }}" class='businessImage'></a><br>
+  <a href='{{ place.location.yelp_url }}'>	<img src="{{ place.location.pic }}" 
+     class='businessImage'></a><br>
 
 
 
  <!-- Button trigger modal -->
-  <a data-toggle="modal" href="#exploredModal" class="btn btn-primary btn-lg">I've been here!</a>
+  <a data-toggle="modal" href="#btn-{{ place.yelp_id }}"
+     class="btn btn-primary btn-lg">I've been here!</a>
 
   <!-- Modal -->
-  <div class="modal fade" id="exploredModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="btn-{{ place.yelp_id }}" tabindex="-1" 
+       role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <button type="button" class="close" data-dismiss="modal" 
+                  aria-hidden="true">×</button>
           <h4 class="modal-title">{{ place.location.name }}</h4>
         </div>
         <div class="modal-body">
@@ -39,7 +43,7 @@ Starting Places
                             id='favorites-{{ place.yelp_id }}' 
                             value='{{ place.favorite }}'>
                       </input><br>
-          	WILL HAVE RATING ICONS HERE<br>
+          	RATING ICONS GO HERE<br>
           </div>
 
       </div>
@@ -52,9 +56,9 @@ Starting Places
           Add details
       	  </button>
         </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
+      </div>
+    </div>
+  </div>
 
 
 </div>

@@ -23,10 +23,13 @@
 
           {% if session.get('user_id') %}
 
+          <li><a href="/explore">Explore</a></li>
           <li><a href="/destinations">My Destinations</a></li>
           <li><a href="/visited">My Places</a></li>
 
           {% else %}
+          <li><a id='login' data-toggle="modal" 
+                 data-target="#loginModal">Explore</a></li>
           <li><a id='login' data-toggle="modal" 
                  data-target="#loginModal">My destinations</a></li>
           <li><a id='login' data-toggle="modal" 

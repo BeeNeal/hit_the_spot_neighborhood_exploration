@@ -72,6 +72,7 @@ class FlaskTestsDatabase(TestCase):
             self.assertEqual(session.get('user_id'), None)
             self.assertIn("wrongPassword", result.data)
 
+
     def test_no_user(self):
         """Test log in form where no username/email for that user"""
 
@@ -83,6 +84,17 @@ class FlaskTestsDatabase(TestCase):
                             )
             self.assertEqual(session.get('user_id'), None)
             self.assertIn("noUser", result.data)
+
+    # def visited_status_true(self):
+    #     """Tests that visited status is true when "I've been here" btn clicked"""
+
+    #     with self.client as c:
+    #         result = c.post('/add-notes',
+    #                         data={"yelp_id": 'oracle-house-san-fran',}, 
+    #                         follow_redirects=True
+    #                         )
+    #         self.assertEqual(session.get('user_id'), 1)
+    #         self.assertIn("wrongPassword", result.data)
 
 
 
@@ -96,6 +108,14 @@ class FlaskTestsLogInLogOut(TestCase):
         app.config['SECRET_KEY'] = 'key'
         self.client = app.test_client()
 
+
+    def tearDown(self):
+        """Do at end of every test."""
+
+        db.session.close()
+        db.drop_all()
+
+
     def test_logout(self):
             """Test logout."""
 
@@ -103,12 +123,23 @@ class FlaskTestsLogInLogOut(TestCase):
                 with c.session_transaction() as sess:
                     sess['user_id'] = 1
 
-                result = self.client.get('/logout', follow_redirects=True)
+                    result = self.client.get('/logout', follow_redirects=True)
 
-                self.assertNotIn('user_id', sess)
-                self.assertIn('Logged Out', result.data)
+                    self.assertNotIn('user_id', sess)
+                    self.assertIn('Logged Out', result.data)
 
+    # Can I isolate the DB function here?
+    # def visited_status_true(self):
+    #     """Tests that visited status is true when "I've been here" btn clicked"""
 
+    #     with self.client as c:
+    #         with c.session_transaction() as sess:
+    #             sess['user_id'] = 1
+    #         result = c.post('/add-notes',
+    #                         data={"yelp_id": 'oracle-house-san-fran',}, 
+    #                         follow_redirects=True
+    #                         )
+    #         self.assertEqual(session.get('user_id'), 1)
 
     # def test_logout(self):
     #     """Test logout route."""

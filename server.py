@@ -37,37 +37,38 @@ def index():
 
 
 # this explore route is not yet operational - would need to make a call to the api again
-@app.route('/explore', methods=['GET'])
-def display_poi_options():
-    """Displays POIs that users can add to their list of places to explore"""
+# @app.route('/explore', methods=['GET'])
+# def display_poi_options():
+#     """Displays POIs that users can add to their list of places to explore"""
 
-    if session['user_id']:
-        name = User.query.get(session['user_id']).fname
-    else:
-        name = 'hi there'
-    address = name.address
+#     if session['user_id']:
+#         name = User.query.get(session['user_id']).fname
+#     else:
+#         name = 'hi there'
+#     address = name.address
 
-    return render_template('starting_places.html', name=name, address=address)
+#     return render_template('starting_places.html', name=name, address=address)
 
 
-@app.route('/get_address', methods=['POST'])
+@app.route('/explore')  # , methods=['POST']
 def search_by_address():
     """Get user input address, display locations for exploration."""
 
-    address = request.form.get('address')
-    # these functions can be modified based on user answers of person they are
-    # would be better to do these API calls in helper functions
-    places = search(api_key, 'dinner', address)
-    parks = search_parks(api_key, address)
-
+    # if user is logged in, grab their main address off of their profile
     if session.get('user_id'):
-        locations_to_show = combine_location_dictionaries(places, parks, session['user_id'])
-        print locations_to_show
-    # if a user is logged in, this shouldn't matter anyway because will tie
-    # to their main address on profile
+        user_id = session['user_id']
+        address = session["address"]
+
+        # FIXME need to refactor these API outs into the DB helpers
+        places = search(api_key, 'dinner', address)
+        parks = search_parks(api_key, address)
+
+        locations_to_show = combine_location_dictionaries(places, parks, user_id)
+
         name = User.query.get(session['user_id']).fname
 
     else:
+        address = request.args.get('address')
         locations_to_show = create_exploration_list(generate_exploration_data(address))
         name = 'there'
 
@@ -101,12 +102,13 @@ def add_to_list():
     if not location:
         add_business_to_Locations(yelp_id, name, latitude, longitude, address,
                                   url, pic)
-        # if not already in Userlocation, add to userLocation table
 
+    # if not already in Userlocation, add to userLocation table
     if not user_location:
         add_business_to_UserLocation(session['user_id'], yelp_id, status)
 
-
+    if status == 'visited':
+        change_to_visited(session['user_id'], yelp_id)
     # In the ideal world, we won't be showing user places they've already checked off, but what do we
     # do if it's already in userLoc table? Just do normal response based on status as would already.
 
@@ -165,7 +167,6 @@ def login_process():
 
     user = User.query.filter((User.email == user_info) | (User.username ==
                                                           user_info)).first()
-
     if not user:
         # flash("No user for this email or username found")
         return jsonify({'status': 'noUser'})
@@ -175,7 +176,11 @@ def login_process():
         return jsonify({'status': 'wrongPassword'})
 
     else:
+    # make sure user has an address saved to profile, or this will break!
+        user_address = Address.query.filter(Address.user_id == user.user_id)
+
         session["user_id"] = user.user_id
+        session["address"] = user_address.first().address + " " + user_address.first().zipcode
 
         return jsonify({'status': 'success'})
 
@@ -192,6 +197,7 @@ def logout():
     """Log out."""
 
     del session["user_id"]
+    # session.clear()
     flash("Logged Out.")
     return redirect("/")
 
@@ -228,8 +234,11 @@ def add_notes_to_DB():
     user_id = session['user_id']
     #using default rating of 5 for now - change when add rating functionality
     add_notes(user_id, yelp_id, notes, favorite, 5)
+    change_to_visited(user_id, yelp_id)
     
-
+    # HERE need to change interested to visited (in prep for when it's coming from
+        #explored list, change interested to null after check and change visited to True
+        # should build a function in DB helpers)
 
 if __name__ == "__main__":
 

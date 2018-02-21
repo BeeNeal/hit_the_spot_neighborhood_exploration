@@ -13,9 +13,6 @@
     let url = $(this).data("url");
     let yelpId = $(this).data("id");
 
-    // console.log(status, name, address, latitude, longitude, yelpId);
-
-
     // the below payload is all the data we need to instantiate a location
     let payload = {"status": status,
                    "name": name,
@@ -29,6 +26,7 @@
 
 
     // AJAX post to server and give visual indicator that user has clicked button
+    //should get back status as results
     $.post("/add-to-list", payload, function toggle_btn(results) {
         // if ($('#interested').innerText==='I want to go!'){
             // ($('#interested').innerText='Interested')}
