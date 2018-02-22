@@ -72,7 +72,7 @@ def search_by_address():
         locations_to_show = create_exploration_list(generate_exploration_data(address))
         name = 'there'
 
-    return render_template("starting_places.html", places=locations_to_show,
+    return render_template("explore.html", places=locations_to_show,
                            name=name, address=address)
 
 

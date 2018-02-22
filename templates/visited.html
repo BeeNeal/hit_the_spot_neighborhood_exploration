@@ -5,8 +5,13 @@ Visited Locations
 {% endblock %}
 
 {% block content %}
+
+<script src="static/map.js"></script>
+
 <div><h1>Visited Locations</h1></div>
 <div><h3>What did you think of these places?:</h3></div>
+
+<div id='map' style='width: 400px; height: 300px;'></div>
 
 {% for place in places  %}
 

@@ -5,8 +5,13 @@ Starting Places
 {% endblock %}
 
 {% block content %}
+<script src="static/map.js"></script>
+
 <div><h1>{{ places[0].user.username }}'s Destinations</h1></div>
 <div><h3>Become an expert of this area and visit the following places:</h3></div>
+
+<div id='map' style='width: 400px; height: 300px;'></div>
+
 <div>
 {% for place in places  %}
 
