@@ -6,32 +6,48 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYmVlbmVhbCIsImEiOiJjamRqdXdkd3UxMzB2MndvNmkwb
 
 // base map that gets put on every page, will have separate markers that correspond to each pg
 // will want center to be address lon/lat
-var map = new mapboxgl.Map({
-    container: 'map',
+
+// addressLngLat = JSON.parse("[" + addressLngLat + "]");
+
+var destinationsMap = new mapboxgl.Map({
+    container: 'destinationsMap',
     style: 'mapbox://styles/mapbox/streets-v9',
-    center: [-122.411386, 37.788878],
-    zoom: 15
+    center: addressLngLat,
+    zoom: 13
 });
 
-// need marker mill here:
+// want markers 
+// var geocoderControl = L.mapbox.geocoderControl('mapbox.places');
 
-// can I do 
-var markera = new mapboxgl.Marker()
-  .setLngLat([-122.41138, 37.78887])
-  .addTo(map);
+// var destinationMarkers = map.featureLayer;
+// var features = []
 
-// let testPin = mapboxgl.featureLayer({
-//     type: 'Feature',
-//     geometry: {
-//         type: 'Point',
-//         coordinates: [-122.411386, 37.788878]
-//     },
+// var geoObject = {
+//     type: "FeatureCollection",
+//     features: features
+// };
+// ajax call as soon as page loads on pageload 
+// store on page and fetch from there in json, json dumps, include on the html page
+// hidden (likely be faster than ajax)
 
-//     properties: {
-//         title: 'You',
-//         description: 'Latitude: ' + -122.411380 + 'Longitude: ' + 37.788870,
-//         'marker-symbol': 'star-stroked',
-//         'marker-size': 'large',
-//         'marker-color': '#2EB8B8',
-//     }
-// });
+// marker mill below
+for (coordinates of destinationLngLats) {
+    var marker = new mapboxgl.Marker()
+        .setLngLat(coordinates)
+        .addTo(destinationsMap);
+}
+
+// let mapData = JSON.parse(mapData)
+// 
+
+//  can do dif maps for different pages, stick markers on destinations_map, display
+// on destinations, same for visited (make new visited_map)
+
+// make sure to add all pins onto ONE feature layer (they don't need their own)
+
+// establish feature  map.featurelayer
+// build array for features []
+// geoObject = {type; "FeatureCollection",
+    // features: features (2nd features is our features array)}
+// one pin is 1 geoJSON, push to array, call featurelayer.setGeoJSON
+// then .setGeoJSON(geoObject)

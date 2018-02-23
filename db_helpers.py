@@ -101,4 +101,39 @@ def change_to_visited(user_id, yelp_id):
     db.session.commit()
 
 
+def destination_lon_lats(user_id):
+    """take in destinations and return all lon/lats"""
 
+    # Get all userLocations objects for user destinations
+    destinations = destinations_list(user_id)
+
+    # Location objects for user destinations (will use if want to add info
+    # to markers)
+
+    # destination_location_objs = [place.location for place in destinations]
+    #     return destination_location_objs
+
+    # provide all lon/lats in list
+    destination_lon_lats = []
+    for item in destinations:
+        destination_lon_lats.append([item.location.longitude,
+                                     item.location.latitude])
+
+    return destination_lon_lats
+# [[place.location.longitude, place.location.latitude]
+# for place in destinations]
+
+
+def visited_lon_lats(user_id):
+    """take in visited locations and return all lon/lats"""
+
+    # Get all userLocations objects for user visited places
+    visited = visited_list(user_id)
+
+    # provide all lon/lats in list
+    visited_lon_lats = []
+    for place in visited:
+        visited_lon_lats.append([place.location.longitude,
+                                 place.location.latitude])
+
+    return visited_lon_lats

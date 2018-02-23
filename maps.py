@@ -1,3 +1,4 @@
+import geocoder
 from mapbox import Geocoder
 import requests
 from urllib import quote
@@ -24,3 +25,19 @@ def mapbox_geocode(address):
 
     return response.json()['features'][0]['geometry']['coordinates']
 
+
+def geocode(address):
+    """Uses python geocoder to geocode"""
+
+    geocode = geocoder.google(address).latlng
+    geocode_lnglat = []
+    geocode_lnglat.append(geocode[1])
+    geocode_lnglat.append(geocode[0])
+
+    return geocode_lnglat
+    
+    # [37.789745, -122.4105791] (from python)
+
+    # 37.789806 | -122.410709 (from yelp)
+
+    # [-122.42313, 37.788517] (from mapbox)

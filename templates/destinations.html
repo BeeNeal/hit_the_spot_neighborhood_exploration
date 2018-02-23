@@ -5,12 +5,11 @@ Starting Places
 {% endblock %}
 
 {% block content %}
-<script src="static/map.js"></script>
 
 <div><h1>{{ places[0].user.username }}'s Destinations</h1></div>
 <div><h3>Become an expert of this area and visit the following places:</h3></div>
 
-<div id='map' style='width: 400px; height: 300px;'></div>
+<div id='destinationsMap' style='width: 400px; height: 300px;'></div>
 
 <div>
 {% for place in places  %}
@@ -69,6 +68,15 @@ Starting Places
 </div>
 {% endfor %}
 
-
 </div>
+
+<script > 
+    let addressLngLat = {{ addressLngLat }};
+    let destinationLngLats = {{ map_json }};
+</script>
+<script src="static/map.js"></script>
+
+
 {% endblock %}
+
+PROBLEM: trying to pass addressLngLat to JS for it to be used

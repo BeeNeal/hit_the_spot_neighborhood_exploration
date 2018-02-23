@@ -10,6 +10,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import *
 from db_helpers import *
 from processing_functions import *
+from maps import geocode
 
 from yelp_req_trial import search, search_parks
 import sys
@@ -207,18 +208,27 @@ def logout():
 def display_destinations():
     """Displays UserLocations - locations that user is interested in visiting"""
 
-    destinations = destinations_list(session['user_id'])
+    user_id = session['user_id']
+    destinations = destinations_list(user_id)
+    # geocoded_address = geocode("2005 filbert st oakland ca")  # FIXME put in real address
+    geocoded_address = [-122.42313, 37.788517]
+    map_json = destination_lon_lats(user_id)
 
-    return render_template('destinations.html', places=destinations)
+    return render_template('destinations.html', addressLngLat=geocoded_address,
+                           places=destinations, map_json=map_json)
 
 
 @app.route('/visited')
 def display_places_visited():
     """Displays locations that user has visited"""
 
-    places_visited = visited_list(session['user_id'])
+    user_id = session.get('user_id')
+    places_visited = visited_list(user_id)
     if places_visited:
-        return render_template('visited.html', places=places_visited)
+        map_json = destination_lon_lats(user_id)
+        return render_template('visited.html', places=places_visited, 
+                                addressLngLat=[-122.42313, 37.788517], 
+                                map_json=map_json)
     else:
         flash("Visited any of these places yet?")
         return redirect('/destinations')

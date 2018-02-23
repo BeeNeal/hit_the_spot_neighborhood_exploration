@@ -124,7 +124,9 @@ class Address(db.Model):
     city = db.Column(db.String(25), nullable=False)
     state = db.Column(db.String(2), nullable=False)
     zipcode = db.Column(db.String(10), nullable=False)
-
+    latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float, nullable=False)
+    
     user = db.relationship("User", backref=db.backref('address'))
 
 
