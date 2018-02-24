@@ -103,7 +103,7 @@ def search_by_coordinates(api_key, term, latitude, longitude):
         'latitude': latitude,
         'longitude': longitude,
         'limit': SEARCH_LIMIT,
-        'radius': 2000,
+        # 'radius': 2000,
         'sort_by': 'rating',
     }
 

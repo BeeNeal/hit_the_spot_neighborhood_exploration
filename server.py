@@ -255,6 +255,12 @@ def add_notes_to_DB():
         #explored list, change interested to null after check and change visited to True
         # should build a function in DB helpers)
 
+@app.route('/meetup')
+def display_meetup_spots():
+    """display meetup spot page"""
+
+    
+
 if __name__ == "__main__":
 
     app.debug = True

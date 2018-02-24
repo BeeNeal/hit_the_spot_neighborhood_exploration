@@ -30,10 +30,11 @@ Visited Locations
          role="tabpanel" aria-labelledby="headingOne">
       <div class="addNotes panel-body">
           <div class='addDetails'> 
-          	Notes:    <input type='text' name='notes' 
-                            id='notes-{{ place.yelp_id }}' 
-                            value='{{ place.notes }}'>
-                      </input><br>
+              <div class='well'>{{ place.notes }}</div>
+                      Add notes:
+                <textarea rows='4' cols='50'
+                  name='notes' id='notes-{{ place.yelp_id }}'>
+                </textarea><br>
           	Favorite: <input type='text' name='favorite' 
                             id='favorites-{{ place.yelp_id }}' 
                             value='{{ place.favorite }}'>
