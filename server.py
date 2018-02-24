@@ -140,6 +140,9 @@ def register():
     zipcode = request.form.get('zipcode')
     address_name = request.form.get('address_name')
 
+    full_address = address + ", " + city + ", " + state + " " + zipcode
+    lon, lat = geocode(full_address)
+
     # Does user already exist in DB?
     current_username = User.query.filter_by(username=username).first()
     current_email = User.query.filter_by(email=email).first()
@@ -152,7 +155,7 @@ def register():
         if password1 == password2:
             password = password1
             new_user = add_user_to_User(fname, username, email, password)
-            add_address(new_user.user_id, address, city, state, zipcode, fname)
+            add_address(new_user.user_id, address, city, state, zipcode, fname, lat, lon)
             return redirect('/login')
         else:
             flash("Passwords don't match - please try again.")
@@ -247,6 +250,7 @@ def add_notes_to_DB():
     add_notes(user_id, yelp_id, notes, favorite, 5)
     change_to_visited(user_id, yelp_id)
     
+    return "added notes"
     # HERE need to change interested to visited (in prep for when it's coming from
         #explored list, change interested to null after check and change visited to True
         # should build a function in DB helpers)

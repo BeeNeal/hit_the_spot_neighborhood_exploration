@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Destinations
+Meetup Spots
 {% endblock %}
 
 {% block content %}
 
-<div><h1>{{ places[0].user.username }}'s Destinations</h1></div>
-<div><h3>Become an expert of this area and visit the following places:</h3></div>
+<div><h1>Meetup Spots</h1></div>
+<div><h3>Here are some convenient spots between {{ address1 }} and {{ address2 }}:</h3></div>
 
-<div id='destinationsMap' style='width: 400px; height: 300px;'></div>
+<div id='meetupMap' style='width: 400px; height: 300px;'></div>
 
 <div>
 {% for place in places  %}

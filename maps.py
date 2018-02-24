@@ -29,15 +29,30 @@ def mapbox_geocode(address):
 def geocode(address):
     """Uses python geocoder to geocode"""
 
-    geocode = geocoder.google(address).latlng
-    geocode_lnglat = []
-    geocode_lnglat.append(geocode[1])
-    geocode_lnglat.append(geocode[0])
+    # google geocoder returns latitude, longitude as list
+    coordinates = geocoder.google(address).latlng
 
-    return geocode_lnglat
-    
+    # swap lat/lon to lon/lat to accommodate mapbox
+
+    lat, lon = coordinates
+    lon_lat = [lon, lat]
+
+    return lon_lat
+
     # [37.789745, -122.4105791] (from python)
 
     # 37.789806 | -122.410709 (from yelp)
 
     # [-122.42313, 37.788517] (from mapbox)
+
+# Meetup spot
+def meetup_root(address1, address2):
+    """Avg latitudes and longitudes to produce coordinates of meetup spot"""
+
+    address1 = geocode(address1)
+    address2 = geocode(address2)
+
+    # save average lons/lats as list to pass to map and yelp api call
+    meetup_coordinates = [((c1 + c2)/2) for c1, c2 in zip(address1, address2)]
+
+    return meetup_coordinates

@@ -37,12 +37,14 @@ def add_user_to_User(fname, username, email, password):
     return user
 
 
-def add_address(user_id, address, city, state, zipcode, name):
+def add_address(user_id, address, city, state, zipcode, name, latitude, longitude):
     """Adds address to addresses table. """
 
-    start_address = Address(user_id=user_id, address=address, city=city,
-                            state=state, zipcode=zipcode, name=name)
-    db.session.add(start_address)
+    base_address = Address(user_id=user_id, address=address, city=city,
+                           state=state, zipcode=zipcode, name=name,
+                           latitude=latitude, longitude=longitude)
+    print base_address
+    db.session.add(base_address)
     db.session.commit()
 
 

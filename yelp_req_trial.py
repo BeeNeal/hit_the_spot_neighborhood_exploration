@@ -85,3 +85,26 @@ def search_parks(api_key, location):
     }
 
     return request_call(API_HOST, SEARCH_PATH, api_key, url_params=url_params)
+
+
+def search_by_coordinates(api_key, term, latitude, longitude):
+    """Query the Search API by a search term and coordinates.
+
+    Args:
+        term (str): The search term passed to the API.
+        latitude (float): The search latitude passed to the API.
+        longitude(float): The search longitude passed to the API.
+    Returns:
+        dict: The JSON response from the request.
+    """
+
+    url_params = {
+        'term': term.replace(' ', '+'),
+        'latitude': latitude,
+        'longitude': longitude,
+        'limit': SEARCH_LIMIT,
+        'radius': 2000,
+        'sort_by': 'rating',
+    }
+
+    return request_call(API_HOST, SEARCH_PATH, api_key, url_params=url_params)
