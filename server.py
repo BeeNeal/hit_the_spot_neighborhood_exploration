@@ -250,7 +250,7 @@ def add_notes_to_DB():
     add_notes(user_id, yelp_id, notes, favorite, 5)
     change_to_visited(user_id, yelp_id)
     
-    return "added notes"
+    return jsonify({'status': 'added'})
     # HERE need to change interested to visited (in prep for when it's coming from
         #explored list, change interested to null after check and change visited to True
         # should build a function in DB helpers)

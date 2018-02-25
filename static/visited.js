@@ -41,16 +41,9 @@ function addDetailsOnClick(yelp_id) {
 
 }
 
-// jquery - get the value of the elem
-// package into payload
-// make post call
-// on server, update DB, send back payload
-// on this payload, do something
-
-// function change_btn_color(results) {
-  
-// }
-
+function btnVisFeedback(results) {
+  if (results.status === 'added')
+}
 
 function checkLoginStatus(results) {
   
