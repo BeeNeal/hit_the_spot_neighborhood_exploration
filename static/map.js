@@ -7,13 +7,13 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYmVlbmVhbCIsImEiOiJjamRqdXdkd3UxMzB2MndvNmkwb
 // base map that gets put on every page, will have separate markers that correspond to each pg
 // will want center to be address lon/lat
 
-// addressLngLat = JSON.parse("[" + addressLngLat + "]");
+// addressLonLat = JSON.parse("[" + addressLonLat + "]");
 
 var destinationsMap = new mapboxgl.Map({
     container: 'destinationsMap',
     style: 'mapbox://styles/mapbox/streets-v9',
-    center: addressLngLat,
-    zoom: 13
+    center: addressLonLat,
+    zoom: 15
 });
 
 // want markers 

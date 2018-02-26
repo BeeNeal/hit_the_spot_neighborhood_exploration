@@ -41,9 +41,11 @@ function addDetailsOnClick(yelp_id) {
 
 }
 
-function btnVisFeedback(results) {
-  if (results.status === 'added')
-}
+// function btnVisFeedback(results) {
+//   if (results.status === 'added') {
+//     $(`#details-${yelp_id}`).css
+//   }
+// }
 
 function checkLoginStatus(results) {
   
@@ -76,12 +78,6 @@ function checkLoginData() {
   $.post("/login", userPayload, checkLoginStatus);
 }
 
-// why is results not coming through, when it's making it to server?
-// 1) most likely a syntax error, most likely in JS
 
-  // else if results === 'wrongPassword'
-
-
-// }
 
 

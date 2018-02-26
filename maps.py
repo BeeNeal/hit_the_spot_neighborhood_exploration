@@ -47,10 +47,15 @@ def geocode(address):
 
 # Meetup spot
 def meetup_root(address1, address2):
-    """Avg latitudes and longitudes to produce coordinates of meetup spot"""
+    """Take in 2 address, return Avg latitudes and longitudes.
+
+    Used to generate coordinates of meetup spot
+    """
 
     address1 = geocode(address1)
+    print address1
     address2 = geocode(address2)
+    print address2
 
     # save average lons/lats as list to pass to map and yelp api call
     meetup_coordinates = [((c1 + c2)/2) for c1, c2 in zip(address1, address2)]

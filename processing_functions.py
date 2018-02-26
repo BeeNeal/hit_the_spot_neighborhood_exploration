@@ -20,12 +20,11 @@ def generate_exploration_data(address):
 
 # want to be able to take in any number of args
 def create_exploration_list(api_results):
-    """Take in tuple of API results, return dictionary with these results"""
+    """Take in json of API results, return dictionary with these results"""
 
     locations_to_show = {}
 
     for result in api_results:
-        # print result['businesses']
         for i in range(len(result['businesses'])):
             poi = result['businesses'][i]['id']
 
@@ -60,8 +59,8 @@ def add_API_search_data_to_dict(api_results, user_id):
 
     locations_to_show = {}
 
-    x = user_locations_list(user_id)
-    user_locations = [place.yelp_id for place in x]
+    all_user_locations = user_locations_list(user_id)
+    user_locations = [place.yelp_id for place in all_user_locations]
 
     for i in range(len(api_results['businesses'])):
         poi = api_results['businesses'][i]['id']
@@ -77,3 +76,27 @@ def add_API_search_data_to_dict(api_results, user_id):
             locations_to_show[poi]['pic'] = api_results['businesses'][i]['image_url']
 
     return locations_to_show
+
+
+
+def create_meetup_list(api_results):
+    """Take in json of API results, return dictionary with these results"""
+
+    meetup_spots = {}
+
+    for i in range(len(api_results['businesses'])):
+        poi = api_results['businesses'][i]['id']
+
+# Separate API calls, so there could be overlap in businesses, and we don't
+# want to show same place twice
+    if poi not in meetup_spots:
+        meetup_spots[poi] = {}
+        meetup_spots[poi]['yelp_id'] = poi
+        meetup_spots[poi]['name'] = api_results['businesses'][i]['name']
+        meetup_spots[poi]['address'] = " ".join(api_results['businesses'][i]['location']['display_address'])
+        meetup_spots[poi]['latitude'] = api_results['businesses'][i]['coordinates']['latitude']
+        meetup_spots[poi]['longitude'] = api_results['businesses'][i]['coordinates']['longitude']
+        meetup_spots[poi]['url'] = api_results['businesses'][i]['url']
+        meetup_spots[poi]['pic'] = api_results['businesses'][i]['image_url']
+
+    return meetup_spots

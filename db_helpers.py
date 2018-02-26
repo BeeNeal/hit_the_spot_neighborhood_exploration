@@ -139,3 +139,11 @@ def visited_lon_lats(user_id):
                                  place.location.latitude])
 
     return visited_lon_lats
+
+
+def user_lon_lat(user_id):
+    """Returns lon, lat of address on file for that user_id"""
+
+    user = Address.query.filter(Address.user_id == user_id).first()
+
+    return list((user.longitude, user.latitude))

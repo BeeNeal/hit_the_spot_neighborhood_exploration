@@ -51,8 +51,10 @@ Visited Locations
 </div>
 {% endfor %}
 <script > 
-    let addressLngLat = {{ addressLngLat }};
+    let addressLonLat = {{ addressLonLat }};
     let visitedLngLats = {{ map_json }};
+
+    
 </script>
 <script src="static/visited_map.js"></script>
 {% endblock %}

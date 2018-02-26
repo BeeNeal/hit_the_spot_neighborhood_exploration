@@ -38,7 +38,7 @@
                  data-target="#loginModal">My Places</a></li>       
           {% endif %}
 
-          <li class='navbar-center'><a href="#">Meet-Up</a></li>
+          <li class='navbar-center'><a href="/meetup">Meet-Up</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
           {% if session.get('user_id') %}
@@ -86,7 +86,7 @@
 
       <button type="button" id="loginBtn" 
               class="btn btn-danger" 
-              onClick="checkLoginData()">
+              onClick="checkLoginData()" >
         Log In to Explore! 
       </button>
     </div>

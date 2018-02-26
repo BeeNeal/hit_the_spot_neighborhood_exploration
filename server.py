@@ -10,9 +10,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import *
 from db_helpers import *
 from processing_functions import *
-from maps import geocode
-
-from yelp_req_trial import search, search_parks
+from maps import *
+from yelp_req_trial import search, search_parks, search_by_coordinates
 import sys
 import os
 
@@ -63,7 +62,7 @@ def search_by_address():
         # FIXME need to refactor these API outs into the DB helpers
         places = search(api_key, 'dinner', address)
         parks = search_parks(api_key, address)
-
+        print places
         locations_to_show = combine_location_dictionaries(places, parks, user_id)
 
         name = User.query.get(session['user_id']).fname
@@ -180,20 +179,13 @@ def login_process():
         return jsonify({'status': 'wrongPassword'})
 
     else:
-    # make sure user has an address saved to profile, or this will break!
         user_address = Address.query.filter(Address.user_id == user.user_id)
 
         session["user_id"] = user.user_id
         session["address"] = user_address.first().address + " " + user_address.first().zipcode
+        address_lon_lat = user_lon_lat(user_id)
 
-        return jsonify({'status': 'success'})
-
-    # return jsonify({'status': 'test'})
-    # flash("Logged in")
-    # return redirect("/")
-    # Once created, make this redirect to user profile page which will have a link
-    # to their destinations with a map of all the places they've been and link to
-    # places they're interested in (first implementations of mapbox)
+        return jsonify({'status': 'success', 'lon_lat': address_lon_lat})
 
 
 @app.route('/logout')
@@ -213,11 +205,10 @@ def display_destinations():
 
     user_id = session['user_id']
     destinations = destinations_list(user_id)
-    # geocoded_address = geocode("2005 filbert st oakland ca")  # FIXME put in real address
-    geocoded_address = [-122.42313, 37.788517]
+    geocoded_address = user_lon_lat(user_id)
     map_json = destination_lon_lats(user_id)
 
-    return render_template('destinations.html', addressLngLat=geocoded_address,
+    return render_template('destinations.html', addressLonLat=geocoded_address,
                            places=destinations, map_json=map_json)
 
 
@@ -227,10 +218,11 @@ def display_places_visited():
 
     user_id = session.get('user_id')
     places_visited = visited_list(user_id)
+    geocoded_address = user_lon_lat(user_id)
     if places_visited:
         map_json = destination_lon_lats(user_id)
-        return render_template('visited.html', places=places_visited, 
-                                addressLngLat=[-122.42313, 37.788517], 
+        return render_template('visited.html', places=places_visited,
+                                addressLonLat=geocoded_address,
                                 map_json=map_json)
     else:
         flash("Visited any of these places yet?")
@@ -259,7 +251,27 @@ def add_notes_to_DB():
 def display_meetup_spots():
     """display meetup spot page"""
 
-    
+    return render_template('meetup.html')
+
+
+@app.route('/meetup', methods=['POST'])
+def generate_meetup_spots():
+    """generate midpoint locations, and display on map"""
+
+    address1 = request.form.get('address1')
+    address2 = request.form.get('address2')
+    search_term = request.form.get('venue')
+    map_center = meetup_root(address1, address2)
+    lon, lat = map_center
+    places_from_yelp = search_by_coordinates(api_key, search_term, lat, lon)
+    places = create_meetup_list(places_from_yelp)
+
+    print places
+    return render_template('meetup_locations.html', places=places,
+                           longitude=lon, latitude=lat, address1=address1,
+                           address2=address2, addressLonLat=map_center)
+
+
 
 if __name__ == "__main__":
 

@@ -7,76 +7,26 @@ Meetup Spots
 {% block content %}
 
 <div><h1>Meetup Spots</h1></div>
-<div><h3>Here are some convenient spots between {{ address1 }} and {{ address2 }}:</h3></div>
-
-<div id='meetupMap' style='width: 400px; height: 300px;'></div>
 
 <div>
-{% for place in places  %}
+<form action='/meetup' method='POST'>
+  <span>First Address
+    <input type='textbox' class="text-box single-line" data-val="true" data-val-required="The First address or zip code field is required." id="address1" name="address1" placeholder="First address or zip code" required="required" tabindex="1" value="" aria-required="true" autocomplete="off"></span>
+  <span> Second Address
+    <input type='textbox' class="text-box single-line" data-val="true" data-val-required="The First address or zip code field is required." id="address2" name="address2" placeholder="First address or zip code" required="required" tabindex="1" value="" aria-required="true" autocomplete="off"></span>
 
-<div>
-  <h3><b>{{ place.location.name }}</b></h3>
-  	{{ place.location.address }}<br>
-  <a href='{{ place.location.yelp_url }}'>	<img src="{{ place.location.pic }}" 
-     class='businessImage'></a><br>
-
-
-
- <!-- Button trigger modal -->
-  <a data-toggle="modal" href="#btn-{{ place.yelp_id }}"
-     class="btn btn-primary btn-lg">I've been here!</a>
-
-  <!-- Modal -->
-  <div class="modal fade" id="btn-{{ place.yelp_id }}" tabindex="-1" 
-       role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" 
-                  aria-hidden="true">×</button>
-          <h4 class="modal-title">{{ place.location.name }}</h4>
-        </div>
-        <div class="modal-body">
-          <div class="addNotes panel-body">
-          <div class='addDetails'> 
-          	Notes:    <input type='text' name='notes' 
-                            id='notes-{{ place.yelp_id }}' 
-                            value='{{ place.notes }}'>
-                      </input><br>
-          	Favorite: <input type='text' name='favorite' 
-                            id='favorites-{{ place.yelp_id }}' 
-                            value='{{ place.favorite }}'>
-                      </input><br>
-          	RATING ICONS GO HERE<br>
-          </div>
-
-      </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary addDetails"
-          		  onClick='addDetailsOnClick("{{ place.yelp_id }}")'
-          		  data-dismiss="modal" >
-          Add details
-      	  </button>
-        </div>
-      </div>
-    </div>
+  <div>
+    What type of place do you want to meet at?
+    <input class="text-box single-line tt-input" id="venue" name="venue" placeholder="Where to?" tabindex="3" type="textbox" value="" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;"><br>
+    <span style="color:gray">eg: Dinner, cafe, park - leave blank if anything goes. </span>
+    <input type='submit' value='GO!'>
+    </form>
   </div>
-
-
-</div>
-{% endfor %}
-
 </div>
 
 <script > 
-    let addressLngLat = {{ addressLngLat }};
-    let destinationLngLats = {{ map_json }};
 </script>
 <script src="static/map.js"></script>
 
 
 {% endblock %}
-
-PROBLEM: trying to pass addressLngLat to JS for it to be used
