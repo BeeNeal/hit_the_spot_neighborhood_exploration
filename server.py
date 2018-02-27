@@ -265,17 +265,16 @@ def generate_meetup_spots():
         search_term = ""
 
     map_center = meetup_root(address1, address2)
-    lon, lat = map_center
-    places_from_yelp = search_by_coordinates(api_key, search_term, lat, lon)
+    map_center = list((lon, lat))
+    lat, lon = map_center
+    places_from_yelp = search_by_coordinates(api_key, lat, lon, search_term)
     places = create_meetup_list(places_from_yelp)
-    place_data = jsonify(places)
 
-    # need to pass python
-
+    print 'THIS IS MAP CENTER {}'.format(map_center)
+    print places
     return render_template('meetup_locations.html', places=places,
                            longitude=lon, latitude=lat, address1=address1,
-                           address2=address2, addressLonLat=map_center, 
-                           place_data=place_data)
+                           address2=address2, map_center=map_center)
 
 
 

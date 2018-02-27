@@ -2,6 +2,7 @@ import geocoder
 from mapbox import Geocoder
 import requests
 from urllib import quote
+from time import sleep
 
 ACCESS_TOKEN = 'pk.eyJ1IjoiYmVlbmVhbCIsImEiOiJjamRqdXdkd3UxMzB2MndvNmkwbGIzZmllIn0.xVy7VGtquOc7rUUpRz-KaQ'
 
@@ -33,11 +34,13 @@ def geocode(address):
     coordinates = geocoder.google(address).latlng
 
     # swap lat/lon to lon/lat to accommodate mapbox
+    if not coordinates:
+        sleep(1)
+        coordinates = geocoder.google(address).latlng   # catch the error, sleep python
+        # lat, lon = coordinates
+        # lon_lat = [lon, lat]
 
-    lat, lon = coordinates
-    lon_lat = [lon, lat]
-
-    return lon_lat
+    return coordinates
 
     # [37.789745, -122.4105791] (from python)
 
@@ -53,11 +56,12 @@ def meetup_root(address1, address2):
     """
 
     address1 = geocode(address1)
-    print address1
+    print 'address 1 {}'.format(address1)
     address2 = geocode(address2)
     print address2
 
     # save average lons/lats as list to pass to map and yelp api call
     meetup_coordinates = [((c1 + c2)/2) for c1, c2 in zip(address1, address2)]
 
+    print meetup_coordinates
     return meetup_coordinates

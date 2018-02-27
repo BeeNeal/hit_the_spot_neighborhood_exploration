@@ -87,7 +87,7 @@ def search_parks(api_key, location):
     return request_call(API_HOST, SEARCH_PATH, api_key, url_params=url_params)
 
 
-def search_by_coordinates(api_key, term, latitude, longitude):
+def search_by_coordinates(api_key, latitude, longitude, term=''):
     """Query the Search API by a search term and coordinates.
 
     Args:
