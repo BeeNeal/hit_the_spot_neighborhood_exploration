@@ -261,15 +261,21 @@ def generate_meetup_spots():
     address1 = request.form.get('address1')
     address2 = request.form.get('address2')
     search_term = request.form.get('venue')
+    if not search_term:
+        search_term = ""
+
     map_center = meetup_root(address1, address2)
     lon, lat = map_center
     places_from_yelp = search_by_coordinates(api_key, search_term, lat, lon)
     places = create_meetup_list(places_from_yelp)
+    place_data = jsonify(places)
 
-    print places
+    # need to pass python
+
     return render_template('meetup_locations.html', places=places,
                            longitude=lon, latitude=lat, address1=address1,
-                           address2=address2, addressLonLat=map_center)
+                           address2=address2, addressLonLat=map_center, 
+                           place_data=place_data)
 
 
 
