@@ -1,0 +1,38 @@
+Mapbox Test
+<html>
+<head>
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
+
+	<title>Mapbox Test</title>
+</head>
+<body>
+
+
+<div id='map' style='width: 400px; height: 300px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiYmVlbmVhbCIsImEiOiJjamRqdXdkd3UxMzB2MndvNmkwbGIzZmllIn0.xVy7VGtquOc7rUUpRz-KaQ';
+
+// will want center to be address lon/lat
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v9',
+    center: [-122.411386, 37.788878],
+    zoom: 15
+});
+
+
+// Geolocating 
+// /geocoding/v5/{mapbox.places}/{address}.json
+
+</script>
+
+</body>
+</html>
+
+
+
+meetup_root("473 everett dr danville ca", "802 allen ct brentwood ca")
+Out[2]: [-121.83303845, 37.8684846]
+
+search_by_coordinates(api_key, 'cafe', 37.8684846, -121.83303845)

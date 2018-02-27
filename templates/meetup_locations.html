@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Meetup Spots
+{% endblock %}
+
+{% block content %}
+
+THIS IS MAP CENTER : {{ map_center }}
+
+<div><h3>Here are some convenient spots between {{ address1 }} and {{ address2 }}:</h3></div>
+
+<div id='meetupMap' style='width: 400px; height: 300px;'></div>
+
+<div>
+{% for place in places %}
+
+<div>
+  <p><b>{{ places[place]['name'] }}</b> is a good option at
+  {{ places[place]['address'] }}</p>
+  <a href='{{ places[place]['url'] }}'>	<img src="{{ places[place]['pic'] }}" 
+     class='businessImage'></a><br>
+</div>
+
+<div id='LonLat' data-center='{{ map_center }}'></div>
+<div id='meetupLat' data-meetupLat='{{ latitude }}'></div>
+<div class='location' data-lat='{{ places[place]['latitude'] }}'
+                      data-lon='{{ places[place]['longitude'] }}'
+                      data-name='{{ places[place]['name'] }}'
+  style="display: none">
+</div>
+
+</div>
+{% endfor %}
+
+
+<script> 
+    let mapCenter = $('#LonLat').data('lonLat');
+    let meetupLat = $('#meetupLat').data('meetupLat')
+    let mC = {{ map_center }}
+
+</script>
+<script src="static/meetupMap.js"></script>
+
+
+{% endblock %}
+
