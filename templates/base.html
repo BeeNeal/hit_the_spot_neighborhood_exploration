@@ -3,7 +3,6 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- <script src="jquery-3.3.1.min.js"></script> -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
@@ -14,9 +13,9 @@
 .marker {
   background-image: url('/static/cross-15.svg');
   background-size: cover;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  border-radius: 25%;
   cursor: pointer;
 }
 </style>
@@ -42,7 +41,7 @@
           <li><a id='login' data-toggle="modal" 
                  data-target="#loginModal">Explore</a></li>
           <li><a id='login' data-toggle="modal" 
-                 data-target="#loginModal">My destinations</a></li>
+                 data-target="#loginModal">My Destinations</a></li>
           <li><a id='login' data-toggle="modal" 
                  data-target="#loginModal">My Places</a></li>       
           {% endif %}
@@ -128,7 +127,7 @@ BODY GOES HERE
 {% endfor %}
 </div>
 
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script> -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -183,7 +183,7 @@ def login_process():
 
         session["user_id"] = user.user_id
         session["address"] = user_address.first().address + " " + user_address.first().zipcode
-        address_lon_lat = user_lon_lat(user_id)
+        address_lon_lat = user_lon_lat(user.user_id)
 
         return jsonify({'status': 'success', 'lon_lat': address_lon_lat})
 
@@ -265,8 +265,8 @@ def generate_meetup_spots():
         search_term = ""
 
     map_center = meetup_root(address1, address2)
-    map_center = list((lon, lat))
     lat, lon = map_center
+    map_center = list((lon, lat))
     places_from_yelp = search_by_coordinates(api_key, lat, lon, search_term)
     places = create_meetup_list(places_from_yelp)
 
@@ -276,7 +276,11 @@ def generate_meetup_spots():
                            longitude=lon, latitude=lat, address1=address1,
                            address2=address2, map_center=map_center)
 
+@app.route('/test', methods=['GET'])
+def display_carousel():
+    """caurousel form test"""
 
+    return render_template('carousel_form_IMPLEMENT_TO_EXPLORE.html')
 
 if __name__ == "__main__":
 

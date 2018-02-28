@@ -1,8 +1,5 @@
-// Problems on this page - 1) Jquery not working 2) Toggle only works on first button
 
-// let buttons = document.querySelectorAll(".addToList");
-// let buttons = document.querySelectorAll(".addToList");
-// 
+
     $(".addToList").on('click', function(evt) {
     let status = $(this).data("status");
     let name = $(this).data("name");
@@ -49,3 +46,13 @@
          //     console.log("inside interested");
          //     $('#interested').innerText='Interested';
          
+// $(window).load(function() {
+//     $('#questionsModal').modal('show');
+// });
+// To handle Modal below
+function addQuestionData(evt) {
+  let answers = [];
+  answers.push($('#question1').val())
+}
+
+// $("#question1").on('click', function(evt) {
