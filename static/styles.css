@@ -28,10 +28,10 @@
   width: 100%;
       }
 .marker {
-  background-image: url('/static/world_marker.jpg');
+  background-image: url('/static/cross-15.svg');
   background-size: cover;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  border-radius: 25%;
   cursor: pointer;
 }
