@@ -50,6 +50,7 @@ function addDetailsOnClick(yelp_id) {
 function checkLoginStatus(results) {
   
   let status = results['status'];
+  let qAnswers = results['answer']
   //  we know that this function is being activated, and status is what we expect
   if (status === 'noUser') {
       
@@ -62,8 +63,12 @@ function checkLoginStatus(results) {
         $('#notification').text('Incorrect password - please try again');
      })()
   }
-  else if (status === 'success') {
+  else if (status === 'success' && qAnswers) {
         window.location="/explore";
+  // }; 
+      }
+  else if (status === 'success' && ! qAnswers) {
+        window.location='/questions';
   };
 }
 

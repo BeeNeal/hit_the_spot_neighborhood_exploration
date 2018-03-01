@@ -49,6 +49,29 @@ def index():
 
 #     return render_template('starting_places.html', name=name, address=address)
 
+@app.route('/questions')
+def display_questions():
+    """Display modal carousel of search term questions."""
+
+    return render_template('question_modals.html')
+
+
+@app.route('/questions', methods=['POST'])
+def process_questions():
+    """Update user table in DB with user answers to search term questions"""
+
+    user_id = session.get('user_id')
+    cuisine = request.form.get('cuisine')
+    hobby = request.form.get('hobby')
+    outdoorsy = request.form.get('outdoorsy')
+
+    print 'QUESTIONS ROUTE'
+    print hobby
+
+    if user_id:
+        add_answers_data(user_id, cuisine, hobby, outdoorsy)
+
+    return redirect('/explore')
 
 @app.route('/explore')  # , methods=['POST']
 def search_by_address():

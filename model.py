@@ -14,6 +14,9 @@ class User(db.Model):
     email = db.Column(db.String(50), nullable=False)
     username = db.Column(db.String(25), nullable=False)
     password = db.Column(db.String(25), nullable=False)
+    cuisine = db.Column(db.String(25), nullable=True)
+    hobby = db.Column(db.String(50), nullable=True)
+    outdoorsy = db.Column(db.Boolean, nullable=True)
 
     # don't need location relationship, b/c get through targetLocation
     # location = db.relationship("Location", backref=db.backref('user'))
@@ -165,23 +168,25 @@ def example_data():
                username='neo', password='l0lagent')
 
     tacorea = Location(yelp_id='tacorea-san-francisco', name='Tacorea',
-                       latitude='37.7749', longitude='122.3392',
+                       latitude=37.7749, longitude=-122.3392,
                        address='809 Bush St, San Francisco, CA 94108',
                        yelp_url='tacorea@yelp.com', pic='pic')
 
     oracle_house = Location(yelp_id='oracle-house-san-fran',
-                            name="The Oracle's House", latitude='37.7849',
-                            longitude='122.3692',
+                            name="The Oracle's House", latitude=37.7849,
+                            longitude=-122.3692,
                             address='Fake st, San Francisco, CA 94108',
                             yelp_url='fake_oracle_url', pic='pic')
 
     oracleUL = UserLocation(user_id=1, yelp_id='oracle-house-san-fran')
     # always make location object for userlocations first
 
-    trin_address = Address(user_id=1, name='home', address='Nebuchanezzar',
-                           city='San Francisco', state='CA', zipcode='94108')
-    neo_address = Address(user_id=2, name='home', address='Room A',
-                          city='Zion', state='CA', zipcode='94108')
+    trin_address = Address(user_id=1, name='home', address='2005 filbert st',
+                           city='Oakland', state='CA', zipcode='94607',
+                           latitude=37.8130365, longitude=-122.2816795)
+    neo_address = Address(user_id=2, name='home', address='8033 winthrope st',
+                          city='Oakland', state='CA', zipcode='94605',
+                          latitude=37.7688919, longitude=-122.1566652)
 
     db.session.add_all([trinity, neo, tacorea, oracle_house, oracleUL,
                         trin_address, neo_address])

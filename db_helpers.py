@@ -1,6 +1,15 @@
 from model import *
 from yelp_req_trial import search, search_parks
 
+def add_answers_data(user_id, cuisine, hobby, outdoorsy):
+    """Adds answers from questions_modal terms to DB"""
+
+    User.query.get(user_id).cuisine = cuisine
+    User.query.get(user_id).hobby = hobby
+    User.query.get(user_id).outdoorsy = outdoorsy
+    db.session.commit()
+
+
 def add_business_to_Locations(yelp_id, name, lat, lon, address, url, pic):
     """Adds business to Location class"""
 

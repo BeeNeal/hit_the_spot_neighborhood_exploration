@@ -50,9 +50,34 @@
 //     $('#questionsModal').modal('show');
 // });
 // To handle Modal below
-function addQuestionData(evt) {
-  let answers = [];
-  answers.push($('#question1').val())
-}
+// function addQuestionData(evt) {
+//   let answers = [];
+//   answers.push($('#question1').val())
+// }
 
 // $("#question1").on('click', function(evt) {
+function sendAnswers() {
+  let answers = {
+    'cuisine': responses[0],
+    'hobby': responses[1],
+    'outdoorsy': responses[2],
+  };
+
+  $.post("/explore", answers);
+
+    // function(){$('#q3modal').modal('hide');});
+}
+  var responses = [];
+
+  function grabAnswers(evt) {
+  responses.push($('.answers')[responses.length].value);
+
+  if (responses.length === 3){
+    sendAnswers();
+  }
+  }
+
+
+  // bundle up answesr send to Python in AJAX 
+
+  // Python - logic for Login - if completed Qs -> /explore else: go to questions
