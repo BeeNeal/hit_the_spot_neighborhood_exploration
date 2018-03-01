@@ -63,7 +63,7 @@ function sendAnswers() {
     'outdoorsy': responses[2],
   };
 
-  $.post("/explore", answers);
+  $.post("/questions", answers);
 
     // function(){$('#q3modal').modal('hide');});
 }

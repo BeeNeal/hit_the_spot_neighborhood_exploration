@@ -4,8 +4,21 @@ import sys
 from db_helpers import *
 from yelp_req_trial import search, search_parks
 
+from flask import session
+
 API_KEY = os.environ['API_KEY']
 api_key = API_KEY
+
+def login_user(user):
+    """Logs user in"""
+
+    user_address = Address.query.filter(Address.user_id == user.user_id)
+
+    session["user_id"] = user.user_id
+    session["address"] = user_address.first().address + " " + user_address.first().zipcode
+    address_lon_lat = user_lon_lat(user.user_id)
+
+    return address_lon_lat
 
 def generate_exploration_data(address):
     """Create exploration location list"""

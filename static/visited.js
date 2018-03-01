@@ -48,9 +48,12 @@ function addDetailsOnClick(yelp_id) {
 // }
 
 function checkLoginStatus(results) {
-  
+  console.log("checkLoginStatus");
   let status = results['status'];
-  let qAnswers = results['answer']
+  let qAnswers = results['answer'];
+  debugger;
+  console.log(status);
+  console.log(qAnswers);
   //  we know that this function is being activated, and status is what we expect
   if (status === 'noUser') {
       
@@ -64,10 +67,12 @@ function checkLoginStatus(results) {
      })()
   }
   else if (status === 'success' && qAnswers === true) {
-        window.location="/explore";
+    console.log("explore");
+        window.location.replace("/explore");
       }
   else if (status === 'success' && qAnswers == false) {
-        window.location='/questions';
+    console.log("q");
+        window.location.replace('/questions');
   };
 }
 

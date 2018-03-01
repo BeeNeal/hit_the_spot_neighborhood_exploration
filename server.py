@@ -52,9 +52,6 @@ def process_questions():
     hobby = request.form.get('hobby')
     outdoorsy = request.form.get('outdoorsy')
 
-    print 'QUESTIONS ROUTE'
-    print hobby
-
     if user_id:
         add_answers_data(user_id, cuisine, hobby, outdoorsy)
 
@@ -165,17 +162,23 @@ def register():
 
     if current_username or current_email:
         flash('user already exists! Please log in')
-        return redirect('/login')
+        return redirect('/registration')
 
+        # If user doesn't already exist, register user by adding info to DB
     elif not current_username and not current_email:
         if password1 == password2:
             password = password1
             new_user = add_user_to_User(fname, username, email, password)
-            add_address(new_user.user_id, address, city, state, zipcode, fname, lat, lon)
-            return redirect('/login')
+            add_address(new_user.user_id, address, city, state, zipcode, fname, 
+                        lat, lon)
+
+            # log the user in
+            user = User.query.filter(User.email == email).first()
+            login_user(user)
+            return redirect('/questions')
         else:
             flash("Passwords don't match - please try again.")
-            return redirect('/login')
+            return redirect('/registration')
 
 
 @app.route('/login', methods=['POST'])
@@ -189,20 +192,17 @@ def login_process():
                                                           user_info)).first()
     if not user:
         return jsonify({'status': 'noUser'})
-
     elif user.password != password:
         return jsonify({'status': 'wrongPassword'})
-
     else:
-        user_address = Address.query.filter(Address.user_id == user.user_id)
+        address_lon_lat = login_user(user)
 
-        session["user_id"] = user.user_id
-        session["address"] = user_address.first().address + " " + user_address.first().zipcode
-        address_lon_lat = user_lon_lat(user.user_id)
-
+    if user.cuisine:
         return jsonify({'status': 'success', 'lon_lat': address_lon_lat,
                         'answer': True})
-
+    else:
+        return jsonify({'status': 'success', 'lon_lat': address_lon_lat,
+                        'answer': False})
 
 @app.route('/logout')
 def logout():
