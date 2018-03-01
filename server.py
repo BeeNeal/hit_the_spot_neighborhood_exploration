@@ -36,19 +36,6 @@ def index():
     return render_template("homepage.html")
 
 
-# this explore route is not yet operational - would need to make a call to the api again
-# @app.route('/explore', methods=['GET'])
-# def display_poi_options():
-#     """Displays POIs that users can add to their list of places to explore"""
-
-#     if session['user_id']:
-#         name = User.query.get(session['user_id']).fname
-#     else:
-#         name = 'hi there'
-#     address = name.address
-
-#     return render_template('starting_places.html', name=name, address=address)
-
 @app.route('/questions')
 def display_questions():
     """Display modal carousel of search term questions."""
@@ -71,9 +58,12 @@ def process_questions():
     if user_id:
         add_answers_data(user_id, cuisine, hobby, outdoorsy)
 
+    return jsonify({'answer': True})
+
     return redirect('/explore')
 
-@app.route('/explore')  # , methods=['POST']
+
+@app.route('/explore')
 def search_by_address():
     """Get user input address, display locations for exploration."""
 
@@ -81,12 +71,16 @@ def search_by_address():
     if session.get('user_id'):
         user_id = session['user_id']
         address = session["address"]
+        cuisine = User.query.get(session['user_id']).cuisine
 
-        # FIXME need to refactor these API outs into the DB helpers
-        places = search(api_key, 'dinner', address)
-        parks = search_parks(api_key, address)
-        print places
-        locations_to_show = combine_location_dictionaries(places, parks, user_id)
+        places = search(api_key, cuisine, address)
+        if User.query.get(session['user_id']).outdoorsy is True:
+            places2 = search_parks(api_key, address)
+        else:
+            places2 = search(api_key, 'cafe', address)
+        places3 = search(api_key, 'lunch', address)
+        locations_to_show = combine_location_dictionaries(places, places2,
+                                                          places3, user_id)
 
         name = User.query.get(session['user_id']).fname
 
@@ -194,11 +188,9 @@ def login_process():
     user = User.query.filter((User.email == user_info) | (User.username ==
                                                           user_info)).first()
     if not user:
-        # flash("No user for this email or username found")
         return jsonify({'status': 'noUser'})
 
     elif user.password != password:
-        # flash("Incorrect password")
         return jsonify({'status': 'wrongPassword'})
 
     else:
@@ -208,7 +200,8 @@ def login_process():
         session["address"] = user_address.first().address + " " + user_address.first().zipcode
         address_lon_lat = user_lon_lat(user.user_id)
 
-        return jsonify({'status': 'success', 'lon_lat': address_lon_lat})
+        return jsonify({'status': 'success', 'lon_lat': address_lon_lat,
+                        'answer': True})
 
 
 @app.route('/logout')

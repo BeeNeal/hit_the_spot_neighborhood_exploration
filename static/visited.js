@@ -63,11 +63,10 @@ function checkLoginStatus(results) {
         $('#notification').text('Incorrect password - please try again');
      })()
   }
-  else if (status === 'success' && qAnswers) {
+  else if (status === 'success' && qAnswers === true) {
         window.location="/explore";
-  // }; 
       }
-  else if (status === 'success' && ! qAnswers) {
+  else if (status === 'success' && qAnswers == false) {
         window.location='/questions';
   };
 }

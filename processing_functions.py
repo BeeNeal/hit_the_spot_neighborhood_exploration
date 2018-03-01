@@ -43,12 +43,14 @@ def create_exploration_list(api_results):
     return locations_to_show
 
 
-def combine_location_dictionaries(places, parks, user_id):
+def combine_location_dictionaries(places, places2, places3, user_id):
     """Takes in yelp API data, passes this data to function that combines resulting dicts """
 
     locations_dict = add_API_search_data_to_dict(places, user_id)
-    locations_dict.update(add_API_search_data_to_dict(parks, user_id))
+    locations_dict.update(add_API_search_data_to_dict(places2, user_id))
+    locations_dict.update(add_API_search_data_to_dict(places3, user_id))
 
+    print locations_dict
     return locations_dict
 
 
