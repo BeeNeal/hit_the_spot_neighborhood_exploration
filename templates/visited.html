@@ -12,10 +12,8 @@ Visited Locations
 
 <div id='map' style='width: 400px; height: 300px;'></div>
 
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 {% for place in places  %}
-
-<div class="panel-group" id="accordion" role="tablist" 
-     aria-multiselectable="true">
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
@@ -39,7 +37,7 @@ Visited Locations
                             id='favorites-{{ place.yelp_id }}' 
                             value='{{ place.favorite }}'>
                       </input><br>
-          	WILL HAVE RATING ICONS HERE<br><br>
+          	WILL HAVE STAR HERE<br><br>
           </div>
          <button class='addDetails' 
                  onClick='addDetailsOnClick("{{ place.yelp_id }}")'>Add Details 
@@ -53,8 +51,6 @@ Visited Locations
 <script > 
     let addressLonLat = {{ addressLonLat }};
     let visitedLngLats = {{ map_json }};
-
-    
 </script>
 <script src="static/visited_map.js"></script>
 {% endblock %}
