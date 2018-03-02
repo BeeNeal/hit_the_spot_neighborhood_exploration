@@ -32,21 +32,17 @@ def geocode(address):
 
     # google geocoder returns latitude, longitude as list
     coordinates = geocoder.google(address).latlng
+    lat, lon = coordinates
+    lon_lat = [lon, lat]
 
     # swap lat/lon to lon/lat to accommodate mapbox
     if not coordinates:
         sleep(1)
         coordinates = geocoder.google(address).latlng   # catch the error, sleep python
-        # lat, lon = coordinates
-        # lon_lat = [lon, lat]
+        lat, lon = coordinates
+        lon_lat = [lon, lat]
 
-    return coordinates
-
-    # [37.789745, -122.4105791] (from python)
-
-    # 37.789806 | -122.410709 (from yelp)
-
-    # [-122.42313, 37.788517] (from mapbox)
+    return lon_lat
 
 # Meetup spot
 def meetup_root(address1, address2):

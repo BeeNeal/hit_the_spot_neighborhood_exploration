@@ -26,20 +26,38 @@
     //should get back status as results
 
     // use [][] to select specific buttons being changed
+    // $.post("/add-to-list", payload, function change_btn_color(results) {
+    //   if (results.status === 'interested') {
+    //     $(`button[data-id='${yelpId}'][data-status='interested']`)
+    //       .css("backgroundColor", 'red')
+    //       .css("color", "purple");
+    //     }
+    //   else if (results.status === 'visited') {
+    //     $(`button[data-id='${yelpId}'][data-status='visited']`)
+    //       .css("backgroundColor", 'red')
+    //       .css("color", "purple");
+    //   }
+
+    // });
     $.post("/add-to-list", payload, function change_btn_color(results) {
       if (results.status === 'interested') {
         $(`button[data-id='${yelpId}'][data-status='interested']`)
           .css("backgroundColor", 'red')
           .css("color", "purple");
+        $(`button[data-id='${yelpId}'][data-status='visited']`)
+          .css("backgroundColor", 'green')
+          .css("color", "white");
         }
       else if (results.status === 'visited') {
         $(`button[data-id='${yelpId}'][data-status='visited']`)
           .css("backgroundColor", 'red')
           .css("color", "purple");
+        $(`button[data-id='${yelpId}'][data-status='interested']`)
+          .css("backgroundColor", 'green')
+          .css("color", "white");
       }
 
     });
-
 });
 // results here are what we got back from AJAX
          // if (results['status'] === 'interested') && () {
@@ -62,6 +80,7 @@ function sendAnswers() {
     'hobby': responses[1],
     'outdoorsy': responses[2],
   };
+  console.log(answers);
 
   $.post("/questions", answers);
 
@@ -74,10 +93,11 @@ function sendAnswers() {
 
   if (responses.length === 3){
     sendAnswers();
+
+  (function() {
+    $('#modalwindow').modal('hide');
+    window.location.replace("/");
+    })();
+
   }
   }
-
-
-  // bundle up answesr send to Python in AJAX 
-
-  // Python - logic for Login - if completed Qs -> /explore else: go to questions

@@ -11,7 +11,6 @@ Questions
         $('#questionsModal').modal('show');
     });
 </script>
-<script src="static/explore.js"></script>
 
 <button type='button' id='questionModalBtn' data-toggle="modal" 
         data-target="#questionsModal">QModal</button>
@@ -79,13 +78,19 @@ Questions
         <h4 class="modal-title">Some Quick Qs for where you want to explore</h4>
       </div>
       <div class="modal-body">
-    <p>Outdoors or indoors or both?</p>
+    <p>Do you prefer being indoors or outdoors?</p>
     <div class="well spaced" style="width:40%;">
-      <form class='questionsForm' method="post" > Indoors or outdoors? (q3)
-          <input type="text" name="outdoors" class="answers"
-                 id='outdoors' required class="form-control">
+      <form class='questionsForm' method="post" >  (q3)
+        <input type="radio" name="outdoorsy" value="True" class='answers' 
+               required class="form-control">Indoors<br>
+        <input type="radio" name="outdoorsy" value="False" class='answers'
+               required class="form-control">Outdoors<br>
+        <input type="radio" name="outdoorsy" value="True" class='answers'
+               required class="form-control">No preference
 
-              <button type='button' id='submit' onClick='grabAnswers()' method='post'>Done</button>
+          <button type='button' id='AnsSubmit' onClick='grabAnswers()' 
+                  method='post' >Done</button>  
+                  <!-- data-dismiss="modal" <- put inside btn if needed -->
       </div>
     </div>
   </div>

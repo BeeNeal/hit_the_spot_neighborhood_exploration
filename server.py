@@ -51,7 +51,6 @@ def process_questions():
     cuisine = request.form.get('cuisine')
     hobby = request.form.get('hobby')
     outdoorsy = request.form.get('outdoorsy')
-
     if user_id:
         add_answers_data(user_id, cuisine, hobby, outdoorsy)
 
@@ -69,13 +68,16 @@ def search_by_address():
         user_id = session['user_id']
         address = session["address"]
         cuisine = User.query.get(session['user_id']).cuisine
+        if request.args.get('address'):
+            address = request.args.get('address')
 
         places = search(api_key, cuisine, address)
         if User.query.get(session['user_id']).outdoorsy is True:
-            places2 = search_parks(api_key, address)
+            places2 = search_parks(api_key, address)  # FIXME - change to gardens
         else:
             places2 = search(api_key, 'cafe', address)
-        places3 = search(api_key, 'lunch', address)
+
+        places3 = search(api_key, 'hobby', address)
         locations_to_show = combine_location_dictionaries(places, places2,
                                                           places3, user_id)
 
@@ -123,8 +125,9 @@ def add_to_list():
 
     if status == 'visited':
         change_to_visited(session['user_id'], yelp_id)
-    # In the ideal world, we won't be showing user places they've already checked off, but what do we
-    # do if it's already in userLoc table? Just do normal response based on status as would already.
+
+    if status == 'interested':
+        change_to_interested(session['user_id'], yelp_id)
 
     # return status to AJAX to change button text based on status
     return jsonify({'status': status})
@@ -154,7 +157,8 @@ def register():
     address_name = request.form.get('address_name')
 
     full_address = address + ", " + city + ", " + state + " " + zipcode
-    lon, lat = geocode(full_address)
+    coordinates = geocode(full_address)
+    lon, lat = coordinates
 
     # Does user already exist in DB?
     current_username = User.query.filter_by(username=username).first()
@@ -223,9 +227,13 @@ def display_destinations():
     destinations = destinations_list(user_id)
     geocoded_address = user_lon_lat(user_id)
     map_json = destination_lon_lats(user_id)
-
-    return render_template('destinations.html', addressLonLat=geocoded_address,
-                           places=destinations, map_json=map_json)
+    if destinations:
+        return render_template('destinations.html',
+                               addressLonLat=geocoded_address,
+                               places=destinations, map_json=map_json)
+    else:
+        flash("Where do you want to explore?")
+        return redirect('/')
 
 
 @app.route('/visited')
@@ -238,8 +246,8 @@ def display_places_visited():
     if places_visited:
         map_json = destination_lon_lats(user_id)
         return render_template('visited.html', places=places_visited,
-                                addressLonLat=geocoded_address,
-                                map_json=map_json)
+                               addressLonLat=geocoded_address,
+                               map_json=map_json)
     else:
         flash("Visited any of these places yet?")
         return redirect('/destinations')
@@ -292,11 +300,11 @@ def generate_meetup_spots():
                            longitude=lon, latitude=lat, address1=address1,
                            address2=address2, map_center=map_center)
 
-@app.route('/test', methods=['GET'])
-def display_carousel():
-    """caurousel form test"""
+# @app.route('/test', methods=['GET'])
+# def display_carousel():
+#     """caurousel form test"""
 
-    return render_template('carousel_form_IMPLEMENT_TO_EXPLORE.html')
+#     return render_template('carousel_form_IMPLEMENT_TO_EXPLORE.html')
 
 if __name__ == "__main__":
 

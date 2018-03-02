@@ -4,16 +4,11 @@
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYmVlbmVhbCIsImEiOiJjamRqdXdkd3UxMzB2MndvNmkwbGIzZmllIn0.xVy7VGtquOc7rUUpRz-KaQ';
 
-// base map that gets put on every page, will have separate markers that correspond to each pg
-// will want center to be address lon/lat
-
-// addressLonLat = JSON.parse("[" + addressLonLat + "]");
-
 var destinationsMap = new mapboxgl.Map({
     container: 'destinationsMap',
     style: 'mapbox://styles/mapbox/streets-v9',
     center: addressLonLat,
-    zoom: 15
+    zoom: 12
 });
 
 // want markers 
@@ -36,12 +31,6 @@ for (coordinates of destinationLngLats) {
         .setLngLat(coordinates)
         .addTo(destinationsMap);
 }
-
-// let mapData = JSON.parse(mapData)
-// 
-
-//  can do dif maps for different pages, stick markers on destinations_map, display
-// on destinations, same for visited (make new visited_map)
 
 // make sure to add all pins onto ONE feature layer (they don't need their own)
 

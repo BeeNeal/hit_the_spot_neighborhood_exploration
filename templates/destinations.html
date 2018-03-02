@@ -39,15 +39,14 @@ Destinations
         <div class="modal-body">
           <div class="addNotes panel-body">
           <div class='addDetails'> 
-          	Notes:    <input type='text' name='notes' 
+          	Notes:<textarea rows="4" cols="50" input type='textarea' name='notes' 
                             id='notes-{{ place.yelp_id }}' 
-                            value='{{ place.notes }}'>
-                      </input><br>
+                            value='{{ place.notes }}'></textarea><br>
           	Favorite: <input type='text' name='favorite' 
                             id='favorites-{{ place.yelp_id }}' 
                             value='{{ place.favorite }}'>
                       </input><br>
-          	RATING ICONS GO HERE<br>
+          	Star GOes HERE<br>
           </div>
 
       </div>

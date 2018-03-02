@@ -5,7 +5,7 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v9',
     center: addressLonLat,
-    zoom: 15
+    zoom: 12
 });
 
 for (coordinates of visitedLngLats) {

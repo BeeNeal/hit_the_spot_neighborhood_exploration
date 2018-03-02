@@ -5,12 +5,15 @@ from yelp_req_trial import search, search_parks
 def add_answers_data(user_id, cuisine, hobby, outdoorsy):
     """Adds answers from questions_modal terms to DB"""
 
-    # User.query.get(user_id).cuisine = cuisine
-    # User.query.get(user_id).hobby = hobby
-    # User.query.get(user_id).outdoorsy = outdoorsy
-    User.query.get(user_id).cuisine = 'thai'
-    User.query.get(user_id).hobby = 'yoga'
-    User.query.get(user_id).outdoorsy = True
+    User.query.get(user_id).cuisine = cuisine
+    User.query.get(user_id).hobby = hobby
+
+    # if outdoorsy == 'outdoors' or outdoorsy == 'both':
+
+    User.query.get(user_id).outdoorsy = outdoorsy
+    # User.query.get(user_id).cuisine = 'thai'
+    # User.query.get(user_id).hobby = 'yoga'
+    # User.query.get(user_id).outdoorsy = True
     db.session.commit()
 
 
@@ -56,7 +59,6 @@ def add_address(user_id, address, city, state, zipcode, name, latitude, longitud
     base_address = Address(user_id=user_id, address=address, city=city,
                            state=state, zipcode=zipcode, name=name,
                            latitude=latitude, longitude=longitude)
-    print base_address
     db.session.add(base_address)
     db.session.commit()
 
@@ -112,6 +114,17 @@ def change_to_visited(user_id, yelp_id):
 
     user_location.visited = True
     user_location.interested = False
+
+    db.session.commit()
+
+
+def change_to_interested(user_id, yelp_id):
+    """Change userLocation location status to interested"""
+
+    user_location = get_user_location_by_yelp_and_user_ids(user_id, yelp_id)
+
+    user_location.interested = True
+    user_location.visited = False
 
     db.session.commit()
 

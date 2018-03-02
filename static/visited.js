@@ -51,12 +51,8 @@ function checkLoginStatus(results) {
   console.log("checkLoginStatus");
   let status = results['status'];
   let qAnswers = results['answer'];
-  debugger;
-  console.log(status);
-  console.log(qAnswers);
-  //  we know that this function is being activated, and status is what we expect
+
   if (status === 'noUser') {
-      
       (function displayNotification() {
         $('#notification').text('No user with these credentials - please try again');
       })()
