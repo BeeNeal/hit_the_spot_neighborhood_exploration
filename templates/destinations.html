@@ -44,9 +44,15 @@ Destinations
                             value='{{ place.notes }}'></textarea><br>
           	Favorite: <input type='text' name='favorite' 
                             id='favorites-{{ place.yelp_id }}' 
+                            {% if place.favorite %}
                             value='{{ place.favorite }}'>
+                            {% endif %}
                       </input><br>
-          	Star GOes HERE<br>
+          	<button type="button" class="btn btn-default" 
+                    aria-label="Left Align" onClick='fillStar()'>
+              <span class="glyphicon glyphicon-star-empty" 
+                    aria-hidden="true"></span>
+            </button>
           </div>
 
       </div>

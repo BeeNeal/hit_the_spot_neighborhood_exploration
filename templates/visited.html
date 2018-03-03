@@ -28,16 +28,21 @@ Visited Locations
          role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body addNotes">
           <div class='addDetails'> 
-              <div class='well'>{{ place.notes }}</div>
+            {% if place.notes %}
+              <div class='well' id='div{{ place.notes }}'>{{ place.notes }}</div>
+            {% endif %}
                       Add notes:
                 <textarea rows='4' cols='50'
-                  name='notes' id='notes-{{ place.yelp_id }}'>
-                </textarea><br>
+                  name='notes' id='notes-{{ place.yelp_id }}'></textarea><br>
           	Favorite: <input type='text' name='favorite' 
                             id='favorites-{{ place.yelp_id }}' 
                             value='{{ place.favorite }}'>
                       </input><br>
-          	WILL HAVE STAR HERE<br><br>
+          	<button type="button" class="btn btn-default" 
+                    aria-label="Left Align" id='star{{ place.yelp_id }}'>
+              <span class="glyphicon glyphicon-star-empty" 
+                    aria-hidden="true"></span>
+            </button>
           </div>
          <button class='addDetails' 
                  onClick='addDetailsOnClick("{{ place.yelp_id }}")'>Add Details 

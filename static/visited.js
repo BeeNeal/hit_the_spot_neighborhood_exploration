@@ -36,16 +36,11 @@ function addDetailsOnClick(yelp_id) {
                    // "rating":rating
                   };
 
-    $.post("/add-notes", payload, alert(notes))
-        // FIXME Need to change alert(notes) to do something else
+    $.post("/add-notes", payload, function updateNotesDiv(yelp_id) {
+        $(`#div${yelp_id}`).val() = 'green apples';
+    });
 
 }
-
-// function btnVisFeedback(results) {
-//   if (results.status === 'added') {
-//     $(`#details-${yelp_id}`).css
-//   }
-// }
 
 function checkLoginStatus(results) {
   console.log("checkLoginStatus");
@@ -83,6 +78,9 @@ function checkLoginData() {
   $.post("/login", userPayload, checkLoginStatus);
 }
 
+function fillStar(yelp_id) {
+  $(`#star${yelp_id}`)
+}
 
-
+// I want to change glyphicon color to gold, and fill, also send that info to 
 

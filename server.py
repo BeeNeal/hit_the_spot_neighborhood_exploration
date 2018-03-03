@@ -66,10 +66,13 @@ def search_by_address():
     # if user is logged in, grab their main address off of their profile
     if session.get('user_id'):
         user_id = session['user_id']
-        address = session["address"]
+        address = session['address']
         cuisine = User.query.get(session['user_id']).cuisine
+        if session.get('address2'):
+            address = session['address2']
         if request.args.get('address'):
             address = request.args.get('address')
+            session['address2'] = address
 
         places = search(api_key, cuisine, address)
         if User.query.get(session['user_id']).outdoorsy is True:
@@ -289,13 +292,10 @@ def generate_meetup_spots():
         search_term = ""
 
     map_center = meetup_root(address1, address2)
-    lat, lon = map_center
-    map_center = list((lon, lat))
+    lon, lat = map_center
     places_from_yelp = search_by_coordinates(api_key, lat, lon, search_term)
     places = create_meetup_list(places_from_yelp)
 
-    print 'THIS IS MAP CENTER {}'.format(map_center)
-    print places
     return render_template('meetup_locations.html', places=places,
                            longitude=lon, latitude=lat, address1=address1,
                            address2=address2, map_center=map_center)
