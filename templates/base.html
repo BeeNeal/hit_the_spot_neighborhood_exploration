@@ -4,6 +4,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
+<script src='https://npmcdn.com/mapbox-gl-circle/dist/mapbox-gl-circle.min.js'></script>
+
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/static/styles.css"/>
@@ -56,57 +58,60 @@
           </ul>
           {% endif %}
       </div>
-    </div>
+    </div> <!-- this div closes navbar container -->
     </nav>
 
 <!-- Modal Login Window -->
 
 <!-- Modal -->
-<div id="loginModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">  
+      <div id="loginModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Log in</h4>
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Log in</h4>
+            </div>
+            <div class="modal-body">
+          <div id='loginModal' class="form-group">
+            <span id='notification'></span>
+      <div class="well spaced" style="width:40%;">
+        <form class='login-form' method="post" >
+          <label>Email or username:
+              <input type="text" name="user_info" 
+                     id='userInfo' required class="form-control">
+          </label>
+          <div class="form-group">
+            <label>Password:
+              <input type="password" name="password" 
+                     id='userPassword' 
+                     required class="form-control">
+          </div>
+          <div class="form-group">
+            <button type="button" id="loginBtn" 
+                    class="btn btn-danger" 
+                    onClick="checkLoginData()" >
+              Log In to Explore! 
+            </button>
+          </div>
+          <div class="modal-footer">New to Hit the Spot?
+            <a href="/registration" class="btn btn-primary">Register</a>
+          </div>
+        </form>
       </div>
-      <div class="modal-body">
-    <div id='loginModal' class="form-group">
-      <span id='notification'></span>
-<div class="well spaced" style="width:40%;">
-  <form class='login-form' method="post" >
-    <label>Email or username:
-        <input type="text" name="user_info" 
-               id='userInfo' required class="form-control">
-    </label>
+        </div>
+          </div>
+          </div>
 
-    <div class="form-group">
-      <label>Password:
-        <input type="password" name="password" 
-               id='userPassword' 
-               required class="form-control">
-      </label>
-    </div>
-
-    <div class="form-group">
-
-      <button type="button" id="loginBtn" 
-              class="btn btn-danger" 
-              onClick="checkLoginData()" >
-        Log In to Explore! 
-      </button>
-    </div>
-
-  </form>
-</div>
-</div>
+        </div>
       </div>
-    </div>
-
-  </div>
-</div>
-
+    </div>  <!-- this div closes column -->
+  </div>    
+</div> <!-- this div closes modal container -->
 
   <div class="container">  
     <div>

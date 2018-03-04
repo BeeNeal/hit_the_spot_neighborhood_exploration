@@ -6,11 +6,11 @@ var meetupMap = new mapboxgl.Map({
     container: 'meetupMap',
     style: 'mapbox://styles/mapbox/streets-v9',
     center: mC,
-    zoom: 15
+    zoom: 12
 });
 
 
-console.log($("#LonLat").data('center'));
+// console.log($("#LonLat").data('center'));
 
 // marker mill - getting coordinates from coded hidden divs 
 let markerList = [];
@@ -42,11 +42,9 @@ var geojson = {
   features: []
 };
 geojson.features = markerList;
-console.log(geojson);
 
 // add markers to map
 geojson.features.forEach(function(marker) {
-    console.log('marker:', marker);
 
   // create a HTML element for each feature
   var el = document.createElement('div');
@@ -58,6 +56,27 @@ geojson.features.forEach(function(marker) {
   .addTo(meetupMap);
 
 });
+
+// draw circle
+var myCircle = new MapboxCircle({lat: mC[1], lng: mC[0]}, 1200, {
+        editable: true,
+        minRadius: 1500,
+        // fillColor: '#29AB87'
+    }).addTo(meetupMap);
+ 
+myCircle.on('centerchanged', function (circleObj) {
+        console.log('New center:', circleObj.getCenter());
+    });
+myCircle.once('radiuschanged', function (circleObj) {
+        console.log('New radius (once!):', circleObj.getRadius());
+    });
+myCircle.on('click', function (mapMouseEvent) {
+        console.log('Click:', mapMouseEvent.point);
+    });
+myCircle.on('contextmenu', function (mapMouseEvent) {
+        console.log('Right-click:', mapMouseEvent.lngLat);
+    });
+
 
 //the below }) ends the .ready function which ensures loading order 
 });
