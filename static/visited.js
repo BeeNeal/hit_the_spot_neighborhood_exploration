@@ -36,8 +36,12 @@ function addDetailsOnClick(yelp_id) {
                    // "rating":rating
                   };
 
-    $.post("/add-notes", payload, function updateNotesDiv(yelp_id) {
-        $(`#div${yelp_id}`).val() = 'green apples';
+
+// below updateNotesDiv is taking the response of the ajax call as the argument to the callback.
+// see what the server is sending back in the response and parse it into the jquery
+    $.post("/add-notes", payload, function updateNotesDiv(results) {
+        $(`#div${yelp_id}`).removeClass('hidden').html;
+        $(`#div${yelp_id}`).html(notes);
     });
 
 }

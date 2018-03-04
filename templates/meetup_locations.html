@@ -6,9 +6,6 @@ Meetup Spots
 
 {% block content %}
 
-THIS IS MAP CENTER : {{ map_center }}
-
-
 <div><h3>Here are some convenient spots between {{ address1 }} and {{ address2 }}:</h3></div>
 
 <div id='meetupMap' style='width: 400px; height: 300px;'></div>
@@ -16,11 +13,11 @@ THIS IS MAP CENTER : {{ map_center }}
 <div>
 {% for place in places %}
 
-<div>
+<div class='locationCard'>
+  <a href='{{ places[place]['url'] }}'> <img src="{{ places[place]['pic'] }}" 
+     class='businessImage img-circle'></a><br>
   <p><b>{{ places[place]['name'] }}</b> is a good option at
   {{ places[place]['address'] }}</p>
-  <a href='{{ places[place]['url'] }}'>	<img src="{{ places[place]['pic'] }}" 
-     class='businessImage'></a><br>
 </div>
 
 <div id='LonLat' data-center='{{ map_center }}'></div>
@@ -31,8 +28,8 @@ THIS IS MAP CENTER : {{ map_center }}
   style="display: none">
 </div>
 
-</div>
 {% endfor %}
+</div>
 
 
 <script> 

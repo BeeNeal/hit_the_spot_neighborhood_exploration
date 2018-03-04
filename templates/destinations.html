@@ -11,21 +11,23 @@ Destinations
 
 <div id='destinationsMap' style='width: 400px; height: 300px;'></div>
 
-<div>
+<div class='destinationsList'>
 {% for place in places  %}
+  <div class='locationCard'>
+    <a href='{{ place.location.yelp_url }}'>  
+      <img src="{{ place.location.pic }}" 
+           class='businessImage img-circle'>
+    </a>
+    <h3><b>{{ place.location.name }}</b></h3>
+    	{{ place.location.address }}
 
-<div>
-  <h3><b>{{ place.location.name }}</b></h3>
-  	{{ place.location.address }}<br>
-  <a href='{{ place.location.yelp_url }}'>	<img src="{{ place.location.pic }}" 
-     class='businessImage'></a><br>
+    <br>
 
-
-
- <!-- Button trigger modal -->
-  <a data-toggle="modal" href="#btn-{{ place.yelp_id }}"
-     class="btn btn-primary btn-lg">I've been here!</a>
-
+   <!-- Button trigger modal -->
+    <a data-toggle="modal" href="#btn-{{ place.yelp_id }}"
+       class="btn btn-primary btn-lg">I've been here!</a>
+  </div>
+  <br>
   <!-- Modal -->
   <div class="modal fade" id="btn-{{ place.yelp_id }}" tabindex="-1" 
        role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -49,7 +51,8 @@ Destinations
                             {% endif %}
                       </input><br>
           	<button type="button" class="btn btn-default" 
-                    aria-label="Left Align" onClick='fillStar()'>
+                    aria-label="Left Align" 
+                    onClick='fillStar("{{ place.yelp_id }}")'>
               <span class="glyphicon glyphicon-star-empty" 
                     aria-hidden="true"></span>
             </button>
@@ -70,9 +73,7 @@ Destinations
   </div>
 
 
-</div>
 {% endfor %}
-
 </div>
 
 <script > 

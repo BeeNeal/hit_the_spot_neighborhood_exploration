@@ -18,12 +18,14 @@ Starting Places
 <div>
 {% for place in places %}
 
-<div>
+<div class='locationCard'>
+  <img src="{{ places[place]['pic'] }}" 
+       class='businessImage img-circle'>
   <p><b>{{ places[place]['name'] }}</b> is mere steps away at 
   {{ places[place]['address'] }}</p>
 
 {% if session.get('user_id') %}
-
+<div class='buttonDiv'>
 <button class="addToList" id="interested"  
 data-status="interested" 
 data-name="{{ places[place]['name'] }}" 
@@ -42,8 +44,8 @@ data-address="{{ places[place]['address'] }}"
 data-latitude="{{ places[place]['latitude'] }}"
 data-longitude="{{ places[place]['longitude'] }}" 
 data-url="{{ places[place]['url'] }}"
-data-pic="{{ places[place]['pic'] }}" >I've been here! </button>
-
+data-pic="{{ places[place]['pic'] }}" >I've been here!</button>
+</div>
 {% else %}
 <button id='login' data-toggle="modal" 
         data-target="#loginModal">I want to go!</button>

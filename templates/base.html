@@ -1,12 +1,12 @@
 <html>
 <head>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-<link href='static/styles.css' rel='stylesheet' />
+<link rel="stylesheet" type="text/css" href="/static/styles.css"/>
 <style>
 .marker {
   background-image: url('/static/cross-15.svg');
@@ -21,7 +21,8 @@
 
 	<title>{% block title %}TITLE GOES HERE{% endblock %}</title>
 </head>
-<body>    
+<body>  <!-- this is the correct body tag -->
+
 	<!-- Static navbar -->
   <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -107,21 +108,35 @@
 </div>
 
 
+  <div class="container">  
+    <div>
+    {% block content %}
+      BODY GOES HERE
+    {% endblock %}
+      <div class="row">
+        <div class="col-xs-12">
+          <div class='yelpFooter'>
+            Location data powered by<img src='static/yelp_fullcolor.png'>
+          </div>
+        </div>
+      </div>
+    </div>
+</div> <!-- closes container div -->
 
+<script src="static/explore.js"></script>
+<script src="static/visited.js"></script>
 
-
-{% block content %}
-BODY GOES HERE
-{% endblock %}
-	<script src="static/explore.js"></script>
-	<script src="static/visited.js"></script>
 
 
 
 <div id="extending">
   {% for flash in get_flashed_messages() %}
-<div class="alert alert-danger" style="width:90%; margin:0 auto;">{{ flash }}</div>
-{% endfor %}
+  
+  <div class="alert alert-danger" style="width:90%; margin:0 auto;">
+    {{ flash }}
+  </div>
+  
+  {% endfor %}
 </div>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
