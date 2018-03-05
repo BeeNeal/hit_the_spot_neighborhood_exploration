@@ -57,10 +57,62 @@ geojson.features.forEach(function(marker) {
 
 });
 
+// add address1, address2 markers
+
+a1 = {
+    type: 'Feature',
+    geometry: {
+        type: 'Point',
+        coordinates: a1
+    },
+    properties: {
+        // 'title': obj.dataset.name,
+        'marker-symbol': 'pitch',
+        'marker-size': 'large',
+        'marker-color': '#FF0066',
+    }
+}; // closes a1 object
+
+a2 = {
+    type: 'Feature',
+    geometry: {
+        type: 'Point',
+        coordinates: a2
+    },
+    properties: {
+        // 'title': obj.dataset.name,
+        'marker-symbol': 'pitch',
+        'marker-size': 'large',
+        'marker-color': '#FF0066',
+    }
+};
+
+// let addressMarkers = [a1, a2];
+
+var geojson2 = {
+    type: 'FeatureCollection',
+  features: [a1, a2]
+};
+
+// add markers to map
+geojson2.features.forEach(function(marker) {
+
+  // create a HTML element for each feature
+  var el = document.createElement('div');
+  el.className = 'addressMarker';
+
+  // make a marker for each feature and add to the map
+  let am = new mapboxgl.Marker(el)
+  .setLngLat(marker.geometry.coordinates)
+  .addTo(meetupMap);
+
+});
+
+
 // draw circle
 var myCircle = new MapboxCircle({lat: mC[1], lng: mC[0]}, 1200, {
         editable: true,
-        minRadius: 1500,
+        minRadius: 1200,
         // fillColor: '#29AB87'
     }).addTo(meetupMap);
  

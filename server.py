@@ -291,6 +291,8 @@ def generate_meetup_spots():
     if not search_term:
         search_term = ""
 
+    a1_coordinates = geocode(address1)
+    a2_coordinates = geocode(address2)
     map_center = meetup_root(address1, address2)
     lon, lat = map_center
     places_from_yelp = search_by_coordinates(api_key, lat, lon, search_term)
@@ -298,7 +300,8 @@ def generate_meetup_spots():
 
     return render_template('meetup_locations.html', places=places,
                            longitude=lon, latitude=lat, address1=address1,
-                           address2=address2, map_center=map_center)
+                           address2=address2, a1_coordinates=a1_coordinates,
+                           a2_coordinates=a2_coordinates, map_center=map_center)
 
 # @app.route('/test', methods=['GET'])
 # def display_carousel():

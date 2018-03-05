@@ -16,7 +16,7 @@ BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
 
 DEFAULT_TERM = 'dinner'
 DEFAULT_LOCATION = '683 Sutter st San Francisco, CA'
-SEARCH_LIMIT = 10
+SEARCH_LIMIT = 50
 
 
 def request_call(host, path, api_key, url_params=None):
@@ -104,7 +104,7 @@ def search_by_coordinates(api_key, latitude, longitude, term=''):
         'longitude': longitude,
         'limit': SEARCH_LIMIT,
         'radius': 2000,
-        'sort_by': 'rating',
+        'sort_by': 'distance',
     }
 
     return request_call(API_HOST, SEARCH_PATH, api_key, url_params=url_params)

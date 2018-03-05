@@ -26,7 +26,7 @@ Starting Places
 
 {% if session.get('user_id') %}
 <div class='buttonDiv'>
-<button class="addToList" id="interested"  
+<button class="addToList btn-success" id="interested"  
 data-status="interested" 
 data-name="{{ places[place]['name'] }}" 
 data-id="{{ places[place]['yelp_id'] }}"
@@ -36,7 +36,7 @@ data-longitude="{{ places[place]['longitude'] }}"
 data-url="{{ places[place]['url'] }}"
 data-pic="{{ places[place]['pic'] }}" >I want to go!</button>
 
-<button class="addToList" id="visited"
+<button class="addToList btn-info" id="visited"
 data-status="visited" 
 data-name="{{ places[place]['name'] }}" 
 data-id="{{ places[place]['yelp_id'] }}"

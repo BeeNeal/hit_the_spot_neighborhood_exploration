@@ -37,8 +37,7 @@ def geocode(address):
 
     # swap lat/lon to lon/lat to accommodate mapbox
     if not coordinates:
-        # sleep(1)
-
+        sleep(1)
         lon_lat = mapbox_geocode(address)   # catch the error, sleep python
         # lat, lon = coordinates
         # lon_lat = [lon, lat]

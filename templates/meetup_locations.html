@@ -7,35 +7,37 @@ Meetup Spots
 {% block content %}
 
 <div><h3>Here are some convenient spots between {{ address1 }} and {{ address2 }}:</h3></div>
+<div class='mapPlaces'>
 
-<div id='meetupMap' style='width: 400px; height: 300px;'></div>
+  <div class='placesScroll'>
+  {% for place in places %}
 
-<div>
-{% for place in places %}
+  <div class='locationCard'>
+    <a href='{{ places[place]['url'] }}'> <img src="{{ places[place]['pic'] }}" 
+       class='businessImage img-circle'></a><br>
+    <p><b>{{ places[place]['name'] }}</b> is a good option at
+    {{ places[place]['address'] }}</p>
+  </div>
 
-<div class='locationCard'>
-  <a href='{{ places[place]['url'] }}'> <img src="{{ places[place]['pic'] }}" 
-     class='businessImage img-circle'></a><br>
-  <p><b>{{ places[place]['name'] }}</b> is a good option at
-  {{ places[place]['address'] }}</p>
+  <div id='LonLat' data-center='{{ map_center }}'></div>
+  <div id='meetupLat' data-meetupLat='{{ latitude }}'></div>
+  <div class='location' data-lat='{{ places[place]['latitude'] }}'
+                        data-lon='{{ places[place]['longitude'] }}'
+                        data-name='{{ places[place]['name'] }}'
+    style="display: none">
+  </div>
+
+  {% endfor %}
+  </div>
+  <div id='meetupMap' style='width: 500px; height: 500px;'></div>
 </div>
-
-<div id='LonLat' data-center='{{ map_center }}'></div>
-<div id='meetupLat' data-meetupLat='{{ latitude }}'></div>
-<div class='location' data-lat='{{ places[place]['latitude'] }}'
-                      data-lon='{{ places[place]['longitude'] }}'
-                      data-name='{{ places[place]['name'] }}'
-  style="display: none">
-</div>
-
-{% endfor %}
-</div>
-
 
 <script> 
     let mapCenter = $('#LonLat').data('lonLat');
     let meetupLat = $('#meetupLat').data('meetupLat')
     let mC = {{ map_center }}
+    let a1 = {{ a1_coordinates }}
+    let a2 = {{ a2_coordinates }}
 
 </script>
 <script src="static/meetupMap.js"></script>
