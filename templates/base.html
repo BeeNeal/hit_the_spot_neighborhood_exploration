@@ -113,21 +113,19 @@
   </div>    
 </div> <!-- this div closes modal container -->
 
-  <div class="container">  
     <div>
-    {% block content %}
-      BODY GOES HERE
-    {% endblock %}
-      <div class="row">
-        <div class="col-xs-12">
-          <div class='yelpFooter'>
-            Location data powered by<img src='static/yelp_fullcolor.png'>
-          </div>
-        </div>
-      </div>
+      {% block content %}
+        BODY GOES HERE
+      {% endblock %}
+    </div> 
+{% block footer %}
+  <footer class="navbar-default navbar-fixed-bottom yelpFooter">
+    <div class="container-fluid text-center">
+      <span>Location data powered by<img src='static/yelp_resized.png'>
+      </span>
     </div>
-</div> <!-- closes container div -->
-
+  </footer>
+{% endblock %}
 <script src="static/explore.js"></script>
 <script src="static/visited.js"></script>
 

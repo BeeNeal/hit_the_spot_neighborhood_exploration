@@ -63,6 +63,8 @@ def process_questions():
 def search_by_address():
     """Get user input address, display locations for exploration."""
 
+    if not User.query.get(session['user_id']).cuisine:
+        return redirect('/questions')
     # if user is logged in, grab their main address off of their profile
     if session.get('user_id'):
         user_id = session['user_id']

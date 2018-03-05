@@ -112,7 +112,7 @@ function grabThirdAnswer(evt) {
 
       (function() {
         $('#q3modal').modal('hide');
-        window.location.replace("/");
+        window.location.replace("/explore");
         })();
 
   }

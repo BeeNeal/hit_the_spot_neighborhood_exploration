@@ -5,22 +5,22 @@ Homepage
 {% endblock %}
 
 {% block content %}
-<div class="row">
-  <div class="col-xs-12"> 
-    <div class="hero-image">
-{% if session.get('user_id') %}
-Welcome back!
-{% endif %}
 
-Around where do you want to explore? 
-<div>
-<form action='/explore', method='get'>
-  <input type="text" name="address"><br>
-  <input type="submit" value="Go!">
-</form>
-</div>
-    </div>
-  </div> <!-- this div ends the col  -->
-</div>
+    <div class='logoDiv'>
+      <h1 class='logo'>Hit the Spot!</h1>
+      <h3 class='logoSupplement'>Neighborhood Exploration</h3>
+      {% if session.get('user_id') %}
+      Welcome back!
+      {% endif %}
+
+      <div class='homepageDiv'>Around where do you want to explore? 
+        <form action='/explore', method='get'>
+          <input type="text" name="address"><br>
+          <input type="submit" value="Go!">
+        </form>
+      </div>
+    </div> <!-- this div ends logoDiv -->
+
 {% endblock %}
-
+{% block footer %}
+{% endblock %}

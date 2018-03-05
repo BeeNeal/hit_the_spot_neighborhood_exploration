@@ -26,21 +26,20 @@ Questions
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Some Quick Qs for where you want to explore</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body well spaced">
         <p>What's your favorite type of cuisine?</p>
-        <div class="well spaced" style="width:40%;">
-          <form class='questionsForm' method="post" > 
+<!--         <div class="well spaced" style="width:60%;">
+ -->          <form class='questionsForm' method="post" >
+            <span class="glyphicon glyphicon-chevron-left"></span>
             <input type="text" name="answers" class='answers'
                    id='cuisinePreference' required class="form-control"/>
-              <span class="glyphicon glyphicon-chevron-right">
-              </span>
-              <span class="glyphicon glyphicon-search"></span>
-
+              <span class="glyphicon glyphicon-chevron-right"></span>
+              <span class="glyphicon glyphicon-cutlery"></span><br>
               <button type='button' id='q2Modal' data-toggle='modal' 
               data-from='questionsModal' data-target='#q2modal' 
               onClick='grabFirstAnswer()'>Launch Q2</button>
           </form>
-        </div>
+        <!-- </div>  -->
       </div>
     </div>
   </div>
@@ -60,10 +59,10 @@ Questions
       </div>
 
       <div class="modal-body">
-        <p>Any hobbies? (q2)</p>
+        <p>Any hobbies?</p>
 
         <div class="well spaced" style="width:40%;">
-          <form class='questionsForm' method="post" > Any hobbies?
+          <form class='questionsForm' method="post">Any hobbies?
             <input type="text" name="hobby" class="answers"
                    id='hobby' required class="form-control">
 
@@ -90,16 +89,16 @@ Questions
       <div class="modal-body">
         <p>Do you prefer being indoors or outdoors?</p>
         <div class="well spaced" style="width:40%;">
-          <form class='questionsForm' method="post" >  (q3)
+          <form class='questionsForm' method="post">
             <input type="radio" name="outdoorsy" value="True" class='answers' 
                    required class="form-control"/>Indoors<br>
             <input type="radio" name="outdoorsy" value="False" class='answers'
                    required class="form-control"/>Outdoors<br>
             <input type="radio" name="outdoorsy" value="True" class='answers'
                    required class="form-control"/>No preference
-
+              <span class="glyphicon glyphicon-tree-conifer"></span><br>
             <button type='button' id='AnsSubmit' onClick='grabThirdAnswer()' 
-                    method='post' >Done
+                    method='post'>Done
             </button>  
                   <!-- data-dismiss="modal" <- put inside btn if needed -->
           </form>

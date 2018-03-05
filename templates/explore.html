@@ -13,50 +13,53 @@ Starting Places
     });
 </script>
 
-<div><h1>Hi {{ name }}! Here are our top recommendations for you to explore</h1></div>
-<div><h3>Which places do you want to visit around {{ address }} ?</h3></div>
-<div>
-{% for place in places %}
+<div class="container-fluid">  
 
-<div class='locationCard'>
-  <img src="{{ places[place]['pic'] }}" 
-       class='businessImage img-circle'>
-  <p><b>{{ places[place]['name'] }}</b> is mere steps away at 
-  {{ places[place]['address'] }}</p>
+  <div><h1>Hi {{ name }}! Here are our top recommendations for you to explore</h1>
+  </div>
+  <div><h3>Which places do you want to visit around {{ address }} ?</h3></div>
+  <div>
+    {% for place in places %}
 
-{% if session.get('user_id') %}
-<div class='buttonDiv'>
-<button class="addToList btn-success" id="interested"  
-data-status="interested" 
-data-name="{{ places[place]['name'] }}" 
-data-id="{{ places[place]['yelp_id'] }}"
-data-address="{{ places[place]['address'] }}"
-data-latitude="{{ places[place]['latitude'] }}"
-data-longitude="{{ places[place]['longitude'] }}" 
-data-url="{{ places[place]['url'] }}"
-data-pic="{{ places[place]['pic'] }}" >I want to go!</button>
+    <div class='locationCard'>
+      <img src="{{ places[place]['pic'] }}" 
+           class='businessImage img-circle'>
+      <p><b>{{ places[place]['name'] }}</b> is mere steps away at 
+      {{ places[place]['address'] }}</p>
 
-<button class="addToList btn-info" id="visited"
-data-status="visited" 
-data-name="{{ places[place]['name'] }}" 
-data-id="{{ places[place]['yelp_id'] }}"
-data-address="{{ places[place]['address'] }}"
-data-latitude="{{ places[place]['latitude'] }}"
-data-longitude="{{ places[place]['longitude'] }}" 
-data-url="{{ places[place]['url'] }}"
-data-pic="{{ places[place]['pic'] }}" >I've been here!</button>
-</div>
-{% else %}
-<button id='login' data-toggle="modal" 
-        data-target="#loginModal">I want to go!</button>
-<button id='login' data-toggle="modal" 
-        data-target="#loginModal">I've been here!</button>       
-{% endif %}
+    {% if session.get('user_id') %}
+      <div class='buttonDiv'>
+      <button class="addToList btn-success" id="interested"  
+      data-status="interested" 
+      data-name="{{ places[place]['name'] }}" 
+      data-id="{{ places[place]['yelp_id'] }}"
+      data-address="{{ places[place]['address'] }}"
+      data-latitude="{{ places[place]['latitude'] }}"
+      data-longitude="{{ places[place]['longitude'] }}" 
+      data-url="{{ places[place]['url'] }}"
+      data-pic="{{ places[place]['pic'] }}" >I want to go!</button>
 
-</div>
-{% endfor %}
-</div>
+      <button class="addToList btn-info" id="visited"
+      data-status="visited" 
+      data-name="{{ places[place]['name'] }}" 
+      data-id="{{ places[place]['yelp_id'] }}"
+      data-address="{{ places[place]['address'] }}"
+      data-latitude="{{ places[place]['latitude'] }}"
+      data-longitude="{{ places[place]['longitude'] }}" 
+      data-url="{{ places[place]['url'] }}"
+      data-pic="{{ places[place]['pic'] }}" >I've been here!</button>
+      </div>
+    {% else %}
+      <button id='login' data-toggle="modal" 
+              data-target="#loginModal">I want to go!</button>
+      <button id='login' data-toggle="modal" 
+              data-target="#loginModal">I've been here!</button>       
+    {% endif %}
 
+    </div>
+    {% endfor %}
+  </div>
+</div> <!-- closes container -->
 
 {% endblock %}
 
