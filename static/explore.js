@@ -88,16 +88,31 @@ function sendAnswers() {
 }
   var responses = [];
 
-  function grabAnswers(evt) {
-  responses.push($('.answers')[responses.length].value);
+  function grabFirstAnswer(evt) {
+    responses.push($('.answers')[responses.length].value);
 
-  if (responses.length === 3){
-    sendAnswers();
-
-  (function() {
-    $('#modalwindow').modal('hide');
-    window.location.replace("/");
-    })();
+    (function() {
+      $('#questionsModal').modal('hide');
+      })();
 
   }
+
+function grabSecondAnswer(evt) {
+    responses.push($('.answers')[responses.length].value);
+
+      (function() {
+        $('#q2modal').modal('hide');
+        })();
+  }
+
+function grabThirdAnswer(evt) {
+    responses.push($('.answers')[responses.length].value);
+
+      sendAnswers();
+
+      (function() {
+        $('#q3modal').modal('hide');
+        window.location.replace("/");
+        })();
+
   }

@@ -12,6 +12,7 @@ Questions
     });
 </script>
 
+
 <button type='button' id='questionModalBtn' data-toggle="modal" 
         data-target="#questionsModal">QModal</button>
 
@@ -26,17 +27,20 @@ Questions
         <h4 class="modal-title">Some Quick Qs for where you want to explore</h4>
       </div>
       <div class="modal-body">
-    <p>What's your favorite type of cuisine?</p>
-    <div class="well spaced" style="width:40%;">
-      <form class='questionsForm' method="post" > 
-          <input type="text" name="answers" class='answers'
-                 id='cuisinePreference' required class="form-control">
+        <p>What's your favorite type of cuisine?</p>
+        <div class="well spaced" style="width:40%;">
+          <form class='questionsForm' method="post" > 
+            <input type="text" name="answers" class='answers'
+                   id='cuisinePreference' required class="form-control"/>
               <span class="glyphicon glyphicon-chevron-right">
               </span>
               <span class="glyphicon glyphicon-search"></span>
 
-              <button type='button' id='q2Modal' data-toggle='modal'
-              data-target='#q2modal' onClick='grabAnswers()'>Launch Q2</button>
+              <button type='button' id='q2Modal' data-toggle='modal' 
+              data-from='questionsModal' data-target='#q2modal' 
+              onClick='grabFirstAnswer()'>Launch Q2</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -49,19 +53,25 @@ Questions
 
     <!-- Q2 Modal content-->
     <div class="modal-content">
+
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Some Quick Qs for where you want to explore</h4>
       </div>
-      <div class="modal-body">
-    <p>Any hobbies? (q2)</p>
-    <div class="well spaced" style="width:40%;">
-      <form class='questionsForm' method="post" > Any hobbies?
-          <input type="text" name="hobby" class="answers"
-                 id='hobby' required class="form-control">
 
-              <button type='button' id='q3modalbtn' data-toggle='modal'
-              data-target='#q3modal' onClick='grabAnswers()'>Launch Q3</button>
+      <div class="modal-body">
+        <p>Any hobbies? (q2)</p>
+
+        <div class="well spaced" style="width:40%;">
+          <form class='questionsForm' method="post" > Any hobbies?
+            <input type="text" name="hobby" class="answers"
+                   id='hobby' required class="form-control">
+
+            <button type='button' id='q3modalbtn' data-toggle='modal'
+            data-target='#q3modal' onClick='grabSecondAnswer()'>Launch Q3</button>
+          </form>
+        </div>
+
       </div>
     </div>
   </div>
@@ -78,19 +88,22 @@ Questions
         <h4 class="modal-title">Some Quick Qs for where you want to explore</h4>
       </div>
       <div class="modal-body">
-    <p>Do you prefer being indoors or outdoors?</p>
-    <div class="well spaced" style="width:40%;">
-      <form class='questionsForm' method="post" >  (q3)
-        <input type="radio" name="outdoorsy" value="True" class='answers' 
-               required class="form-control">Indoors<br>
-        <input type="radio" name="outdoorsy" value="False" class='answers'
-               required class="form-control">Outdoors<br>
-        <input type="radio" name="outdoorsy" value="True" class='answers'
-               required class="form-control">No preference
+        <p>Do you prefer being indoors or outdoors?</p>
+        <div class="well spaced" style="width:40%;">
+          <form class='questionsForm' method="post" >  (q3)
+            <input type="radio" name="outdoorsy" value="True" class='answers' 
+                   required class="form-control"/>Indoors<br>
+            <input type="radio" name="outdoorsy" value="False" class='answers'
+                   required class="form-control"/>Outdoors<br>
+            <input type="radio" name="outdoorsy" value="True" class='answers'
+                   required class="form-control"/>No preference
 
-          <button type='button' id='AnsSubmit' onClick='grabAnswers()' 
-                  method='post' >Done</button>  
+            <button type='button' id='AnsSubmit' onClick='grabThirdAnswer()' 
+                    method='post' >Done
+            </button>  
                   <!-- data-dismiss="modal" <- put inside btn if needed -->
+          </form>
+        </div>
       </div>
     </div>
   </div>

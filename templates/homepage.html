@@ -5,7 +5,9 @@ Homepage
 {% endblock %}
 
 {% block content %}
-
+<div class="row">
+  <div class="col-xs-12"> 
+    <div class="hero-image">
 {% if session.get('user_id') %}
 Welcome back!
 {% endif %}
@@ -16,6 +18,9 @@ Around where do you want to explore?
   <input type="text" name="address"><br>
   <input type="submit" value="Go!">
 </form>
+</div>
+    </div>
+  </div> <!-- this div ends the col  -->
 </div>
 {% endblock %}
 
