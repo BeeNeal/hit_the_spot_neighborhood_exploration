@@ -13,52 +13,56 @@ Starting Places
     });
 </script>
 
-<div class="container-fluid">  
+<div class="container-fluid main">  
+  <div class='explorer'>
 
-  <div><h1>Hi {{ name }}! Here are our top recommendations for you to explore</h1>
-  </div>
-  <div><h3>Which places do you want to visit around {{ address }} ?</h3></div>
-  <div>
-    {% for place in places %}
-
-    <div class='locationCard'>
-      <img src="{{ places[place]['pic'] }}" 
-           class='businessImage img-circle'>
-      <p><b>{{ places[place]['name'] }}</b> is mere steps away at 
-      {{ places[place]['address'] }}</p>
-
-    {% if session.get('user_id') %}
-      <div class='buttonDiv'>
-      <button class="addToList btn-success" id="interested"  
-      data-status="interested" 
-      data-name="{{ places[place]['name'] }}" 
-      data-id="{{ places[place]['yelp_id'] }}"
-      data-address="{{ places[place]['address'] }}"
-      data-latitude="{{ places[place]['latitude'] }}"
-      data-longitude="{{ places[place]['longitude'] }}" 
-      data-url="{{ places[place]['url'] }}"
-      data-pic="{{ places[place]['pic'] }}" >I want to go!</button>
-
-      <button class="addToList btn-info" id="visited"
-      data-status="visited" 
-      data-name="{{ places[place]['name'] }}" 
-      data-id="{{ places[place]['yelp_id'] }}"
-      data-address="{{ places[place]['address'] }}"
-      data-latitude="{{ places[place]['latitude'] }}"
-      data-longitude="{{ places[place]['longitude'] }}" 
-      data-url="{{ places[place]['url'] }}"
-      data-pic="{{ places[place]['pic'] }}" >I've been here!</button>
-      </div>
-    {% else %}
-      <button id='login' data-toggle="modal" 
-              data-target="#loginModal">I want to go!</button>
-      <button id='login' data-toggle="modal" 
-              data-target="#loginModal">I've been here!</button>       
-    {% endif %}
-
+    <div class='explore'><h1>Hi {{ name }}! Here are our top recommendations for you to explore</h1>
     </div>
-    {% endfor %}
-  </div>
+    <div class='explore'>
+      <h3>Which places do you want to visit around {{ address }} ?</h3>
+    </div>
+    <div class='placesScroll'>
+      {% for place in places %}
+
+      <div class='locationCard'>
+        <img src="{{ places[place]['pic'] }}" 
+             class='businessImage img-circle'>
+        <p><b>{{ places[place]['name'] }}</b> is mere steps away at 
+        {{ places[place]['address'] }}</p>
+
+      {% if session.get('user_id') %}
+        <div class='buttonDiv'>
+        <button class="addToList" id="interested"  
+        data-status="interested" 
+        data-name="{{ places[place]['name'] }}" 
+        data-id="{{ places[place]['yelp_id'] }}"
+        data-address="{{ places[place]['address'] }}"
+        data-latitude="{{ places[place]['latitude'] }}"
+        data-longitude="{{ places[place]['longitude'] }}" 
+        data-url="{{ places[place]['url'] }}"
+        data-pic="{{ places[place]['pic'] }}" >I want to go!</button>
+
+        <button class="addToList" id="visited"
+        data-status="visited" 
+        data-name="{{ places[place]['name'] }}" 
+        data-id="{{ places[place]['yelp_id'] }}"
+        data-address="{{ places[place]['address'] }}"
+        data-latitude="{{ places[place]['latitude'] }}"
+        data-longitude="{{ places[place]['longitude'] }}" 
+        data-url="{{ places[place]['url'] }}"
+        data-pic="{{ places[place]['pic'] }}" >I've been here!</button>
+        </div>
+      {% else %}
+        <button id='login' data-toggle="modal" 
+                data-target="#loginModal">I want to go!</button>
+        <button id='login' data-toggle="modal" 
+                data-target="#loginModal">I've been here!</button>       
+      {% endif %}
+
+      </div>
+      {% endfor %}
+    </div>
+  </div> <!-- closes explorer div -->
 </div> <!-- closes container -->
 
 {% endblock %}

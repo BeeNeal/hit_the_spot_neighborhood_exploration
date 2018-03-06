@@ -15,8 +15,11 @@ Homepage
 
       <div class='homepageDiv'>Around where do you want to explore? 
         <form action='/explore', method='get'>
-          <input type="text" name="address"><br>
-          <input type="submit" value="Go!">
+          <input type="text"
+                 placeholder='Enter address here'
+                 class='addressCollector form-control'
+                 name="address">
+          <input type="submit" class='btn homepage' value="Go!">
         </form>
       </div>
     </div> <!-- this div ends logoDiv -->

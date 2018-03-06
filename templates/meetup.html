@@ -5,23 +5,23 @@ Meetup Spots
 {% endblock %}
 
 {% block content %}
-
-<div><h1>Meetup Spots</h1></div>
-
-<div>
-<form action='/meetup' method='POST'>
-  <span>First Address
-    <input type='textbox' class="text-box single-line" data-val="true" data-val-required="The First address or zip code field is required." id="address1" name="address1" placeholder="First address or zip code" value='683 sutter st san francisco ca' required="required" tabindex="1" value="" aria-required="true" autocomplete="off"></span>
-  <span> Second Address
-    <input type='textbox' class="text-box single-line" data-val="true" data-val-required="The First address or zip code field is required." id="address2" name="address2" placeholder="First address or zip code" value='160 spear st san francisco ca' required="required" tabindex="1" value="" aria-required="true" autocomplete="off"></span>
+<div class='meetupHome'>
+  <div><h1>Meetup Spots</h1></div>
 
   <div>
-    What type of place do you want to meet at?
-    <input class="text-box single-line tt-input" id="venue" name="venue" placeholder="Where to?" tabindex="3" type="textbox" value="" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;"><br>
-    <span style="color:gray">eg: Dinner, cafe, park - leave blank if anything goes. </span>
-    <input type='submit' value='GO!'>
-    </form>
+  <form action='/meetup' method='POST'>
+    <span>First Address
+      <input type='textbox' class="text-box single-line" data-val="true" data-val-required="The First address or zip code field is required." id="address1" name="address1" placeholder="First address or zip code" value='683 sutter st san francisco ca' required="required" tabindex="1" value="" aria-required="true" autocomplete="off"></span>
+    <span> Second Address
+      <input type='textbox' class="text-box single-line" data-val="true" data-val-required="The First address or zip code field is required." id="address2" name="address2" placeholder="First address or zip code" value='160 spear st san francisco ca' required="required" tabindex="1" value="" aria-required="true" autocomplete="off"></span>
+
+    <div>
+      What type of place do you want to meet at?
+      <input class="text-box single-line tt-input" id="venue" name="venue" placeholder="Where to?" tabindex="3" type="textbox" value="" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;"><br>
+      <span style="color:gray">eg: Dinner, cafe, park - leave blank if anything goes. </span>
+      <input type='submit' value='GO!'>
+      </form>
+    </div>
   </div>
 </div>
-
 {% endblock %}
