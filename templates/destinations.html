@@ -5,77 +5,81 @@ Destinations
 {% endblock %}
 
 {% block content %}
-
-<div><h1>{{ places[0].user.username }}'s Destinations</h1></div>
-<div><h3>Become an expert of this area and visit the following places:</h3></div>
-
-<div id='destinationsMap' style='width: 400px; height: 300px;'></div>
-
-<div class='destinationsList'>
-{% for place in places  %}
-  <div class='locationCard'>
-    <a href='{{ place.location.yelp_url }}'>  
-      <img src="{{ place.location.pic }}" 
-           class='businessImage img-circle'>
-    </a>
-    <h3><b>{{ place.location.name }}</b></h3>
-    	{{ place.location.address }}
-
-    <br>
-
-   <!-- Button trigger modal -->
-    <a data-toggle="modal" href="#btn-{{ place.yelp_id }}"
-       class="btn btn-primary btn-lg">I've been here!</a>
+<div class="destinations-container">
+  <div class="well destinations-title-container">
+    <h1 class="destinations-title">{{ places[0].user.username }}'s Destinations</h1>
+    <h3>Become an expert of this area and visit the following places:</h3>
   </div>
-  <br>
-  <!-- Modal -->
-  <div class="modal fade" id="btn-{{ place.yelp_id }}" tabindex="-1" 
-       role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" 
-                  aria-hidden="true">×</button>
-          <h4 class="modal-title">{{ place.location.name }}</h4>
-        </div>
-        <div class="modal-body">
-          <div class="addNotes panel-body">
-          <div class='addDetails'> 
-          	Notes:<textarea rows="4" cols="50" input type='textarea' name='notes' 
-                            id='notes-{{ place.yelp_id }}' 
-                            value='{{ place.notes }}'></textarea><br>
-          	Favorite: <input type='text' name='favorite' 
-                            id='favorites-{{ place.yelp_id }}' 
-                            {% if place.favorite %}
-                            value='{{ place.favorite }}'>
-                            {% endif %}
-                      </input><br>
-          	<button type="button" class="btn btn-default" 
-                    aria-label="Left Align" 
-                    onClick='fillStar("{{ place.yelp_id }}")'>
-              <span class="glyphicon glyphicon-star-empty" 
-                    aria-hidden="true"></span>
-            </button>
-          </div>
 
+  <div class="destinations-map-container">
+    <div id='destinationsMap' style='width: 450px; height: 400px;'></div>
+
+    <div class='destinationsList'>
+    {% for place in places  %}
+      <div class='destinationCard'>
+        <a href='{{ place.location.yelp_url }}'>  
+          <img src="{{ place.location.pic }}" 
+               class='businessImage img-circle'>
+        </a>
+        <h3><b>{{ place.location.name }}</b></h3>
+        	{{ place.location.address }}
+
+        <br>
+
+       <!-- Button trigger modal -->
+        <a data-toggle="modal" href="#btn-{{ place.yelp_id }}"
+           class="btn btn-primary btn-lg destinations-button">I've been here!</a>
       </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary addDetails"
-                  id='details-{{ place.yelp_id }}'
-          		    onClick='addDetailsOnClick("{{ place.yelp_id }}")'
-          		    data-dismiss="modal" > Add details
-      	  </button>
+      <br>
+      <!-- Modal -->
+      <div class="modal fade" id="btn-{{ place.yelp_id }}" tabindex="-1" 
+           role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" 
+                      aria-hidden="true">×</button>
+              <h4 class="modal-title">{{ place.location.name }}</h4>
+            </div>
+            <div class="modal-body">
+              <div class="addNotes panel-body">
+              <div class='addDetails'> 
+              	Notes:<textarea rows="4" cols="50" input type='textarea' name='notes' 
+                                id='notes-{{ place.yelp_id }}' 
+                                value='{{ place.notes }}'></textarea><br>
+              	Favorite: <input type='text' name='favorite' 
+                                id='favorites-{{ place.yelp_id }}' 
+                                {% if place.favorite %}
+                                value='{{ place.favorite }}'>
+                                {% endif %}
+                          </input><br>
+              	<button type="button" class="btn btn-default" 
+                        aria-label="Left Align" 
+                        onClick='fillStar("{{ place.yelp_id }}")'>
+                  <span class="glyphicon glyphicon-star-empty" 
+                        aria-hidden="true"></span>
+                </button>
+              </div>
+
+          </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary addDetails"
+                      id='details-{{ place.yelp_id }}'
+              		    onClick='addDetailsOnClick("{{ place.yelp_id }}")'
+              		    data-dismiss="modal" > Add details
+          	  </button>
+            </div>
+          </div>
         </div>
       </div>
+
+
+    {% endfor %}
     </div>
   </div>
-
-
-{% endfor %}
 </div>
-
 <script > 
     let addressLonLat = {{ addressLonLat }};
     let destinationLngLats = {{ map_json }};

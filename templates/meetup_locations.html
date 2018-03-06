@@ -5,33 +5,36 @@ Meetup Spots
 {% endblock %}
 
 {% block content %}
-
-<div><h3>Here are some convenient spots between {{ address1 }} and {{ address2 }}:</h3></div>
-<div class='mapPlaces'>
-
-  <div class='placesScroll'>
-  {% for place in places %}
-
-  <div class='locationCard'>
-    <a href='{{ places[place]['url'] }}'> <img src="{{ places[place]['pic'] }}" 
-       class='businessImage img-circle'></a><br>
-    <p><b>{{ places[place]['name'] }}</b> is a good option at
-    {{ places[place]['address'] }}</p>
+<div class="meetup-container">
+  <div class="well destinations-title-container">
+    <h3>Here are some convenient spots between {{ address1 }} and {{ address2 }}:</h3>
   </div>
 
-  <div id='LonLat' data-center='{{ map_center }}'></div>
-  <div id='meetupLat' data-meetupLat='{{ latitude }}'></div>
-  <div class='location' data-lat='{{ places[place]['latitude'] }}'
-                        data-lon='{{ places[place]['longitude'] }}'
-                        data-name='{{ places[place]['name'] }}'
-    style="display: none">
-  </div>
+  <div class='mapPlaces'>
 
-  {% endfor %}
+    <div id='meetupMap' style='width: 500px; height: 500px;'></div>
+    <div class='meetupScroll'>
+    {% for place in places %}
+
+    <div class='meetupCard'>
+      <a href='{{ places[place]['url'] }}'> <img src="{{ places[place]['pic'] }}" 
+         class='businessImage img-circle'></a><br>
+      <p><b>{{ places[place]['name'] }}</b> is a good option at
+      {{ places[place]['address'] }}</p>
+    </div>
+
+    <div id='LonLat' data-center='{{ map_center }}'></div>
+    <div id='meetupLat' data-meetupLat='{{ latitude }}'></div>
+    <div class='location' data-lat='{{ places[place]['latitude'] }}'
+                          data-lon='{{ places[place]['longitude'] }}'
+                          data-name='{{ places[place]['name'] }}'
+      style="display: none">
+    </div>
+
+    {% endfor %}
+    </div>
   </div>
-  <div id='meetupMap' style='width: 500px; height: 500px;'></div>
 </div>
-
 <script> 
     let mapCenter = $('#LonLat').data('lonLat');
     let meetupLat = $('#meetupLat').data('meetupLat')

@@ -86,8 +86,7 @@ display: inline-block;
 }
 
 .addToList:hover {
-  background:#fefeff;
-  text-decoration:underline;
+  background:#dfdfdf;
 }
 /*.addToList:hover {
   background-color: lighten(green, 5%);
@@ -109,7 +108,6 @@ display: inline-block;
 
 /*Maps*/
 #meetupMap {
-  width: 100%;
 } 
 
 .map {
@@ -148,6 +146,8 @@ display: inline-block;
 
 .destinationsList {
   overflow: auto;
+  height:400px;
+  width:450px;
 }
 
 .locationCard {
@@ -156,6 +156,34 @@ display: inline-block;
   margin: 0px auto 5px 0;
   padding: 10px;
   width: 98%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  background: #cfcfef;
+  color: #333;
+}
+.destinationCard {
+  border: 1px solid #e7e9eb;
+  border-radius: 4px;
+  margin: 0px auto 5px 0;
+  padding: 10px;
+  width: 450px;
+  height:370px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  background: #cfcfef;
+  color: #333;
+}
+.meetupCard {
+  border: 1px solid #e7e9eb;
+  border-radius: 4px;
+  margin: 0px auto 5px 0;
+  padding: 10px;
+  width: 450px;
+  height:285px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -175,20 +203,45 @@ display: inline-block;
 .visited-container {
   margin: 0 10vw 80px 10vw;
 }
+.meetup-container {
+  margin: 0 10vw 80px 10vw;
+}
+.destinations-container {
+  margin: 0 10vw 80px 10vw;
+}
 
 .visited-title {
   margin:0;
+}
+.destinations-title {
+  margin:0;
+}
+
+.destinations-button {
+  margin: 15px 0 0 0;
 }
 
 .visited-title-container {
   margin: 15px 0;
 }
 
+.destinations-title-container {
+  margin: 15px 0;
+}
+
 .visited-title-container h3 {
+  margin: 20px 0 0 0;
+}
+.destinations-title-container h3 {
   margin: 20px 0 0 0;
 }
 
 .visited-map-container {
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+}
+.destinations-map-container {
   display:flex;
   flex-direction:row;
   justify-content:space-between;
@@ -215,6 +268,12 @@ display: inline-block;
   overflow: auto;
   justify-content: center;
   margin: 0 0 70px 0;
+}
+.meetupScroll {
+  height: 500px;
+  overflow: auto;
+  justify-content: center;
+
 }
 
 
