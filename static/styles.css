@@ -3,6 +3,10 @@
 	width: 200px;
 }
 
+.navbar {
+  margin: 0;
+}
+
 .navbar-center {
     display: inline-block;
     float: none;
@@ -28,11 +32,11 @@
   height:100%;
 }
 
-
 .logo {
     font-family: shutdown;
     font-size: 100px;
     padding: 15px;
+    margin: 0 0 10px 0;
 }
 
 .logoSupplement {
@@ -47,7 +51,6 @@
 }
 
 .HomepageDiv {
-    height: 200px;
     width: 400px;
     position: relative;
     top: 50%;
@@ -58,7 +61,10 @@
 }
 
 .addressCollector {
-border-radius: 50px;
+border-radius: 4px;
+width: 80%;
+display: inline-block;
+
 }
 /*questions page*/
 
@@ -70,13 +76,18 @@ border-radius: 50px;
 .addToList {
   width: 110px;
   height: 50px;
-  background-color: #f19f4d;
-  color: #4484CE;
+  background-color: #f9f9fa;
+  color: #333;
   text-align:center;
   line-height:50px;
   border-radius: 30px;
   display: inline-block;
   margin: 0 5px;
+}
+
+.addToList:hover {
+  background:#fefeff;
+  text-decoration:underline;
 }
 /*.addToList:hover {
   background-color: lighten(green, 5%);
@@ -92,16 +103,18 @@ border-radius: 50px;
 /*explore*/
 .main {
 /*    background-image: url("Bg.jpg");
-*/    background-size: cover;
-    height:100%;
-    color: white;
-    background-color: #4484CE;
+*/  background-size: cover;
+    height: 88%;
 }
 
 /*Maps*/
 #meetupMap {
   width: 100%;
-      }
+} 
+
+.map {
+  display:inline-block !important;
+}
 
 .marker {
   background-image: url('/static/cross-15.svg');
@@ -138,27 +151,55 @@ border-radius: 50px;
 }
 
 .locationCard {
-  /*background: #f9f9fa;*/
   border: 1px solid #e7e9eb;
   border-radius: 4px;
-  margin: 5px 0; 
+  margin: 0px auto 5px 0;
   padding: 10px;
-  width: 400px;
+  width: 98%;
   display: flex;
   flex-direction: column;
   align-items: center;
   backdrop-filter: blur(5px);
-  color: #F19F4D;
-  background-color: #D9D9D9;
+  background: #cfcfef;
+  color: #333;
 }
 
 .explore {
-  color: #D9D9D9;
-
+  margin: 10px 0 10px 0;
 }
 
 .hidden {
   display: none;
+}
+
+.visited-container {
+  margin: 0 10vw 80px 10vw;
+}
+
+.visited-title {
+  margin:0;
+}
+
+.visited-title-container {
+  margin: 15px 0;
+}
+
+.visited-title-container h3 {
+  margin: 20px 0 0 0;
+}
+
+.visited-map-container {
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+}
+
+.panel-group{
+  overflow:auto;
+  height:400px;
+  width:500px;
+  display:inline-block;
+  margin:0;
 }
 
 .mapPlaces {
@@ -170,9 +211,10 @@ border-radius: 50px;
 
 .placesScroll {
   height: 400px;
-  width: 400px;
+  width: 100%;
   overflow: auto;
   justify-content: center;
+  margin: 0 0 70px 0;
 }
 
 

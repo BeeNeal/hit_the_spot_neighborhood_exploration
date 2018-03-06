@@ -16,7 +16,7 @@ BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
 
 DEFAULT_TERM = 'dinner'
 DEFAULT_LOCATION = '683 Sutter st San Francisco, CA'
-SEARCH_LIMIT = 50
+SEARCH_LIMIT = 3
 
 
 def request_call(host, path, api_key, url_params=None):

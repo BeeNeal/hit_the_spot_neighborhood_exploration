@@ -42,19 +42,19 @@
     $.post("/add-to-list", payload, function change_btn_color(results) {
       if (results.status === 'interested') {
         $(`button[data-id='${yelpId}'][data-status='interested']`)
-          .css("backgroundColor", '#3d3d3d')
-          .css("color", "#4484CE");
+          .css("backgroundColor", '#a9a9a9') 
+          .css("color", "#333");
         $(`button[data-id='${yelpId}'][data-status='visited']`)
-          .css("backgroundColor", '#f19f4d')
-          .css("color", "#4484CE");
+          .css("backgroundColor", '#fefeff')
+          .css("color", "#333");
         }
       else if (results.status === 'visited') {
         $(`button[data-id='${yelpId}'][data-status='visited']`)
-          .css("backgroundColor", '#3d3d3d')
-          .css("color", "#4484CE");
+          .css("backgroundColor", '#a9a9a9')
+          .css("color", "#333");
         $(`button[data-id='${yelpId}'][data-status='interested']`)
-          .css("backgroundColor", '#f19f4d')
-          .css("color", "#4484CE");
+          .css("backgroundColor", '#fefeff')
+          .css("color", "#333");
       }
 
     });

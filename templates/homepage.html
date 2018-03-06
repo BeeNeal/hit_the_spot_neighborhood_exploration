@@ -9,9 +9,6 @@ Homepage
     <div class='logoDiv'>
       <h1 class='logo'>Hit the Spot!</h1>
       <h3 class='logoSupplement'>Neighborhood Exploration</h3>
-      {% if session.get('user_id') %}
-      Welcome back!
-      {% endif %}
 
       <div class='homepageDiv'>Around where do you want to explore? 
         <form action='/explore', method='get'>

@@ -3,6 +3,7 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+
 <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
 <script src='https://npmcdn.com/mapbox-gl-circle/dist/mapbox-gl-circle.min.js'></script>
 
@@ -28,12 +29,9 @@
 	<!-- Static navbar -->
   <nav class="navbar navbar-default">
     <div class="container-fluid">
-
       <div id="navbar">
         <ul class="nav navbar-nav">
-
           {% if session.get('user_id') %}
-
           <li><a href="/explore">Explore</a></li>
           <li><a href="/destinations">My Destinations</a></li>
           <li><a href="/visited">My Places</a></li>
@@ -46,7 +44,6 @@
           <li><a id='login' data-toggle="modal" 
                  data-target="#loginModal">My Places</a></li>       
           {% endif %}
-
           <li class='navbar-center'><a href="/meetup">Meet-Up</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -109,7 +106,7 @@
       </div>
 
 
-    <div>
+    <div class="body-container">
       {% block content %}
         BODY GOES HERE
       {% endblock %}

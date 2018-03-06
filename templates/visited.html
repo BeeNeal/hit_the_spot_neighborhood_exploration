@@ -6,56 +6,61 @@ Visited Locations
 
 {% block content %}
 
+<div class="visited-container">
+  <div class='well visited-title-container'>
+    <h1 class="visited-title">Visited Locations</h1>
+    <h3>What did you think of these places?:</h3>
+  </div>
 
-<div><h1>Visited Locations</h1></div>
-<div><h3>What did you think of these places?:</h3></div>
+  <div class="visited-map-container">
+    <div id='map' style='width: 500px; height: 400px; display:inline-block;'></div>
 
-<div id='map' style='width: 400px; height: 300px;'></div>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      {% for place in places  %}
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" 
+                 href="#collapse-{{ place.yelp_id }}" aria-expanded="true" 
+                 aria-controls="collapse-{{ place.yelp_id }}">
+                <h3><b>{{ place.location.name }}</b></h3>
+              </a>
+            </h4>
+          </div>
+          <div id="collapse-{{ place.yelp_id }}" class="panel-collapse collapse in" 
+               role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body addNotes">
+                <div class='addDetails'> 
+                  {% if place.notes %}
+                    {% set classes = 'well' %}
+                  {% else %}
+                    {% set classes = 'well hidden' %}
+                  {% endif%}
+                    <div class='{{classes}}' id='div{{ place.yelp_id }}'>{{ place.notes }}</div>
+                            Add notes:
+                      <textarea rows='4' cols='50'
+                        name='notes' id='notes-{{ place.yelp_id }}'></textarea>
+                        <span class='glyphicon glyphicon-pencil'></span><br>
+                	Favorite: <input type='text' name='favorite' 
+                                  id='favorites-{{ place.yelp_id }}' 
+                                  value='{{ place.favorite }}'>
+                            </input><br>
+                	<button type="button" class="btn btn-default" 
+                          aria-label="Left Align" id='star{{ place.yelp_id }}'>
+                    <span class="glyphicon glyphicon-star-empty" 
+                          aria-hidden="true"></span>
+                  </button>
+                </div>
+               <button class='addDetails' 
+                       onClick='addDetailsOnClick("{{ place.yelp_id }}")'>Add Details 
+               </button>
 
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-  {% for place in places  %}
-    <div class="panel panel-default">
-      <div class="panel-heading" role="tab" id="headingOne">
-        <h4 class="panel-title">
-          <a role="button" data-toggle="collapse" data-parent="#accordion" 
-             href="#collapse-{{ place.yelp_id }}" aria-expanded="true" 
-             aria-controls="collapse-{{ place.yelp_id }}">
-            <h3><b>{{ place.location.name }}</b></h3>
-          </a>
-        </h4>
-      </div>
-      <div id="collapse-{{ place.yelp_id }}" class="panel-collapse collapse in" 
-           role="tabpanel" aria-labelledby="headingOne">
-        <div class="panel-body addNotes">
-            <div class='addDetails'> 
-              {% if place.notes %}
-                {% set classes = 'well' %}
-              {% else %}
-                {% set classes = 'well hidden' %}
-              {% endif%}
-                <div class='{{classes}}' id='div{{ place.yelp_id }}'>{{ place.notes }}</div>
-                        Add notes:
-                  <textarea rows='4' cols='50'
-                    name='notes' id='notes-{{ place.yelp_id }}'></textarea>
-                    <span class='glyphicon glyphicon-pencil'></span><br>
-            	Favorite: <input type='text' name='favorite' 
-                              id='favorites-{{ place.yelp_id }}' 
-                              value='{{ place.favorite }}'>
-                        </input><br>
-            	<button type="button" class="btn btn-default" 
-                      aria-label="Left Align" id='star{{ place.yelp_id }}'>
-                <span class="glyphicon glyphicon-star-empty" 
-                      aria-hidden="true"></span>
-              </button>
             </div>
-           <button class='addDetails' 
-                   onClick='addDetailsOnClick("{{ place.yelp_id }}")'>Add Details 
-           </button>
-
+          </div>
         </div>
-      </div>
+      {% endfor %}
     </div>
-  {% endfor %}
+  </div>
 </div>
 <script > 
     let addressLonLat = {{ addressLonLat }};
