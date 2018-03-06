@@ -13,3 +13,12 @@ for (coordinates of visitedLngLats) {
         .setLngLat(coordinates)
         .addTo(map);
 }
+
+
+var visitedCircle = new MapboxCircle({lat: addressLonLat[1],
+                                 lng: addressLonLat[0]},
+                                 1200, {
+                                        editable: true,
+                                        minRadius: 1200,
+                                        fillColor: '#29AB87'
+                                    }).addTo(map);

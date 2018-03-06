@@ -32,13 +32,14 @@ def geocode(address):
 
     # google geocoder returns latitude, longitude as list
     coordinates = geocoder.google(address).latlng
-    lat, lon = coordinates
-    lon_lat = [lon, lat]
-
-    # swap lat/lon to lon/lat to accommodate mapbox
     if not coordinates:
         sleep(1)
         lon_lat = mapbox_geocode(address)   # catch the error, sleep python
+    else:
+        lat, lon = coordinates
+        lon_lat = [lon, lat]
+
+    # swap lat/lon to lon/lat to accommodate mapbox
         # lat, lon = coordinates
         # lon_lat = [lon, lat]
 

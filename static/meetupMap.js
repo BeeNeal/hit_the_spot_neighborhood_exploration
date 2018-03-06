@@ -108,11 +108,16 @@ geojson2.features.forEach(function(marker) {
 
 });
 
+// add meetup midpoint marker
+
+var markerm = new mapboxgl.Marker()
+    .setLngLat(mC)
+    .addTo(meetupMap);
 
 // draw circle
-var myCircle = new MapboxCircle({lat: mC[1], lng: mC[0]}, 1200, {
+var myCircle = new MapboxCircle({lat: mC[1], lng: mC[0]}, 600, {
         editable: true,
-        minRadius: 1200,
+        minRadius: 600,
         // fillColor: '#29AB87'
     }).addTo(meetupMap);
  
