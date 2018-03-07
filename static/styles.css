@@ -117,8 +117,8 @@ display: inline;
 
 /*explore*/
 .main {
-/*    background-image: url("Bg.jpg");
-*/  background-size: cover;
+    background-image: url("paperBg.jpg");
+  background-size: cover;
     height: 88%;
 }
 
@@ -176,7 +176,7 @@ display: inline;
   flex-direction: column;
   align-items: center;
   backdrop-filter: blur(5px);
-  background: #cfcfef;
+  background: #778899;
   color: #333;
 }
 .destinationCard {
