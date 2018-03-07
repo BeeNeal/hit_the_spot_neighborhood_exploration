@@ -102,9 +102,9 @@ def search_by_coordinates(api_key, latitude, longitude, term=''):
         'term': term.replace(' ', '+'),
         'latitude': latitude,
         'longitude': longitude,
-        'limit': SEARCH_LIMIT,
-        'radius': 2000,
-        'sort_by': 'distance',
+        'limit': 10,
+        'radius': 450,
+        'sort_by': 'rating',
     }
 
     return request_call(API_HOST, SEARCH_PATH, api_key, url_params=url_params)

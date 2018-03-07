@@ -6,22 +6,26 @@ Meetup Spots
 
 {% block content %}
 <div class='meetupHome'>
-  <div><h1>Meetup Spots</h1></div>
+  <div> 
+    <div class='meetup-body'>
+      <h1 class='meetupSpotsTitle'>Meetup Spots</h1>
+      <form action='/meetup' method='POST'>
+        <span class='address-collector'>First Address
+          <input type='textbox' class="addressCollectorMU form-control" data-val="true" data-val-required="The First address or zip code field is required." id="address1" name="address1" placeholder="First address or zip code" value='683 sutter st san francisco ca' required="required" tabindex="1" value="" aria-required="true" autocomplete="off">
+        </span>
 
-  <div>
-  <form action='/meetup' method='POST'>
-    <span>First Address
-      <input type='textbox' class="text-box single-line" data-val="true" data-val-required="The First address or zip code field is required." id="address1" name="address1" placeholder="First address or zip code" value='683 sutter st san francisco ca' required="required" tabindex="1" value="" aria-required="true" autocomplete="off"></span>
-    <span> Second Address
-      <input type='textbox' class="text-box single-line" data-val="true" data-val-required="The First address or zip code field is required." id="address2" name="address2" placeholder="First address or zip code" value='160 spear st san francisco ca' required="required" tabindex="1" value="" aria-required="true" autocomplete="off"></span>
+        <span class='address-collector'> Second Address
+          <input type='textbox' class="addressCollectorMU form-control" data-val="true" data-val-required="The First address or zip code field is required." id="address2" name="address2" placeholder="First address or zip code" value='600 Townsend st san francisco ca' required="required" tabindex="1" value="" aria-required="true" autocomplete="off">
+        </span>
 
-    <div>
-      What type of place do you want to meet at?
-      <input class="text-box single-line tt-input" id="venue" name="venue" placeholder="Where to?" tabindex="3" type="textbox" value="" dir="auto" style="position: relative; vertical-align: top;"><br>
-      <span style="color:gray">eg: Dinner, cafe, park - leave blank if anything goes. </span>
-      <input type='submit' value='GO!'>
+        <span>
+          What type of place do you want to meet at?
+          <input class="addressCollectorMU form-control" id="venue" name="venue" placeholder="Where to?" tabindex="3" type="textbox" value="" dir="auto"><br>
+          <span>eg: Dinner, cafe, park - leave blank if anything goes. </span>
+        </span>
+          <input class='btn homepage' type='submit' value='GO!'>
       </form>
-    </div>
-  </div>
-</div>
+    </div> <!-- closes meetup body -->
+  </div>   
+</div> <!-- closes meetup home -->
 {% endblock %}

@@ -12,10 +12,6 @@ Questions
     });
 </script>
 
-
-<button type='button' id='questionModalBtn' data-toggle="modal" 
-        data-target="#questionsModal">QModal</button>
-
 <!-- Modal -->
 <div id="questionsModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -28,12 +24,10 @@ Questions
       </div>
       <div class="modal-body well spaced">
         <p>What's your favorite type of cuisine?</p>
-<!--         <div class="well spaced" style="width:60%;">
- -->          <form class='questionsForm' method="post" >
-            <span class="glyphicon glyphicon-chevron-left"></span>
+        <!-- <div class="well spaced" style="width:60%;"> -->
+          <form class='questionsForm' method="post" >
             <input type="text" name="answers" class='answers'
                    id='cuisinePreference' required class="form-control"/>
-              <span class="glyphicon glyphicon-chevron-right"></span>
               <span class="glyphicon glyphicon-cutlery"></span><br>
               <button type='button' id='q2Modal' data-toggle='modal' 
               data-from='questionsModal' data-target='#q2modal' 
@@ -59,10 +53,10 @@ Questions
       </div>
 
       <div class="modal-body">
-        <p>Any hobbies?</p>
+        <p>Where in general do you like to hang out?</p>
 
         <div class="well spaced" style="width:40%;">
-          <form class='questionsForm' method="post">Any hobbies?
+          <form class='questionsForm' method="post">
             <input type="text" name="hobby" class="answers"
                    id='hobby' required class="form-control">
 
@@ -86,9 +80,9 @@ Questions
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Some Quick Qs for where you want to explore</h4>
       </div>
-      <div class="modal-body">
-        <p>Do you prefer being indoors or outdoors?</p>
-        <div class="well spaced" style="width:40%;">
+      <div class="modal-body q3">
+        <div class="well spaced q3text" style="width:50%;">
+          <p>Do you prefer being indoors or outdoors?</p>
           <form class='questionsForm' method="post">
             <input type="radio" name="outdoorsy" value="True" class='answers' 
                    required class="form-control"/>Indoors<br>
@@ -96,10 +90,11 @@ Questions
                    required class="form-control"/>Outdoors<br>
             <input type="radio" name="outdoorsy" value="True" class='answers'
                    required class="form-control"/>No preference
-              <span class="glyphicon glyphicon-tree-conifer"></span><br>
-            <button type='button' id='AnsSubmit' onClick='grabThirdAnswer()' 
+              <br>
+            <button type='button' id='AnsSubmit' class='btn doneBtn' 
+                    onClick='grabThirdAnswer()' 
                     method='post'>Done
-            </button>  
+            </button><span class="glyphicon glyphicon-tree-conifer"></span>
                   <!-- data-dismiss="modal" <- put inside btn if needed -->
           </form>
         </div>

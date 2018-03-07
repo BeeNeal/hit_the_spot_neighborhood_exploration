@@ -13,6 +13,11 @@
     vertical-align: top;
 }
 
+img .navbar-brand {
+
+  width: 150px;
+  height: 150px;
+}
 /*Homepage*/
 
 @font-face {
@@ -48,6 +53,7 @@
 
 .homepage {
   background-color: #00868B;
+  position: relative;
 }
 
 .HomepageDiv {
@@ -66,6 +72,16 @@ width: 80%;
 display: inline-block;
 
 }
+
+.addressCollectorMU {
+  border-radius: 4px;
+  width: 80%;
+}
+
+.address-collector {
+display: inline;
+}
+
 /*questions page*/
 
 .glyphicon-chevron-left {
@@ -74,8 +90,8 @@ display: inline-block;
 
 
 .addToList {
-  width: 110px;
-  height: 50px;
+/*  width: 110px;
+*/  height: 50px;
   background-color: #f9f9fa;
   color: #333;
   text-align:center;
@@ -264,10 +280,10 @@ display: inline-block;
 
 .placesScroll {
   height: 400px;
-  width: 100%;
+  width: 60%;
   overflow: auto;
   justify-content: center;
-  margin: 0 0 70px 0;
+  margin: 0 auto 70px;
 }
 .meetupScroll {
   height: 500px;
@@ -281,4 +297,45 @@ display: inline-block;
   background-image: url('friends.jpg');
   background-size: cover;
   height:90%;
+}
+
+.meetupSpotsTitle {
+  margin: 0 0 0 0;
+}
+
+.meetup-body {
+  position: fixed;
+  width: 500px;
+  height: 300px;
+  z-index: 15;
+  top: 50%;
+  left: 45%;
+  margin: -150px 0 0 -150px;
+  color: #F5F5F5;
+ /* display: flex;
+  align-items: center;
+  justify-content: center*/
+}
+
+
+.q3 {
+  background-image: url('mtnBg.jpg');
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+.q3text {
+
+}
+
+.doneBtn {
+  border-radius: 2px;
+  position: relative;
+  background-color: #ADB3CA;
+}
+
+div {
+  font-family: 'Open Sans', sans-serif;
 }

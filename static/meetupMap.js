@@ -117,7 +117,7 @@ var markerm = new mapboxgl.Marker()
 // draw circle
 var myCircle = new MapboxCircle({lat: mC[1], lng: mC[0]}, 600, {
         editable: true,
-        minRadius: 600,
+        minRadius: 650,
         // fillColor: '#29AB87'
     }).addTo(meetupMap);
  
