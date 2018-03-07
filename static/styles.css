@@ -220,7 +220,7 @@ display: inline;
   margin: -15px 10vw 80px 10vw;
 }
 .meetup-container {
-  margin: 0 10vw 80px 10vw;
+  margin: -20px 10vw 80px 10vw;
 }
 .destinations-container {
   margin: 0 10vw 80px 10vw;
@@ -366,5 +366,9 @@ footer {
 }
 
 .visitedText{
-  border-radius: 4px
+  border-radius: 4px;
+  }
+
+  .mapDiv {
+    border-radius: 4px;
   }

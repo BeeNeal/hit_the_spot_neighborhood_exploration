@@ -42,6 +42,8 @@ function addDetailsOnClick(yelp_id) {
     $.post("/add-notes", payload, function updateNotesDiv(results) {
         $(`#div${yelp_id}`).removeClass('hidden').html;
         $(`#div${yelp_id}`).html(notes);
+
+        $(`#notes-${yelp_id}`).val(" ");
     });
 
 }
