@@ -117,9 +117,9 @@ display: inline;
 
 /*explore*/
 .main {
-    background-image: url("paperBg.jpg");
+    background-image: url("crumpledBg.jpg");
   background-size: cover;
-    height: 88%;
+    height: 100%;
 }
 
 /*Maps*/
@@ -217,7 +217,7 @@ display: inline;
 }
 
 .visited-container {
-  margin: 0 10vw 80px 10vw;
+  margin: -15px 10vw 80px 10vw;
 }
 .meetup-container {
   margin: 0 10vw 80px 10vw;
@@ -310,7 +310,7 @@ display: inline;
   z-index: 15;
   top: 50%;
   left: 45%;
-  margin: -150px 0 0 -150px;
+  margin: -195px 0 0 -150px;
   color: #F5F5F5;
  /* display: flex;
   align-items: center;
@@ -323,15 +323,12 @@ display: inline;
   background-size: cover;
   display: flex;
   align-items: center;
-  justify-content: center
-}
-
-.q3text {
+  justify-content: center;
 
 }
 
 .doneBtn {
-  border-radius: 2px;
+  border-radius: 18px;
   position: relative;
   background-color: #ADB3CA;
 }
@@ -339,3 +336,35 @@ display: inline;
 div {
   font-family: 'Open Sans', sans-serif;
 }
+
+.footer-img {
+  height:40px;
+}
+
+footer {
+  font-size: 10px;
+}
+
+.body-container {
+  background-image: url("crumpledBg.jpg");
+  background-size: cover;
+  height: 100%;
+}
+
+.notes {
+  border-radius: 4px;
+}
+
+.glyphicon-star-empty{
+  display:inline;
+  font-size: 16px;
+  
+}
+
+.visitedBtn {
+  margin: 0 19px;
+}
+
+.visitedText{
+  border-radius: 4px
+  }
