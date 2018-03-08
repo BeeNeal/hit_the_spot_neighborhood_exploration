@@ -1,9 +1,8 @@
 # Hit the Spot! A neighborhood exploration app
 
+![homepage image](https://raw.githubusercontent.com/beeneal/hit_the_spot_neighborhood_exploration/master/static/homepage.png)
 
-
-
-Try out all the best spots in your neighborhood with Hit the Spot! This app provides inspiration to get you to visit that cute little cafe down the street, or the art gallery you always pass by on your daily commute. Your neighborhood is welcoming you with open arms.
+Try out all the best spots in your neighborhood with Hit the Spot! This app provides inspiration to get you to visit that cute little cafe down the street, or the art gallery you always pass by on your daily commute. Need help choosing a place to meet a friend at a location convenient for both of you? A handy meetup feature has you covered.
 
 # Technology stack
 
@@ -15,6 +14,7 @@ APIs: Yelp, Mapbox
 
 # Overview
 
+Once the user arrives at Hit the Spot! they can enter an address, and have a list of 
 
 # Setup
 
@@ -32,8 +32,16 @@ $ source env/bin/activate
 $ pip install -r requirements.txt
 ```
 
--- Get your own secret key for Yelp and add to a file titled secrets.sh.
+-- Get your own secret key for Yelp and add to a file titled secrets.sh
 
+-- Create the database
+
+```sh
+$ createdb explorations
+$ python -i model.py
+
+>>> db.create_all() 
+```
 
 -- Run the app:
 
@@ -44,4 +52,7 @@ $ python server.py
 -- Navigate to localhost:5000 in your browser, create an account, and get started!
 
 
--- Navigate to localhost:5000 in your browser, create an account, and get started!
+# Author
+
+Brittany is a software engineer based out of Oakland, CA. 
+Learn more about her here: https://www.linkedin.com/in/brittanyneal22/
