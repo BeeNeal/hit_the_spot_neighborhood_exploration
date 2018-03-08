@@ -1,6 +1,6 @@
 # Hit the Spot! A neighborhood exploration app
 
-![homepage image](https://raw.githubusercontent.com/beeneal/hit_the_spot_neighborhood_exploration/master/static/homepage.png)
+![homepage image](https://github.com/BeeNeal/hit_the_spot_neighborhood_exploration/blob/master/static/homepage.png)
 
 Try out all the best spots in your neighborhood with Hit the Spot! This app provides inspiration to get you to visit that cute little cafe down the street, or the art gallery you always pass by on your daily commute. Need help choosing a place to meet a friend at a location convenient for both of you? A handy meetup feature has you covered.
 
