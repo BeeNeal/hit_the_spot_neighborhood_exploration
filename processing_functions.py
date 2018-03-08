@@ -62,7 +62,8 @@ def combine_location_dictionaries(places, places2, places3, user_id):
     locations_dict = add_API_search_data_to_dict(places, user_id)
     locations_dict.update(add_API_search_data_to_dict(places2, user_id))
     locations_dict.update(add_API_search_data_to_dict(places3, user_id))
-
+    print places
+    print "SEPARATE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
     print locations_dict
     return locations_dict
 

@@ -69,6 +69,7 @@ def search_by_address():
     if session.get('user_id'):
         user_id = session['user_id']
         address = session['address']
+        lon, lat = user_lon_lat(user_id)
         cuisine = User.query.get(session['user_id']).cuisine
         if session.get('address2'):
             address = session['address2']
@@ -76,13 +77,16 @@ def search_by_address():
             address = request.args.get('address')
             session['address2'] = address
 
-        places = search(api_key, cuisine, address)
-        if User.query.get(session['user_id']).outdoorsy is True:
-            places2 = search_parks(api_key, address)  # FIXME - change to gardens
-        else:
-            places2 = search(api_key, 'cafe', address)
+        places = search_by_coordinates(api_key, lat, lon, 'dinner')
+        places2 = search_by_coordinates(api_key, lat, lon, 'cafe')
+        places3 = search_by_coordinates(api_key, lat, lon, 'park')
+        # places = search(api_key, cuisine, address)
+        # if User.query.get(session['user_id']).outdoorsy is True:
+        #     places2 = search_parks(api_key, address)  # FIXME - change to gardens
+        # else:
+        #     places2 = search(api_key, 'cafe', address)
 
-        places3 = search(api_key, 'hobby', address)
+        # places3 = search(api_key, 'hobby', address)
         locations_to_show = combine_location_dictionaries(places, places2,
                                                           places3, user_id)
 
@@ -313,12 +317,12 @@ def generate_meetup_spots():
 
 if __name__ == "__main__":
 
-    app.debug = False
+    app.debug = True
 
     connect_to_db(app)
 
     # Use the DebugToolbar
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
     app.run(host="0.0.0.0")
 

@@ -59,7 +59,7 @@ def search(api_key, term, location):
         'location': location.replace(' ', '+'),
         'limit': SEARCH_LIMIT,
         'radius': 2415,
-        'sort_by': 'distance',
+        'sort_by': 'rating',
         'price': '1, 2',
     }
 
@@ -102,7 +102,7 @@ def search_by_coordinates(api_key, latitude, longitude, term=''):
         'term': term.replace(' ', '+'),
         'latitude': latitude,
         'longitude': longitude,
-        'limit': 10,
+        'limit': 20,
         'radius': 450,
         'sort_by': 'rating',
     }
