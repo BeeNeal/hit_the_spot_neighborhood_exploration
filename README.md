@@ -4,7 +4,7 @@ Try out all the best spots in your neighborhood with Hit the Spot! This app prov
 
 ![homepage](https://github.com/BeeNeal/hit_the_spot_neighborhood_exploration/blob/master/static/homepage.png)
 
-# Technology stack
+## Technology stack
 
 Backend: Python, Flask, PostgreSQL, SQLAlchemy
 
@@ -12,20 +12,20 @@ Frontend: JavaScript, jQuery, Jinja, AJAX, HTML, CSS, Bootstrap
 
 APIs: Yelp, Mapbox
 
-# Overview
+## Overview
 
 Once the user arrives at Hit the Spot! they can enter an address, and have a list of highly rated  locations in a 1.5mi radius suggested to them. They can also access the meetup feature. The other features including saving destinations, and writing notes about visited locations require the user to register and login. The exploration list for the users that are logged in is tailored for the user, using the answers they've provided to some brief questions as the basis of the location list generation.
 
 ![question 3](https://github.com/BeeNeal/hit_the_spot_neighborhood_exploration/blob/master/static/outdoorsy.png)
 
-# Meetup Spot
+## Meetup Spot
 
 The user can input two addresses, and a list of suggested locations will be generated around the midpoint of these two addresses.The map displays markers for the two inputted addresses, the midpoint, and the suggested locations.
 
 ![Meetup page](https://github.com/BeeNeal/hit_the_spot_neighborhood_exploration/blob/master/static/meetup.png)
 
 
-# Setup
+## Setup
 
 -- Clone or fork this repo.
 
