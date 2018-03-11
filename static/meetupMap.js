@@ -118,7 +118,7 @@ var markerm = new mapboxgl.Marker()
 var myCircle = new MapboxCircle({lat: mC[1], lng: mC[0]}, 600, {
         editable: true,
         minRadius: 650,
-        // fillColor: '#29AB87'
+        fillColor: '#29AB87'
     }).addTo(meetupMap);
  
 myCircle.on('centerchanged', function (circleObj) {
@@ -133,6 +133,28 @@ myCircle.on('click', function (mapMouseEvent) {
 myCircle.on('contextmenu', function (mapMouseEvent) {
         console.log('Right-click:', mapMouseEvent.lngLat);
     });
+
+// calculate distance between addresses using the Haversine formula
+
+function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+  var R = 6371; // Radius of the earth in km
+  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1);
+  var a =
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ;
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  var d = R * c; // Distance in km
+  return d;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI/180);
+}
+
+
 
 
 //the below }) ends the .ready function which ensures loading order 

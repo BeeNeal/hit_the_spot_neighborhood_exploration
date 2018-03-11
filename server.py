@@ -301,7 +301,11 @@ def generate_meetup_spots():
     a2_coordinates = geocode(address2)
     map_center = meetup_root(address1, address2)
     lon, lat = map_center
-    places_from_yelp = search_by_coordinates(api_key, lat, lon, search_term)
+
+    search_radius = get_search_radius(a1_coordinates[1], a1_coordinates[0],
+                                      a2_coordinates[1], a2_coordinates[0])
+    places_from_yelp = search_by_coordinates(api_key, lat, lon, search_radius,
+                                             search_term)
     places = create_meetup_list(places_from_yelp)
 
     return render_template('meetup_locations.html', places=places,

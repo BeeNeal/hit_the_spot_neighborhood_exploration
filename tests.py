@@ -64,15 +64,18 @@ class FlaskTestsDatabase(TestCase):
         """Test log in form with incorrect password"""
 
         with self.client as c:
-            with c.session_transaction() as sess:
-                result = c.post('/login',
-                                data={'user_info': 'trin@unplugged.com',
-                                      'password': 'wrongpassword'},
-                                follow_redirects=True
-                                )
-                self.assertEqual(session.get('user_id'), None)
-                # self.assertIn("Incorrect", result.data)
-                self.assertIn("wrongPassword", result.data)
+            # with c.session_transaction() as sess:
+            # Only use this second with when modifying session IN test
+            # (not in code being tested)
+            result = self.client.post('/login',
+                            data={'user_info': 'trin@unplugged.com',
+                                  'password': 'wrongpassword'},
+                            follow_redirects=True
+                            )
+            self.assertEqual(session.get('user_id'), None)
+            # self.assertIn("Incorrect", result.data)
+            # import pdb; pdb.set_trace()
+            self.assertIn("wrongPassword", result.data)
 
     def test_no_user(self):
         """Test log in form where no username/email for that user"""
@@ -116,19 +119,29 @@ class FlaskTestsLogInLogOut(TestCase):
         db.session.close()
         db.drop_all()
 
+    def test_login(self):
+    """Test log in form."""
+
+    with self.client as c:
+        result = c.post('/login',
+                        data={'user_id': '1', 'password': 'l0lagent'},
+                        follow_redirects=True
+                        )
+        self.assertEqual(session['user_id'], '1')
+
 
     def test_logout(self):
             """Test logout."""
 
             with self.client as c:
-                with c.session_transaction() as sess:
-                    sess['user_id'] = 1
-                    sess['address'] = '123 main st, San Francisco'
+                with c.session_transaction():
+                    session['user_id'] = 1
+                    session['address'] = '123 main st, San Francisco'
 
                     result = self.client.get('/logout', follow_redirects=True)
 
-                    self.assertNotIn('user_id', sess)
-                    self.assertIn('Logged Out', result.data)
+                    self.assertNotIn('user_id', session)
+                    # self.assertIn('Logged Out', result.data)
 
     # Can I isolate the DB function here?
     # def visited_status_true(self):

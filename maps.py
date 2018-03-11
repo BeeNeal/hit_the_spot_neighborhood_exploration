@@ -1,8 +1,10 @@
 import geocoder
 from mapbox import Geocoder
 import requests
+from math import cos, asin, sqrt, sin, atan2, radians
 from urllib import quote
 from time import sleep
+
 
 ACCESS_TOKEN = 'pk.eyJ1IjoiYmVlbmVhbCIsImEiOiJjamRqdXdkd3UxMzB2MndvNmkwbGIzZmllIn0.xVy7VGtquOc7rUUpRz-KaQ'
 
@@ -61,3 +63,54 @@ def meetup_root(address1, address2):
     meetup_coordinates = [((c1 + c2)/2) for c1, c2 in zip(address1, address2)]
 
     return meetup_coordinates
+
+def get_distance_between_2_coordinates(lat1, lon1, lat2, lon2):
+    """Use haversine formula to calculate dist between two locations """
+    # p = 0.017453292519943295     #Pi/180
+    # a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 -
+    #                                                 cos((lon2 - lon1) * p)) / 2
+    # return 12742 * asin(sqrt(a))
+
+    # approximate radius of earth in km
+    R = 6373.0
+    dlon = radians(lon2) - radians(lon1)
+    dlat = radians(lat2) - radians(lat1)
+
+    a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+    distance = R * c * 1000
+
+    print "Result: {}".format(distance)
+
+    return distance
+    # print "Should be:", 278.546, "km"
+
+
+def check_meetup_distance(haversine_distance):
+    """Checks distance b/w meetup addresses to scale location generation rad"""
+
+    # about 1600 meters to 1 mile
+
+    # if 200 mi or greater apart, search radius is yelp API max (25 mi)
+    if haversine_distance >= 320000:
+        search_radius = 40000
+    elif haversine_distance <= 6400:
+        search_radius = 450
+    # elif haversine_distance <= 16000
+    else:
+        search_radius = haversine_distance/6
+
+    return search_radius
+
+
+def get_search_radius(lat1, lon1, lat2, lon2):
+    """Take in 2 addresses' coordinates, return search radius value in meters"""
+
+    haversine_dist = get_distance_between_2_coordinates(lat1, lon1, lat2, lon2)
+    search_radius = check_meetup_distance(haversine_dist)
+    print "HAVERSINE DIST"
+    print haversine_dist
+    print 'SEARCH RAD'
+    print search_radius
+    return search_radius
