@@ -55,14 +55,13 @@ def meetup_root(address1, address2):
     """
 
     address1 = geocode(address1)
-    print 'address 1 {}'.format(address1)
     address2 = geocode(address2)
-    print 'address 2 {}'.format(address2)
 
     # save average lons/lats as list to pass to map and yelp api call
     meetup_coordinates = [((c1 + c2)/2) for c1, c2 in zip(address1, address2)]
 
     return meetup_coordinates
+
 
 def get_distance_between_2_coordinates(lat1, lon1, lat2, lon2):
     """Use haversine formula to calculate dist between two locations """
@@ -81,10 +80,7 @@ def get_distance_between_2_coordinates(lat1, lon1, lat2, lon2):
 
     distance = R * c * 1000
 
-    print "Result: {}".format(distance)
-
     return distance
-    # print "Should be:", 278.546, "km"
 
 
 def check_meetup_distance(haversine_distance):
@@ -101,7 +97,7 @@ def check_meetup_distance(haversine_distance):
     else:
         search_radius = haversine_distance/6
 
-    return search_radius
+    return int(search_radius)
 
 
 def get_search_radius(lat1, lon1, lat2, lon2):
@@ -109,8 +105,5 @@ def get_search_radius(lat1, lon1, lat2, lon2):
 
     haversine_dist = get_distance_between_2_coordinates(lat1, lon1, lat2, lon2)
     search_radius = check_meetup_distance(haversine_dist)
-    print "HAVERSINE DIST"
-    print haversine_dist
-    print 'SEARCH RAD'
-    print search_radius
+
     return search_radius

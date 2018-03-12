@@ -6,8 +6,6 @@ db = SQLAlchemy()
 def example_data():
     """Create some sample data in explorations DB."""
 
-    print "THIS IS WORKIN!!!!!!!!!!!!!!!!!!!!!!!!!!"
-
     # In case this is run more than once, empty out existing data
     User.query.delete()
     Location.query.delete()

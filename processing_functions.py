@@ -36,22 +36,22 @@ def create_exploration_list(api_results):
     """Take in json of API results, return dictionary with these results"""
 
     locations_to_show = {}
+    if api_results:
+        for result in api_results:
+            for i in range(len(result['businesses'])):
+                poi = result['businesses'][i]['id']
 
-    for result in api_results:
-        for i in range(len(result['businesses'])):
-            poi = result['businesses'][i]['id']
-
-    # Separate API calls, so there could be overlap in businesses, and we don't
-    # want to show same place twice
-            if poi not in locations_to_show:
-                locations_to_show[poi] = {}
-                locations_to_show[poi]['yelp_id'] = poi
-                locations_to_show[poi]['name'] = result['businesses'][i]['name']
-                locations_to_show[poi]['address'] = " ".join(result['businesses'][i]['location']['display_address'])
-                locations_to_show[poi]['latitude'] = result['businesses'][i]['coordinates']['latitude']
-                locations_to_show[poi]['longitude'] = result['businesses'][i]['coordinates']['longitude']
-                locations_to_show[poi]['url'] = result['businesses'][i]['url']
-                locations_to_show[poi]['pic'] = result['businesses'][i]['image_url']
+        # Separate API calls, so there could be overlap in businesses, and we don't
+        # want to show same place twice
+                if poi not in locations_to_show:
+                    locations_to_show[poi] = {}
+                    locations_to_show[poi]['yelp_id'] = poi
+                    locations_to_show[poi]['name'] = result['businesses'][i]['name']
+                    locations_to_show[poi]['address'] = " ".join(result['businesses'][i]['location']['display_address'])
+                    locations_to_show[poi]['latitude'] = result['businesses'][i]['coordinates']['latitude']
+                    locations_to_show[poi]['longitude'] = result['businesses'][i]['coordinates']['longitude']
+                    locations_to_show[poi]['url'] = result['businesses'][i]['url']
+                    locations_to_show[poi]['pic'] = result['businesses'][i]['image_url']
 
     return locations_to_show
 
@@ -62,9 +62,7 @@ def combine_location_dictionaries(places, places2, places3, user_id):
     locations_dict = add_API_search_data_to_dict(places, user_id)
     locations_dict.update(add_API_search_data_to_dict(places2, user_id))
     locations_dict.update(add_API_search_data_to_dict(places3, user_id))
-    print places
-    print "SEPARATE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-    print locations_dict
+
     return locations_dict
 
 

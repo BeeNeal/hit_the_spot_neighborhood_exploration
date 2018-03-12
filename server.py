@@ -80,9 +80,10 @@ def search_by_address():
         places = search_by_coordinates(api_key, lat, lon, 'dinner')
         places2 = search_by_coordinates(api_key, lat, lon, 'cafe')
         places3 = search_by_coordinates(api_key, lat, lon, 'park')
+
         # places = search(api_key, cuisine, address)
         # if User.query.get(session['user_id']).outdoorsy is True:
-        #     places2 = search_parks(api_key, address)  # FIXME - change to gardens
+        #     places2 = search_parks(api_key, address)  
         # else:
         #     places2 = search(api_key, 'cafe', address)
 
@@ -294,8 +295,8 @@ def generate_meetup_spots():
     address1 = request.form.get('address1')
     address2 = request.form.get('address2')
     search_term = request.form.get('venue')
-    if not search_term:
-        search_term = ""
+    # if not search_term:
+    #     search_term = ""
 
     a1_coordinates = geocode(address1)
     a2_coordinates = geocode(address2)
@@ -304,14 +305,16 @@ def generate_meetup_spots():
 
     search_radius = get_search_radius(a1_coordinates[1], a1_coordinates[0],
                                       a2_coordinates[1], a2_coordinates[0])
-    places_from_yelp = search_by_coordinates(api_key, lat, lon, search_radius,
-                                             search_term)
+
+    places_from_yelp = search_by_coordinates(api_key, lat, lon, search_term,
+                                             search_radius)
     places = create_meetup_list(places_from_yelp)
 
     return render_template('meetup_locations.html', places=places,
                            longitude=lon, latitude=lat, address1=address1,
                            address2=address2, a1_coordinates=a1_coordinates,
-                           a2_coordinates=a2_coordinates, map_center=map_center)
+                           a2_coordinates=a2_coordinates, map_center=map_center,
+                           search_radius=search_radius)
 
 # @app.route('/test', methods=['GET'])
 # def display_carousel():
