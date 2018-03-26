@@ -36,7 +36,7 @@ def geocode(address):
     coordinates = geocoder.google(address).latlng
     if not coordinates:
         sleep(1)
-        lon_lat = mapbox_geocode(address)   # catch the error, sleep python
+        return mapbox_geocode(address)   # catch the error, sleep python
     else:
         lat, lon = coordinates
         lon_lat = [lon, lat]

@@ -63,20 +63,30 @@ def process_questions():
 def search_by_address():
     """Get user input address, display locations for exploration."""
 
+    # If user is logged in, goes to explore page, and hasn't answered modal Qs,
+    # redirect them to Qs.
     if not User.query.get(session['user_id']).cuisine:
         return redirect('/questions')
     # if user is logged in, grab their main address off of their profile
     if session.get('user_id'):
         user_id = session['user_id']
-        address = session['address']
-        lon, lat = user_lon_lat(user_id)
         cuisine = User.query.get(session['user_id']).cuisine
-        if session.get('address2'):
-            address = session['address2']
+
+        # if user is logged in, but still entered an address, use that address
         if request.args.get('address'):
             address = request.args.get('address')
-            session['address2'] = address
-
+            session['address'] = address
+            lon, lat = geocode(address)
+        # if logged in, and did not enter address, use their address on file
+        else:
+            address = session['address']
+            lon, lat = user_lon_lat(user_id)
+        
+    #     session['address2'] = address
+    # if session.get('address2'):
+    #     address = session['address2']
+    #     lon, lat = geocode(address)
+        print lon, lat
         places = search_by_coordinates(api_key, lat, lon, 'dinner')
         places2 = search_by_coordinates(api_key, lat, lon, 'cafe')
         places3 = search_by_coordinates(api_key, lat, lon, 'park')
@@ -275,11 +285,9 @@ def add_notes_to_DB():
     #using default rating of 5 for now - change when add rating functionality
     add_notes(user_id, yelp_id, notes, favorite, 5)
     change_to_visited(user_id, yelp_id)
-    
+
     return jsonify({'status': 'added'})
-    # HERE need to change interested to visited (in prep for when it's coming from
-        #explored list, change interested to null after check and change visited to True
-        # should build a function in DB helpers)
+
 
 @app.route('/meetup')
 def display_meetup_spots():
@@ -335,7 +343,3 @@ if __name__ == "__main__":
 
 # my understanding of if name = main: when file is imported, only these things underneath run
 # as opposed to the typical everything being run
-
-
-# IDEA: Ask a few Qs at the beginning, and then make specific queries based on answers
-# eg: Coffee drinker? More often go places to meet friends or make them? favorite cuisine?
