@@ -319,8 +319,16 @@ display: inline;
   justify-content: center*/
 }
 
+.q1 {
+  background-image: url('skillet.jpg');
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .q2 {
-  background-image: url('mtnBg.jpg');
+  background-image: url('books.jpg');
   background-size: cover;
   display: flex;
   align-items: center;
@@ -388,17 +396,18 @@ footer {
   justify-content: center;*/
   width: 50%;
   margin: 0 auto;
-  }
 
-  .exploreRegistration {
-    /*display: inline-block;*/
-    width: 50%;
-    margin: 0 auto;
-    /*float: right;*/
   }
 
   .userRegistration {
     /*display: inline-block;*/
     width: 50%;
     margin: 0 auto ;
+    float: left;
+  }
+  .exploreRegistration {
+    display: inline-block;
+    width: 50%;
+    margin: 0 auto;
+    float: right;
   }

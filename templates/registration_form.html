@@ -2,7 +2,8 @@
 {% block content %}
 <div class="well spaced registration" style="width:70%;">
   <h1>Create Explorer Profile</h1>
-  <div class='userRegistration'>
+  
+  <div class='well spaced userRegistration'>
     <form action="register" method="POST">
       <div class="form-group">
             First Name:
@@ -29,31 +30,32 @@
           <input type="password" name="password2" class="form-control">
       </div>
   </div>
-      <div class='exploreRegistration'>
-        <h2>Explore from here</h2>
+    <div class='well spaced exploreRegistration'>
+      <h2>Explore from here</h2>
+       <div class="form-group">
+            Street Address:
+            <input type="text" name="address" class="form-control">
+        </div>
+       <div class="form-group">
+            City:
+            <input type="text" name="city" class="form-control">
+        </div>
+       <div class="form-group">
+            State:
+            <input type="text" name="state" class="form-control"> 
+        </div>
+        <div class="form-group">
+            Zipcode
+            <input type="text" name="zipcode" class="form-control">
+        </div>
          <div class="form-group">
-              Street Address:
-              <input type="text" name="address" class="form-control">
-          </div>
-         <div class="form-group">
-              City:
-              <input type="text" name="city" class="form-control">
-          </div>
-         <div class="form-group">
-              State:
-              <input type="text" name="state" class="form-control"> 
-          </div>
-          <div class="form-group">
-              Zipcode
-              <input type="text" name="zipcode" class="form-control">
-          </div>
-           <div class="form-group">
-              Nick-name for this location: (suggestions: 'home', 'work', 'Alex'shouse', etc.)
-              <input type="text" name="address_name" class="form-control">
-          </div>
-          <div class="form-group">
-            <input type="submit" value="Go!" class="btn btn-danger">
-          </div>
+            Nick-name for this location: (suggestions: 'home', 'work', 'Alex'shouse', etc.)
+            <input type="text" name="address_name" class="form-control">
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Go!" class="btn btn-danger">
+        </div>
+    </div>
   </div>
     </form>
 </div>
