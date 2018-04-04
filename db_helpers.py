@@ -2,17 +2,17 @@ from model import *
 from yelp_req_trial import search, search_parks
 
 
-def add_answers_data(user_id, cuisine, hobby, outdoorsy):
+def add_answers_data(user_id, cuisine, hangout, outdoorsy):
     """Adds answers from questions_modal terms to DB"""
 
     User.query.get(user_id).cuisine = cuisine
-    User.query.get(user_id).hobby = hobby
+    User.query.get(user_id).hangout = hangout
 
     # if outdoorsy == 'outdoors' or outdoorsy == 'both':
 
     User.query.get(user_id).outdoorsy = outdoorsy
     # User.query.get(user_id).cuisine = 'thai'
-    # User.query.get(user_id).hobby = 'yoga'
+    # User.query.get(user_id).hangout = 'yoga'
     # User.query.get(user_id).outdoorsy = True
     db.session.commit()
 

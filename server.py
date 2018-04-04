@@ -49,10 +49,10 @@ def process_questions():
 
     user_id = session.get('user_id')
     cuisine = request.form.get('cuisine')
-    hobby = request.form.get('hobby')
+    hangout = request.form.get('hangout')
     outdoorsy = request.form.get('outdoorsy')
     if user_id:
-        add_answers_data(user_id, cuisine, hobby, outdoorsy)
+        add_answers_data(user_id, cuisine, hangout, outdoorsy)
 
     return jsonify({'answer': True})
 
@@ -63,41 +63,37 @@ def process_questions():
 def search_by_address():
     """Get user input address, display locations for exploration."""
 
-    # If user is logged in, goes to explore page, and hasn't answered modal Qs,
-    # redirect them to Qs.
-    if not User.query.get(session['user_id']).cuisine:
-        return redirect('/questions')
     # if user is logged in, grab their main address off of their profile
     if session.get('user_id'):
         user_id = session['user_id']
         cuisine = User.query.get(session['user_id']).cuisine
+        hangout = User.query.get(session['user_id']).hangout
+
+    # If user is logged in, goes to explore page, and hasn't answered modal Qs,
+    # redirect them to Qs.
+    if not User.query.get(session['user_id']).cuisine:
+        return redirect('/questions')
+
+
+        # if logged in, and did not enter address, use their address on file
+        if not request.args.get('address'):
+            address = session['address']
+            lon, lat = user_lon_lat(user_id)
 
         # if user is logged in, but still entered an address, use that address
-        if request.args.get('address'):
+        else:
             address = request.args.get('address')
             session['address'] = address
             lon, lat = geocode(address)
-        # if logged in, and did not enter address, use their address on file
+            
+        places = search_by_coordinates(api_key, lat, lon, cuisine)
+        places2 = search_by_coordinates(api_key, lat, lon, hangout)
+
+        if User.query.get(session['user_id']).outdoorsy is True:
+            places3 = search_by_coordinates(api_key, lat, lon, 'park') 
         else:
-            address = session['address']
-            lon, lat = user_lon_lat(user_id)
-        
-    #     session['address2'] = address
-    # if session.get('address2'):
-    #     address = session['address2']
-    #     lon, lat = geocode(address)
-        print lon, lat
-        places = search_by_coordinates(api_key, lat, lon, 'dinner')
-        places2 = search_by_coordinates(api_key, lat, lon, 'cafe')
-        places3 = search_by_coordinates(api_key, lat, lon, 'park')
+            places3 = search_by_coordinates(api_key, lat, lon, 'cafe')
 
-        # places = search(api_key, cuisine, address)
-        # if User.query.get(session['user_id']).outdoorsy is True:
-        #     places2 = search_parks(api_key, address)  
-        # else:
-        #     places2 = search(api_key, 'cafe', address)
-
-        # places3 = search(api_key, 'hobby', address)
         locations_to_show = combine_location_dictionaries(places, places2,
                                                           places3, user_id)
 

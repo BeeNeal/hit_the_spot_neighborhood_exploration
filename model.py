@@ -15,7 +15,7 @@ class User(db.Model):
     username = db.Column(db.String(25), nullable=False)
     password = db.Column(db.String(25), nullable=False)
     cuisine = db.Column(db.String(25), nullable=True)
-    hobby = db.Column(db.String(50), nullable=True)
+    hangout = db.Column(db.String(50), nullable=True)
     outdoorsy = db.Column(db.Boolean, nullable=True)
 
     # don't need location relationship, b/c get through targetLocation

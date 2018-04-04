@@ -77,7 +77,7 @@
 function sendAnswers() {
   let answers = {
     'cuisine': responses[0],
-    'hobby': responses[1],
+    'hangout': responses[1],
     'outdoorsy': responses[2],
   };
   console.log(answers);
