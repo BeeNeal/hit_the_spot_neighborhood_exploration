@@ -78,7 +78,7 @@ def add_API_search_data_to_dict(api_results, user_id):
 
     for i in range(len(api_results['businesses'])):
         poi = api_results['businesses'][i]['id']
-        
+
         if poi not in user_locations:
             locations_to_show[poi] = {}
             locations_to_show[poi]['yelp_id'] = poi
@@ -90,7 +90,6 @@ def add_API_search_data_to_dict(api_results, user_id):
             locations_to_show[poi]['pic'] = api_results['businesses'][i]['image_url']
 
     return locations_to_show
-
 
 
 def create_meetup_list(api_results):
@@ -115,8 +114,32 @@ def create_meetup_list(api_results):
     return meetup_spots
 
 
-def generate_meetup_markers(api_results_dict):
-    """Take in dict of api results, extract lat lons of locations"""
+def check_if_enough_locations(lat, lon, term):
+    """Checks to ensure enough places were generated from Yelp call"""
 
-    places = api_results_dict
-    pass
+    # if not enough locations were generated, expand search radius
+    places = search_by_coordinates(api_key, lat, lon, term, 450)
+    if len(places) < 10:
+        places = search_by_coordinates(api_key, lat, lon, term, 750)
+    return places
+
+
+def get_locations_to_show(lat, lon, user_id, cuisine, hangout, outdoorsy):
+    """Take in user info, return dict of locations"""
+
+    places = check_if_enough_locations(lat, lon, cuisine)
+    places2 = check_if_enough_locations(lat, lon, hangout)
+    places3 = return_parks_or_cafe(lat, lon, outdoorsy)
+
+    return combine_location_dictionaries(places, places2, places3, user_id)
+
+
+def return_parks_or_cafe(lat, lon, outdoorsy):
+    """If outdoorsy is True/no pref, return parks otherwise, return cafes"""
+
+    if outdoorsy_response is True:
+            places = check_if_enough_locations(lat, lon, 'park')
+    else:
+        places = check_if_enough_locations(lat, lon, 'cafe')
+
+    return places

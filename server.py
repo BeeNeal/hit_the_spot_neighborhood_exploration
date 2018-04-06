@@ -68,12 +68,12 @@ def search_by_address():
         user_id = session['user_id']
         cuisine = User.query.get(session['user_id']).cuisine
         hangout = User.query.get(session['user_id']).hangout
+        outdoorsy = User.query.get(session['user_id']).outdoorsy
 
     # If user is logged in, goes to explore page, and hasn't answered modal Qs,
     # redirect them to Qs.
     if not User.query.get(session['user_id']).cuisine:
         return redirect('/questions')
-
 
         # if logged in, and did not enter address, use their address on file
         if not request.args.get('address'):
@@ -85,17 +85,9 @@ def search_by_address():
             address = request.args.get('address')
             session['address'] = address
             lon, lat = geocode(address)
-            
-        places = search_by_coordinates(api_key, lat, lon, cuisine)
-        places2 = search_by_coordinates(api_key, lat, lon, hangout)
 
-        if User.query.get(session['user_id']).outdoorsy is True:
-            places3 = search_by_coordinates(api_key, lat, lon, 'park') 
-        else:
-            places3 = search_by_coordinates(api_key, lat, lon, 'cafe')
-
-        locations_to_show = combine_location_dictionaries(places, places2,
-                                                          places3, user_id)
+        locations_to_show = get_locations_to_show(lat, lon, user_id, cuisine,
+                                                  hangout, outdoorsy)
 
         name = User.query.get(session['user_id']).fname
 
