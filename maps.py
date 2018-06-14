@@ -1,4 +1,4 @@
-import geocoder
+
 from mapbox import Geocoder
 import requests
 from math import cos, asin, sqrt, sin, atan2, radians
@@ -28,6 +28,7 @@ def mapbox_geocode(address):
 
     return response.json()['features'][0]['geometry']['coordinates']
 
+print mapbox_geocode('1411 Polk st San Francisco')
 
 def geocode(address):
     """Uses python geocoder to geocode"""

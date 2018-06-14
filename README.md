@@ -14,9 +14,17 @@ APIs: Yelp, Mapbox
 
 ## Overview
 
-Once the user arrives at Hit the Spot! they can enter an address, and have a list of highly rated  locations in a 1.5mi radius suggested to them. They can also access the meetup feature. The other features including saving destinations, and writing notes about visited locations require the user to register and login. The exploration list for the users that are logged in is tailored for the user, using the answers they've provided to some brief questions as the basis of the location list generation.
+Once the user arrives at Hit the Spot! they can enter an address, and have a list of highly rated  locations in a 1.5mi radius suggested to them. They can also access the meetup feature. The other features include saving destinations, and writing notes about visited locations require the user to register and login. The exploration list for the users that are logged in is tailored to the user, using the answers they've provided to some brief questions as the basis of the location list generation.
 
 ![question 3](https://github.com/BeeNeal/hit_the_spot_neighborhood_exploration/blob/master/static/outdoorsy.png)
+
+## Visited Locations
+
+Once the user has visited a location, they have a convenient location to record notes
+about the place. They also have the option to 'star' it, which acts as a bookmarking
+function.
+
+![Visited Locations](https://github.com/BeeNeal/hit_the_spot_neighborhood_exploration/blob/master/static/visited_page.png)
 
 ## Meetup Spot
 
